@@ -1,8 +1,8 @@
 {
-  "exponentServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 27713,
-  "exponentServerNgrokUrl": "https://7t-xwn.quantumli.ch-bfh-btx8108-w2016-ca4t.exp.direct",
-  "packagerNgrokUrl": "https://packager.7t-xwn.quantumli.ch-bfh-btx8108-w2016-ca4t.exp.direct",
-  "ngrokPid": 27730
+  "exponentServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "exponentServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
 }

@@ -1,7 +1,7 @@
 {
-  "name": "ca4t-nachsorge",
+  "name": "nachsorge-app",
   "description": "No description",
-  "slug": "ca4t-nachsorge",
+  "slug": "nachsorge-app",
   "sdkVersion": "10.0.0",
   "version": "1.0.0",
   "orientation": "portrait",
