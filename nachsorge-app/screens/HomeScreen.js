@@ -10,6 +10,10 @@ import {
   View,
 } from 'react-native';
 
+import {
+  FontAwesome,
+} from '@exponent/vector-icons';
+
 import { MonoText } from '../components/StyledText';
 
 export default class HomeScreen extends React.Component {
@@ -33,74 +37,57 @@ export default class HomeScreen extends React.Component {
             />
           </View>
 
-
-          <View style={styles.getStartedContainer}>
-            {this._maybeRenderDevelopmentModeWarning()}
-
-            <Text style={styles.getStartedText}>
-              Get started by opening
+          <TouchableOpacity
+            onPress={this._handlePressTermine}
+            style={styles.fullWidthButton}>
+            <FontAwesome
+              name="calendar"
+              size={64}
+              color="#3F3D73" />
+            <Text style={styles.halfWidthButtonText}>
+              Termine
             </Text>
+          </TouchableOpacity>
 
-            <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-              <MonoText style={styles.codeHighlightText}>screens/HomeScreen.js</MonoText>
-            </View>
-
-            <Text style={styles.getStartedText}>
-              Change this text and your app will automatically reload.
-            </Text>
-          </View>
-
-          <View style={styles.helpContainer}>
-            <TouchableOpacity onPress={this._handleHelpPress} style={styles.helpLink}>
-              <Text style={styles.helpLinkText}>
-                Help, it didn’t automatically reload!
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              onPress={this._handlePressTermine}
+              style={styles.halfWidthButton}>
+              <FontAwesome
+                name="file-text-o"
+                size={64}
+                color="#3F3D73" />
+              <Text style={styles.halfWidthButtonText}>
+                Dokumente
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={this._handlePressTermine}
+              style={styles.halfWidthButton}>
+              <FontAwesome
+                name="gear"
+                size={64}
+                color="#3F3D73" />
+              <Text style={styles.halfWidthButtonText}>
+                Einstellungen
               </Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
 
-        <View style={styles.tabBarInfoContainer}>
-          <Text style={styles.tabBarInfoText}>
-            This is a tab bar. You can edit it in:
-          </Text>
-
-          <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-            <MonoText style={styles.codeHighlightText}>navigation/RootNavigation.js</MonoText>
-          </View>
+        <View style={styles.infoButton}>
+          <FontAwesome
+            name="info"
+            size={40}
+            color="white" />
         </View>
+
       </View>
     );
   }
 
-  _maybeRenderDevelopmentModeWarning() {
-    if (__DEV__) {
-      const learnMoreButton = (
-        <Text onPress={this._handleLearnMorePress} style={styles.helpLinkText}>
-          Learn more
-        </Text>
-      );
-
-      return (
-        <Text style={styles.developmentModeText}>
-          Development mode is enabled, your app will run slightly slower but
-          you have access to useful development tools. {learnMoreButton}.
-        </Text>
-      );
-    } else {
-      return (
-        <Text style={styles.developmentModeText}>
-          You are not in development mode, your app will run at full speed.
-        </Text>
-      );
-    }
-  }
-
-  _handleLearnMorePress = () => {
-    Linking.openURL('https://docs.getexponent.com/versions/latest/guides/development-mode');
-  }
-
-  _handleHelpPress = () => {
-    Linking.openURL('https://docs.getexponent.com/versions/latest/guides/up-and-running.html#can-t-see-your-changes');
+  _handlePressTermine = () => {
+    console.log("Termine pressed");
   }
 }
 
@@ -108,12 +95,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-  },
-  developmentModeText: {
-    marginBottom: 20,
-    color: 'rgba(0,0,0,0.4)',
-    fontSize: 15,
-    textAlign: 'center',
   },
   contentContainer: {
     paddingTop: 80,
@@ -128,64 +109,42 @@ const styles = StyleSheet.create({
     height: 34.5,
     marginTop: 3,
   },
-  getStartedContainer: {
+  fullWidthButton: {
+    backgroundColor: '#DFDEE6',
+    flex: 1,
+    margin: 20,
+    padding: 5,
+    height: 120,
     alignItems: 'center',
-    marginHorizontal: 50,
+    justifyContent: 'center'
   },
-  homeScreenFilename: {
-    marginVertical: 7,
+  buttonContainer: {
+    flex: 1,
+    flexDirection: 'row',
   },
-  codeHighlightText: {
-    color: 'rgba(96,100,109, 0.8)',
+  halfWidthButton: {
+    backgroundColor: '#DFDEE6',
+    flex: 1,
+    padding: 5,
+    marginHorizontal: 20,
+    height: 120,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
-  codeHighlightContainer: {
-    backgroundColor: 'rgba(0,0,0,0.05)',
-    borderRadius: 3,
-    paddingHorizontal: 4,
+  halfWidthButtonText: {
+    paddingTop: 10,
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#3F3D73',
   },
-  getStartedText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    lineHeight: 23,
-    textAlign: 'center',
-  },
-  tabBarInfoContainer: {
+  infoButton: {
     position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    ...Platform.select({
-      ios: {
-        shadowColor: 'black',
-        shadowOffset: {height: -3},
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
-      },
-      android: {
-        elevation: 20,
-      },
-    }),
+    bottom: 10,
+    right: 10,
+    width: 60,
+    height: 60,
+    backgroundColor: '#3F3D73',
     alignItems: 'center',
-    backgroundColor: '#fbfbfb',
-    paddingVertical: 20,
-  },
-  tabBarInfoText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    textAlign: 'center',
-  },
-  navigationFilename: {
-    marginTop: 5,
-  },
-  helpContainer: {
-    marginTop: 15,
-    alignItems: 'center',
-  },
-  helpLink: {
-    paddingVertical: 15,
-  },
-  helpLinkText: {
-    fontSize: 14,
-    color: '#2e78b7',
-  },
+    justifyContent: 'center'
+  }
 });
