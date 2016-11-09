@@ -51,7 +51,7 @@ export default class HomeScreen extends React.Component {
 
           <View style={styles.buttonContainer}>
             <TouchableOpacity
-              onPress={this._handlePressTermine}
+              onPress={this._handlePressDokumente}
               style={styles.halfWidthButton}>
               <FontAwesome
                 name="file-text-o"
@@ -62,7 +62,7 @@ export default class HomeScreen extends React.Component {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={this._handlePressTermine}
+              onPress={this._handlePressEinstellungen}
               style={styles.halfWidthButton}>
               <FontAwesome
                 name="gear"
@@ -88,6 +88,14 @@ export default class HomeScreen extends React.Component {
 
   _handlePressTermine = () => {
     console.log("Termine pressed");
+  }
+
+  _handlePressDokumente = () => {
+    console.log("Dokumente pressed");
+  }
+
+  _handlePressEinstellungen = () => {
+    console.log("Einstellungen pressed");
   }
 }
 
