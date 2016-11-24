@@ -51,7 +51,7 @@ export default class Add1 extends React.Component {
 
 	_handlePressEingabe = () => {
     console.log("Eingabe pressed");
-    this.props.navigator.push(Router.getRoute('add1'));
+    this.props.navigator.push(Router.getRoute('add2'));
   }
 
   _handlePressImport = () => {

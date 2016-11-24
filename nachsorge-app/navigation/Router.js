@@ -10,6 +10,7 @@ import SettingsLanguage from '../screens/SettingsLanguage';
 export default createRouter(() => ({
   home: () => HomeScreen,
   add1: () => Add1,
+  add2: () => Add2,
   settings: () => Settings,
   settingsLanguage: () => SettingsLanguage,
 }));
