@@ -31,7 +31,9 @@ export default {
 		language: 'Sprache',
 		de: 'Deutsch',
 		en: 'Englisch',
-		fr: 'Französisch'
+		fr: 'Französisch',
+		colon: 'Kolon',
+		rectum: 'Rektum'
 	},
 	en: {
 		greeting: 'Hi!',
@@ -44,7 +46,9 @@ export default {
 		language: 'Language',
 		de: 'German',
 		en: 'English',
-		fr: 'French'
+		fr: 'French',
+		colon: 'Colon',
+		rectum: 'Rectum'
 	},
 	fr: {
 		greeting: 'Bonjour!',
@@ -57,6 +61,8 @@ export default {
 		language: 'Langue',
 		de: 'Allemand',
 		en: 'Anglais',
-		fr: 'Français'
+		fr: 'Français',
+		colon: 'Côlon',
+		rectum: 'Rectum'
 	}
 }

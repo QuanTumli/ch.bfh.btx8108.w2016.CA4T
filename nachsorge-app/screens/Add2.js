@@ -43,6 +43,7 @@ export default class HomeScreen extends React.Component {
 
             <Text style={styles.fullWidthButtonText}>
               Kolon
+              {I18n.t('colon')}
             </Text>
           </TouchableOpacity>
 
@@ -52,6 +53,7 @@ export default class HomeScreen extends React.Component {
 
             <Text style={styles.fullWidthButtonText}>
               Rektum
+              {I18n.t('rectum')}
             </Text>
           </TouchableOpacity>
 
