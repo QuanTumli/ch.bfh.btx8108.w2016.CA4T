@@ -3,11 +3,13 @@ import {
 } from '@exponent/ex-navigation';
 
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import Add1 from '../screens/Add1';
+import Settings from '../screens/Settings';
+import SettingsLanguage from '../screens/SettingsLanguage';
 
 export default createRouter(() => ({
   home: () => HomeScreen,
-  links: () => LinksScreen,
-  settings: () => SettingsScreen,
+  add1: () => Add1,
+  settings: () => Settings,
+  settingsLanguage: () => SettingsLanguage,
 }));

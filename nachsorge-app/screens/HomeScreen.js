@@ -14,6 +14,23 @@ import {
   FontAwesome,
 } from '@exponent/vector-icons';
 
+import Router from '../navigation/Router';
+
+// import ReactNativeI18n from 'react-native-i18n'
+// const deviceLocale = ReactNativeI18n.locale
+// console.log("locale", deviceLocale)
+
+import Languages from '../constants/Languages';
+import Database from '../constants/Database';
+
+import I18n from 'react-native-i18n'
+I18n.fallbacks = true
+I18n.translations = Languages
+
+Database.settings.get({key: "language"}, function(results){
+  I18n.locale = results[0].value;
+})
+
 import { MonoText } from '../components/StyledText';
 
 export default class HomeScreen extends React.Component {
@@ -32,11 +49,11 @@ export default class HomeScreen extends React.Component {
 
           <View style={styles.welcomeContainer}>
             <Image
-              source={require('../assets/images/exponent-wordmark.png')}
+              source={require('../assets/images/tuna-logo.png')}
               style={styles.welcomeImage}
             />
           </View>
-
+          {/* Button for Termine /calendar */}
           <TouchableOpacity
             onPress={this._handlePressTermine}
             style={styles.fullWidthButton}>
@@ -45,10 +62,11 @@ export default class HomeScreen extends React.Component {
               size={64}
               color="#3F3D73" />
             <Text style={styles.halfWidthButtonText}>
-              Termine
+              {I18n.t('meetings')}
             </Text>
           </TouchableOpacity>
 
+          {/* Button for Dokumente */}
           <View style={styles.buttonContainer}>
             <TouchableOpacity
               onPress={this._handlePressDokumente}
@@ -58,9 +76,11 @@ export default class HomeScreen extends React.Component {
                 size={64}
                 color="#3F3D73" />
               <Text style={styles.halfWidthButtonText}>
-                Dokumente
+                {I18n.t('documents')}
               </Text>
             </TouchableOpacity>
+
+            {/* Button for Einstellungen /gear */}
             <TouchableOpacity
               onPress={this._handlePressEinstellungen}
               style={styles.halfWidthButton}>
@@ -69,7 +89,7 @@ export default class HomeScreen extends React.Component {
                 size={64}
                 color="#3F3D73" />
               <Text style={styles.halfWidthButtonText}>
-                Einstellungen
+                {I18n.t('settings')}
               </Text>
             </TouchableOpacity>
           </View>
@@ -88,6 +108,9 @@ export default class HomeScreen extends React.Component {
 
   _handlePressTermine = () => {
     console.log("Termine pressed");
+    // this is how to navigate to another screen.
+    // the screen must be defined in /navigation/Router.js
+    this.props.navigator.push(Router.getRoute('add1'));
   }
 
   _handlePressDokumente = () => {
@@ -96,6 +119,7 @@ export default class HomeScreen extends React.Component {
 
   _handlePressEinstellungen = () => {
     console.log("Einstellungen pressed");
+    this.props.navigator.push(Router.getRoute('settings'));
   }
 }
 
@@ -114,7 +138,7 @@ const styles = StyleSheet.create({
   },
   welcomeImage: {
     width: 200,
-    height: 34.5,
+    height: 98.4,
     marginTop: 3,
   },
   fullWidthButton: {
