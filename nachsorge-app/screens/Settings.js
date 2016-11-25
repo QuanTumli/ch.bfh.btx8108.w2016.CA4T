@@ -40,8 +40,7 @@ export default class Settings extends React.Component {
   render() {
     return (
       <ScrollView
-        style={[GlobalStyle.mainContainer, GlobalStyle.scrollContainer]}
-        contentContainerStyle={this.props.route.getContentContainerStyle()}>
+        style={[GlobalStyle.mainContainer, GlobalStyle.scrollContainer]}>
 
         <Text style={styles.tableHeaderText}>{I18n.t('settings').toUpperCase()}</Text>
 

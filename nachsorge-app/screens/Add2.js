@@ -37,8 +37,7 @@ export default class Add2 extends React.Component {
     return (
       <View style={GlobalStyle.mainContainer}>
         <ScrollView
-          style={GlobalStyle.scrollContainer}
-          contentContainerStyle={this.props.route.getContentContainerStyle()}>
+          style={GlobalStyle.scrollContainer}>
 
           {/* Button for colon */}
           <Button

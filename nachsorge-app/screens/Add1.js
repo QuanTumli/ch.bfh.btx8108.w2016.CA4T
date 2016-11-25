@@ -33,8 +33,7 @@ export default class Add1 extends React.Component {
     return (
       <View style={GlobalStyle.mainContainer}>
         <ScrollView
-          style={GlobalStyle.scrollContainer}
-          contentContainerStyle={this.props.route.getContentContainerStyle()}>
+          style={GlobalStyle.scrollContainer}>
 
   				{/* Button for Enter data */}
           <Button

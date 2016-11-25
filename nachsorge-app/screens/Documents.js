@@ -32,8 +32,7 @@ export default class Documents extends React.Component {
     return (
       <View style={GlobalStyle.mainContainer}>
         <ScrollView
-          style={GlobalStyle.scrollContainer}
-          contentContainerStyle={this.props.route.getContentContainerStyle()}>
+          style={GlobalStyle.scrollContainer}>
 
   				<Text>Some documents will come here...</Text>
 

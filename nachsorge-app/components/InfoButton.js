@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-	View,
+	TouchableOpacity,
 	StyleSheet
 } from 'react-native';
 import { FontAwesome } from '@exponent/vector-icons';
@@ -9,12 +9,14 @@ import Colors from '../constants/Colors';
 export default class InfoButton extends React.Component {
   render() {
     return (
-			<View style={styles.infoButton}>
+			<TouchableOpacity
+				onPress={this.props.onPress}
+				style={styles.infoButton}>
 				<FontAwesome
 					name="info"
 					size={40}
 					color="white" />
-			</View>
+			</TouchableOpacity>
     );
   }
 }

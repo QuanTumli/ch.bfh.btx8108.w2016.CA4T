@@ -23,4 +23,6 @@ export default {
   tableBorder: "#C8C7CC",
   navigationBarBackground: "#DFDEE6",
   navigationBarTint: "#3f3d73",
+  modalBackground: "#DFDEE6",
+  modalTitle: "#3f3d73",
 };

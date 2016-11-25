@@ -1,22 +1,22 @@
 import React from 'react';
 import {
   Image,
-  Linking,
-  Platform,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
 
 import {
   FontAwesome,
 } from '@exponent/vector-icons';
 
+import GlobalStyle from '../constants/GlobalStyle';
 import Router from '../navigation/Router';
 
 import InfoButton from '../components/InfoButton';
+import InfoModalBox from '../components/InfoModalBox';
 // import ReactNativeI18n from 'react-native-i18n'
 // const deviceLocale = ReactNativeI18n.locale
 // console.log("locale", deviceLocale)
@@ -39,12 +39,23 @@ export default class HomeScreen extends React.Component {
     },
   }
 
+  state = {
+    modalVisible: false,
+  }
+
   render() {
     return (
-      <View style={styles.container}>
+      <View style={GlobalStyle.mainContainer}>
+
+        {/* info modal box*/}
+        <InfoModalBox
+        onPress={this._closeModal}
+        visible={this.state.modalVisible}>
+        This is the text of the help box, very long and so on
+        </InfoModalBox>
+
         <ScrollView
-          style={styles.container}
-          contentContainerStyle={styles.contentContainer}>
+          style={[GlobalStyle.scrollContainer, styles.contentContainer, this.state.modalVisible && {opacity : 0.2}]}>
 
           <View style={styles.welcomeContainer}>
             <Image
@@ -94,7 +105,7 @@ export default class HomeScreen extends React.Component {
           </View>
         </ScrollView>
 
-        <InfoButton />
+        <InfoButton onPress={this._clickInfoButton} />
 
       </View>
     );
@@ -113,13 +124,18 @@ export default class HomeScreen extends React.Component {
   _clickSettings = () => {
     this.props.navigator.push(Router.getRoute('settings'));
   }
+
+  _clickInfoButton = () => {
+    console.log("InfoButton clicked on HomeScreen");
+    this.setState({modalVisible: true});
+  }
+
+  _closeModal = () => {
+    this.setState({modalVisible: false});
+  }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
   contentContainer: {
     paddingTop: 80,
   },
