@@ -11,6 +11,7 @@ import {
 } from '@exponent/vector-icons';
 
 import Colors from '../constants/Colors';
+import GlobalStyle from '../constants/GlobalStyle';
 import Router from '../navigation/Router';
 
 import I18n from 'react-native-i18n'
@@ -29,14 +30,19 @@ export default class SettingsLanguage extends React.Component {
         }
         return params.title;
        },
+       backgroundColor: Colors.navigationBarBackground,
+       tintColor: Colors.navigationBarTint,
+       titleStyle: {"color": Colors.textDark, "fontWeight": "bold"}
     },
   }
 
   render() {
     return (
       <ScrollView
-        style={styles.container}
+        style={[GlobalStyle.mainContainer, GlobalStyle.scrollContainer]}
         contentContainerStyle={this.props.route.getContentContainerStyle()}>
+
+        <Text style={styles.tableHeaderText}>{I18n.t('language').toUpperCase()}</Text>
 
 				{/* Table Entry for Sprache Deutsch */}
 				<TouchableOpacity
@@ -87,29 +93,39 @@ export default class SettingsLanguage extends React.Component {
 					</Text>
 				</TouchableOpacity>
 
+        <Text style={styles.tableFooterText}>{I18n.t('settingsLanguageFooter')}</Text>
+
       </ScrollView>
     );
   }
 
 	_changeLanguage = (language) => () => {
-    console.log("Sprache pressed: ", language);
     I18n.locale = language;
-    this.forceUpdate();
     this.props.navigator.updateCurrentRouteParams({
       title: I18n.t('language')
     })
-    Database.settings.update({key: "language"}, {value: language}, function(updated_table){
-      console.log(updated_table);
-    })
+    Database.settings.update({key: "language"}, {value: language});
+    this.forceUpdate();
   }
 
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 15,
-    backgroundColor: Colors.containerBackground
+  tableHeaderText: {
+    fontSize: 16,
+    paddingLeft: 15,
+    paddingTop: 10,
+    paddingBottom: 5,
+    color: Colors.textMiddle,
+
+  },
+  tableFooterText: {
+    fontSize: 14,
+    paddingLeft: 15,
+    paddingTop: 5,
+    paddingBottom: 10,
+    color: Colors.textMiddle,
+
   },
 	tableEntry: {
     backgroundColor: Colors.light,

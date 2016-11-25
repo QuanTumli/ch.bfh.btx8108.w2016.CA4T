@@ -11,6 +11,7 @@ import {
 } from '@exponent/vector-icons';
 
 import Colors from '../constants/Colors';
+import GlobalStyle from '../constants/GlobalStyle';
 import Router from '../navigation/Router';
 
 import I18n from 'react-native-i18n'
@@ -26,6 +27,9 @@ export default class Settings extends React.Component {
       title(params) {
         return I18n.t('settings');
        },
+       backgroundColor: Colors.navigationBarBackground,
+       tintColor: Colors.navigationBarTint,
+       titleStyle: {"color": Colors.textDark, "fontWeight": "bold"}
     },
   }
 
@@ -36,8 +40,10 @@ export default class Settings extends React.Component {
   render() {
     return (
       <ScrollView
-        style={styles.container}
+        style={[GlobalStyle.mainContainer, GlobalStyle.scrollContainer]}
         contentContainerStyle={this.props.route.getContentContainerStyle()}>
+
+        <Text style={styles.tableHeaderText}>{I18n.t('settings').toUpperCase()}</Text>
 
 				{/* Table Entry for Sprache */}
 				<TouchableOpacity
@@ -59,7 +65,6 @@ export default class Settings extends React.Component {
   }
 
 	_handlePressSprache = () => {
-    console.log("Sprache pressed");
     this.props.navigator.push(Router.getRoute('settingsLanguage'));
   }
 
@@ -70,10 +75,21 @@ export default class Settings extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 15,
-    backgroundColor: Colors.containerBackground
+  tableHeaderText: {
+    fontSize: 16,
+    paddingLeft: 15,
+    paddingTop: 10,
+    paddingBottom: 5,
+    color: Colors.textMiddle,
+
+  },
+  tableFooterText: {
+    fontSize: 14,
+    paddingLeft: 15,
+    paddingTop: 5,
+    paddingBottom: 10,
+    color: Colors.textMiddle,
+
   },
   tableEntry: {
     backgroundColor: Colors.light,

@@ -2,7 +2,6 @@ import React from 'react';
 import {
   ScrollView,
   StyleSheet,
-	TouchableOpacity,
 	Text,
   View
 } from 'react-native';
@@ -19,10 +18,10 @@ import Languages from '../constants/Languages';
 I18n.fallbacks = true
 I18n.translations = Languages
 
-export default class Add1 extends React.Component {
+export default class Documents extends React.Component {
   static route = {
     navigationBar: {
-      title: I18n.t('addOverviewTitle'),
+      title: I18n.t('documents'),
       backgroundColor: Colors.navigationBarBackground,
       tintColor: Colors.navigationBarTint,
       titleStyle: {"color": Colors.textDark, "fontWeight": "bold"}
@@ -36,17 +35,7 @@ export default class Add1 extends React.Component {
           style={GlobalStyle.scrollContainer}
           contentContainerStyle={this.props.route.getContentContainerStyle()}>
 
-  				{/* Button for Enter data */}
-          <Button
-            onPress={this._clickEnter}>
-            {I18n.t('enterData')}
-          </Button>
-
-  				{/* Button for Import */}
-          <Button
-            onPress={this._clickImport}>
-            {I18n.t('importData')}
-          </Button>
+  				<Text>Some documents will come here...</Text>
 
         </ScrollView>
 
@@ -54,15 +43,6 @@ export default class Add1 extends React.Component {
 
       </View>
     );
-  }
-
-	_clickEnter = () => {
-    console.log("Eingabe pressed");
-    this.props.navigator.push(Router.getRoute('add2'));
-  }
-
-  _clickImport = () => {
-    console.log("Import pressed");
   }
 
 }

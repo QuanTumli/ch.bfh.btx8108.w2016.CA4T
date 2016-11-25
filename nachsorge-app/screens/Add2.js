@@ -3,11 +3,20 @@ import {
   ScrollView,
   StyleSheet,
 	TouchableOpacity,
-	Text
+	Text,
+  View,
 } from 'react-native';
 
+import {
+  FontAwesome,
+} from '@exponent/vector-icons';
+
 import Colors from '../constants/Colors';
+import GlobalStyle from '../constants/GlobalStyle';
 import Router from '../navigation/Router';
+
+import InfoButton from '../components/InfoButton';
+import Button from '../components/Button';
 
 import I18n from 'react-native-i18n'
 import Languages from '../constants/Languages';
@@ -18,61 +27,45 @@ export default class Add2 extends React.Component {
   static route = {
     navigationBar: {
       title: I18n.t('addOverviewTitle'),
+      backgroundColor: Colors.navigationBarBackground,
+      tintColor: Colors.navigationBarTint,
+      titleStyle: {"color": Colors.textDark, "fontWeight": "bold"}
     },
   }
 
   render() {
     return (
-
+      <View style={GlobalStyle.mainContainer}>
         <ScrollView
-          style={styles.container}
+          style={GlobalStyle.scrollContainer}
           contentContainerStyle={this.props.route.getContentContainerStyle()}>
 
-          <View style={styles.welcomeContainer}>
-            <Image
-              source={require('../assets/images/exponent-wordmark.png')}
-              style={styles.welcomeImage}
-            />
-          </View>
+          {/* Button for colon */}
+          <Button
+            onPress={this._clickColon}>
+            {I18n.t('colon')}
+          </Button>
 
-          <TouchableOpacity
-            onPress={this._handlePressKolon}
-            style={styles.fullWidthButton}>
-
-            <Text style={styles.fullWidthButtonText}>
-              Kolon
-              {I18n.t('colon')}
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={this._handlePressRektum}
-            style={styles.fullWidthButton}>
-
-            <Text style={styles.fullWidthButtonText}>
-              Rektum
-              {I18n.t('rectum')}
-            </Text>
-          </TouchableOpacity>
+          {/* Button for rectum */}
+          <Button
+            onPress={this._clickRectum}>
+            {I18n.t('rectum')}
+          </Button>
 
         </ScrollView>
 
-        <View style={styles.infoButton}>
-          <FontAwesome
-            name="info"
-            size={40}
-            color="white" />
-        </View>
+        <InfoButton />
 
       </View>
+
     );
   }
 
-  _handlePressKolon = () => {
+  _clickColon = () => {
     console.log("Kolon pressed");
   }
 
-  _handlePressRektum = () => {
+  _clickRectum = () => {
     console.log("Rektum pressed");
   }
 
@@ -80,22 +73,5 @@ export default class Add2 extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 15,
-  },
-	fullWidthButton: {
-    backgroundColor: Colors.buttonDark,
-    flex: 1,
-    margin: 20,
-    padding: 5,
-    height: 120,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-	fullWidthButtonText: {
-    fontSize: 50,
-    fontWeight: 'normal',
-    color: Colors.textLight,
-  },
+
 });

@@ -14,11 +14,13 @@ export default {
 
 
   containerBackground: '#f2f2f2',
-  light: '#fff',
+  light: '#FFF',
   textDark: "#343434",
-  textLight: "#fff",
+  textLight: "#FFF",
   textMiddle: '#8F8E94',
   buttonDark: "#3f3d73",
   buttonLight: "#86b5a6",
-  tableBorder: "#C8C7CC"
+  tableBorder: "#C8C7CC",
+  navigationBarBackground: "#DFDEE6",
+  navigationBarTint: "#3f3d73",
 };

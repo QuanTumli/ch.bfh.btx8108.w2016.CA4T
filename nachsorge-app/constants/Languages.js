@@ -33,7 +33,8 @@ export default {
 		en: 'Englisch',
 		fr: 'Französisch',
 		colon: 'Kolon',
-		rectum: 'Rektum'
+		rectum: 'Rektum',
+		settingsLanguageFooter: 'Hier können Sie die Sprache der App anpassen.',
 	},
 	en: {
 		greeting: 'Hi!',
@@ -48,7 +49,8 @@ export default {
 		en: 'English',
 		fr: 'French',
 		colon: 'Colon',
-		rectum: 'Rectum'
+		rectum: 'Rectum',
+		settingsLanguageFooter: 'Here you can adapt the language of the app.',
 	},
 	fr: {
 		greeting: 'Bonjour!',
@@ -63,6 +65,7 @@ export default {
 		en: 'Anglais',
 		fr: 'Français',
 		colon: 'Côlon',
-		rectum: 'Rectum'
+		rectum: 'Rectum',
+		settingsLanguageFooter: 'Voici vous pouvez adapter la langue de l\'application.',
 	}
 }

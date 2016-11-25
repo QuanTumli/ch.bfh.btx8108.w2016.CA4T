@@ -16,6 +16,7 @@ import {
 
 import Router from '../navigation/Router';
 
+import InfoButton from '../components/InfoButton';
 // import ReactNativeI18n from 'react-native-i18n'
 // const deviceLocale = ReactNativeI18n.locale
 // console.log("locale", deviceLocale)
@@ -30,8 +31,6 @@ I18n.translations = Languages
 Database.settings.get({key: "language"}, function(results){
   I18n.locale = results[0].value;
 })
-
-import { MonoText } from '../components/StyledText';
 
 export default class HomeScreen extends React.Component {
   static route = {
@@ -53,9 +52,9 @@ export default class HomeScreen extends React.Component {
               style={styles.welcomeImage}
             />
           </View>
-          {/* Button for Termine /calendar */}
+          {/* Button for Termine */}
           <TouchableOpacity
-            onPress={this._handlePressTermine}
+            onPress={this._clickMeetings}
             style={styles.fullWidthButton}>
             <FontAwesome
               name="calendar"
@@ -69,7 +68,7 @@ export default class HomeScreen extends React.Component {
           {/* Button for Dokumente */}
           <View style={styles.buttonContainer}>
             <TouchableOpacity
-              onPress={this._handlePressDokumente}
+              onPress={this._clickDocuments}
               style={styles.halfWidthButton}>
               <FontAwesome
                 name="file-text-o"
@@ -80,9 +79,9 @@ export default class HomeScreen extends React.Component {
               </Text>
             </TouchableOpacity>
 
-            {/* Button for Einstellungen /gear */}
+            {/* Button for Einstellungen */}
             <TouchableOpacity
-              onPress={this._handlePressEinstellungen}
+              onPress={this._clickSettings}
               style={styles.halfWidthButton}>
               <FontAwesome
                 name="gear"
@@ -95,30 +94,23 @@ export default class HomeScreen extends React.Component {
           </View>
         </ScrollView>
 
-        <View style={styles.infoButton}>
-          <FontAwesome
-            name="info"
-            size={40}
-            color="white" />
-        </View>
+        <InfoButton />
 
       </View>
     );
   }
 
-  _handlePressTermine = () => {
-    console.log("Termine pressed");
+  _clickMeetings = () => {
     // this is how to navigate to another screen.
     // the screen must be defined in /navigation/Router.js
     this.props.navigator.push(Router.getRoute('add1'));
   }
 
-  _handlePressDokumente = () => {
-    console.log("Dokumente pressed");
+  _clickDocuments = () => {
+    this.props.navigator.push(Router.getRoute('documents'));
   }
 
-  _handlePressEinstellungen = () => {
-    console.log("Einstellungen pressed");
+  _clickSettings = () => {
     this.props.navigator.push(Router.getRoute('settings'));
   }
 }
@@ -168,15 +160,5 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     color: '#3F3D73',
-  },
-  infoButton: {
-    position: 'absolute',
-    bottom: 10,
-    right: 10,
-    width: 60,
-    height: 60,
-    backgroundColor: '#3F3D73',
-    alignItems: 'center',
-    justifyContent: 'center'
   }
 });
