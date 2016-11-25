@@ -1,34 +1,32 @@
 import React from 'react';
 import {
-  Image,
-  Linking,
-  Platform,
   ScrollView,
   StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
+	TouchableOpacity,
+	Text
 } from 'react-native';
 
-import {
-  FontAwesome,
-} from '@exponent/vector-icons';
+import Colors from '../constants/Colors';
+import Router from '../navigation/Router';
 
-import { MonoText } from '../components/StyledText';
+import I18n from 'react-native-i18n'
+import Languages from '../constants/Languages';
+I18n.fallbacks = true
+I18n.translations = Languages
 
-export default class HomeScreen extends React.Component {
+export default class Add2 extends React.Component {
   static route = {
     navigationBar: {
-      visible: false,
+      title: I18n.t('addOverviewTitle'),
     },
   }
 
   render() {
     return (
-      <View style={styles.container}>
+
         <ScrollView
           style={styles.container}
-          contentContainerStyle={styles.contentContainer}>
+          contentContainerStyle={this.props.route.getContentContainerStyle()}>
 
           <View style={styles.welcomeContainer}>
             <Image
@@ -57,11 +55,6 @@ export default class HomeScreen extends React.Component {
             </Text>
           </TouchableOpacity>
 
-
-
-
-
-
         </ScrollView>
 
         <View style={styles.infoButton}>
@@ -89,23 +82,10 @@ export default class HomeScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    paddingTop: 15,
   },
-  contentContainer: {
-    paddingTop: 80,
-  },
-  welcomeContainer: {
-    alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 20,
-  },
-  welcomeImage: {
-    width: 200,
-    height: 34.5,
-    marginTop: 3,
-  },
-  fullWidthButton: {
-    backgroundColor: '#DFDEE6',
+	fullWidthButton: {
+    backgroundColor: Colors.buttonDark,
     flex: 1,
     margin: 20,
     padding: 5,
@@ -113,25 +93,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
-  buttonContainer: {
-    flex: 1,
-    flexDirection: 'row',
+	fullWidthButtonText: {
+    fontSize: 50,
+    fontWeight: 'normal',
+    color: Colors.textLight,
   },
-
-  fullWidthButtonText: {
-    paddingTop: 10,
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#3F3D73',
-  },
-  infoButton: {
-    position: 'absolute',
-    bottom: 10,
-    right: 10,
-    width: 60,
-    height: 60,
-    backgroundColor: '#3F3D73',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
 });
