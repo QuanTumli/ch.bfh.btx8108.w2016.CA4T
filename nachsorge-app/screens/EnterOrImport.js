@@ -4,12 +4,8 @@ import {
   StyleSheet,
 	TouchableOpacity,
 	Text,
-  View,
+  View
 } from 'react-native';
-
-import {
-  FontAwesome,
-} from '@exponent/vector-icons';
 
 import Colors from '../constants/Colors';
 import GlobalStyle from '../constants/GlobalStyle';
@@ -23,7 +19,7 @@ import Languages from '../constants/Languages';
 I18n.fallbacks = true
 I18n.translations = Languages
 
-export default class Add2 extends React.Component {
+export default class EnterOrImport extends React.Component {
   static route = {
     navigationBar: {
       title: I18n.t('addOverviewTitle'),
@@ -39,16 +35,16 @@ export default class Add2 extends React.Component {
         <ScrollView
           style={GlobalStyle.scrollContainer}>
 
-          {/* Button for colon */}
+  				{/* Button for Enter data */}
           <Button
-            onPress={this._clickColon}>
-            {I18n.t('colon')}
+            onPress={this._clickEnter}>
+            {I18n.t('enterData')}
           </Button>
 
-          {/* Button for rectum */}
+  				{/* Button for Import */}
           <Button
-            onPress={this._clickRectum}>
-            {I18n.t('rectum')}
+            onPress={this._clickImport}>
+            {I18n.t('importData')}
           </Button>
 
         </ScrollView>
@@ -56,18 +52,17 @@ export default class Add2 extends React.Component {
         <InfoButton />
 
       </View>
-
     );
   }
 
-  _clickColon = () => {
-    console.log("Kolon pressed");
+	_clickEnter = () => {
+    console.log("Eingabe pressed");
+    this.props.navigator.push(Router.getRoute('selectAffliction'));
   }
 
-  _clickRectum = () => {
-    console.log("Rektum pressed");
+  _clickImport = () => {
+    console.log("Import pressed");
   }
-
 
 }
 

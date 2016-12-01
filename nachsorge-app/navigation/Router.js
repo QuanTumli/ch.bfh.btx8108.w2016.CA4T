@@ -5,8 +5,10 @@ import {
 import HomeScreen from '../screens/HomeScreen';
 
 // import files for adding new data
-import Add1 from '../screens/Add1';
-import Add2 from '../screens/Add2';
+import EnterOrImport from '../screens/EnterOrImport';
+import SelectAffliction from '../screens/SelectAffliction';
+import Scheme from '../screens/Scheme';
+
 
 // import files for document screens
 import Documents from '../screens/Documents';
@@ -18,8 +20,9 @@ import SettingsLanguage from '../screens/SettingsLanguage';
 export default createRouter(() => ({
   home: () => HomeScreen,
 
-  add1: () => Add1,
-  add2: () => Add2,
+  enterOrImport: () => EnterOrImport,
+  selectAffliction: () => SelectAffliction,
+  scheme: () => Scheme,
 
   documents: () => Documents,
 

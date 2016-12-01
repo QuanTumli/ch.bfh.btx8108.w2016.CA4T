@@ -114,7 +114,7 @@ export default class HomeScreen extends React.Component {
   _clickMeetings = () => {
     // this is how to navigate to another screen.
     // the screen must be defined in /navigation/Router.js
-    this.props.navigator.push(Router.getRoute('add1'));
+    this.props.navigator.push(Router.getRoute('enterOrImport'));
   }
 
   _clickDocuments = () => {
