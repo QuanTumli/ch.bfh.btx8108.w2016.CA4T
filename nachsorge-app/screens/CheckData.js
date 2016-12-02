@@ -40,7 +40,13 @@ export default class CheckData extends React.Component {
     },
   }
 
+  state = {
+    actualData: this.props.actualData
+  }
+
   render() {
+    console.log("in check");
+    console.log(this.state.actualData);
     return (
       <View style={GlobalStyle.mainContainer}>
         <ScrollView
@@ -48,9 +54,16 @@ export default class CheckData extends React.Component {
 
           <Header title={I18n.t('checkDataHeader')} />
 
-          {/* Button for colon */}
+          {Object.keys(this.state.actualData).map(key => {
+            return (
+              <Text key={key}>{key}: {this.state.actualData[key]}</Text>
+            )
+          })}
+
+
           <Button
-            onPress={this._clickNext}>
+            onPress={this._clickNext}
+            active={false}>
             {I18n.t('next')}
           </Button>
 
@@ -65,8 +78,12 @@ export default class CheckData extends React.Component {
 
   _clickNext = () => {
     console.log("Next pressed");
-     this.props.navigator.push(Router.getRoute('scheme'));
+     //this.props.navigator.push(Router.getRoute('scheme'));
   };
+
+  static propTypes = {
+		actualData: React.PropTypes.object.isRequired
+	}
 
 }
 

@@ -36,6 +36,9 @@ export default class Scheme extends React.Component {
   }
 
   state = {
+    actualData: {
+      affliction: this.props.affliction
+    },
     schemes: [
       {name: 'Schema 1'},
       {name: 'Schema 2'},
@@ -43,7 +46,6 @@ export default class Scheme extends React.Component {
   }
 
   render() {
-    console.log(this.state.schemes);
     return (
       <View style={GlobalStyle.mainContainer}>
         <ScrollView
@@ -54,7 +56,7 @@ export default class Scheme extends React.Component {
           {this.state.schemes.map((scheme, i) => {
               return (
                 <Button
-                  onPress={this._clickScheme}
+                  onPress={() => this._clickScheme(scheme.name)}
                   key={i}>
                   {scheme.name}
                 </Button>
@@ -71,11 +73,16 @@ export default class Scheme extends React.Component {
   }
 
 
-	_clickScheme = () => {
-    console.log("Scheme pressed");
-    this.props.navigator.push(Router.getRoute('selectOpDate'));
-  }
+	_clickScheme = (name) => {
+    console.log("Scheme pressed: ", name);
+    const newData = {...this.state.actualData, scheme: name};
+    console.log(newData);
+    this.props.navigator.push(Router.getRoute('selectOpDate', {actualData: newData}));
+  };
 
+  static propTypes = {
+		affliction: React.PropTypes.string.isRequired
+	}
 }
 
 const styles = StyleSheet.create({

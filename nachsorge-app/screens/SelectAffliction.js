@@ -69,13 +69,11 @@ export default class SelectAffliction extends React.Component {
   }
 
   _clickColon = () => {
-    console.log("Kolon pressed");
-     this.props.navigator.push(Router.getRoute('scheme'));
+     this.props.navigator.push(Router.getRoute('scheme', {affliction: 'colon'}));
   }
 
   _clickRectum = () => {
-    console.log("Rektum pressed");
-    this.props.navigator.push(Router.getRoute('scheme'));
+    this.props.navigator.push(Router.getRoute('scheme', {affliction: 'rectum'}));
   }
 
 

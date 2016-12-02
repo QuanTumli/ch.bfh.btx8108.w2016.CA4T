@@ -65,7 +65,6 @@ export default class EnterOrImport extends React.Component {
   }
 
 	_clickEnter = () => {
-    console.log("Eingabe pressed");
     this.props.navigator.push(Router.getRoute('selectAffliction'));
   }
 

@@ -41,17 +41,19 @@ export default class SelectOpDate extends React.Component {
   }
 
   static defaultProps = {
-    date: new Date(),
+    opDate: new Date(),
     timeZoneOffsetInHours: (-1) * (new Date()).getTimezoneOffset() / 60,
   }
 
   state = {
-    date: this.props.date,
+    opDate: this.props.opDate,
     timeZoneOffsetInHours: this.props.timeZoneOffsetInHours,
+    actualData: {...this.props.actualData, opDate: this.props.opDate.toISOString().substring(0, 10)},
   }
 
   onDateChange = (date) => {
-    this.setState({date: date});
+    const newData = {...this.state.actualData, opDate: date.toISOString().substring(0, 10)};
+    this.setState({actualData: newData, opDate: date});
   }
 
   onTimezoneChange = (event) => {
@@ -71,13 +73,12 @@ export default class SelectOpDate extends React.Component {
           <Header title={I18n.t('selectOpHeader')} />
 
           <DatePickerIOS
-            date={this.state.date}
+            date={this.state.opDate}
             mode="date"
             timeZoneOffsetInMinutes={this.state.timeZoneOffsetInHours * 60}
             onDateChange={this.onDateChange}
           />
 
-          {/* Button for colon */}
           <Button
             onPress={this._clickNext}>
             {I18n.t('next')}
@@ -94,8 +95,14 @@ export default class SelectOpDate extends React.Component {
 
   _clickNext = () => {
     console.log("Next pressed");
-     this.props.navigator.push(Router.getRoute('checkData'));
+    console.log(this.state.actualData);
+    const dataToPass = this.state.actualData;
+    this.props.navigator.push(Router.getRoute('checkData', {actualData: dataToPass}));
   };
+
+  static propTypes = {
+		actualData: React.PropTypes.object.isRequired
+	}
 
 }
 
