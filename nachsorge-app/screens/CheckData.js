@@ -4,8 +4,13 @@ import {
   StyleSheet,
 	TouchableOpacity,
 	Text,
-  View
+  View,
+  DatePickerIOS
 } from 'react-native';
+
+import {
+  FontAwesome,
+} from '@exponent/vector-icons';
 
 import Colors from '../constants/Colors';
 import GlobalStyle from '../constants/GlobalStyle';
@@ -13,16 +18,22 @@ import Router from '../navigation/Router';
 
 import InfoButton from '../components/InfoButton';
 import Button from '../components/Button';
+import Header from '../components/Header';
 
 import I18n from 'react-native-i18n'
 import Languages from '../constants/Languages';
 I18n.fallbacks = true
 I18n.translations = Languages
 
-export default class Scheme extends React.Component {
+export default class CheckData extends React.Component {
   static route = {
     navigationBar: {
-      title: I18n.t('addOverviewTitle'),
+      title(params) {
+        if (typeof params.title === 'undefined') {
+          return I18n.t('checkDataTitle');
+        }
+        return params.title;
+       },
       backgroundColor: Colors.navigationBarBackground,
       tintColor: Colors.navigationBarTint,
       titleStyle: {"color": Colors.textDark, "fontWeight": "bold"}
@@ -35,16 +46,12 @@ export default class Scheme extends React.Component {
         <ScrollView
           style={GlobalStyle.scrollContainer}>
 
-  				{/* Button for Enter data */}
-          <Button
-            onPress={this._clickEnter}>
-            {I18n.t('enterData')}
-          </Button>
+          <Header title={I18n.t('checkDataHeader')} />
 
-  				{/* Button for Import */}
+          {/* Button for colon */}
           <Button
-            onPress={this._clickImport}>
-            {I18n.t('importData')}
+            onPress={this._clickNext}>
+            {I18n.t('next')}
           </Button>
 
         </ScrollView>
@@ -52,17 +59,14 @@ export default class Scheme extends React.Component {
         <InfoButton />
 
       </View>
+
     );
   }
 
-	_clickEnter = () => {
-    console.log("Eingabe pressed");
-    this.props.navigator.push(Router.getRoute('selectAffliction'));
-  }
-
-  _clickImport = () => {
-    console.log("Import pressed");
-  }
+  _clickNext = () => {
+    console.log("Next pressed");
+     this.props.navigator.push(Router.getRoute('scheme'));
+  };
 
 }
 

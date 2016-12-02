@@ -5,6 +5,7 @@ import {
 	TouchableOpacity,
 	Text,
   View,
+  DatePickerIOS
 } from 'react-native';
 
 import {
@@ -24,12 +25,12 @@ import Languages from '../constants/Languages';
 I18n.fallbacks = true
 I18n.translations = Languages
 
-export default class SelectAffliction extends React.Component {
+export default class SelectOpDate extends React.Component {
   static route = {
     navigationBar: {
       title(params) {
         if (typeof params.title === 'undefined') {
-          return I18n.t('selectAfflictionTitle');
+          return I18n.t('selectOpTitle');
         }
         return params.title;
        },
@@ -39,24 +40,47 @@ export default class SelectAffliction extends React.Component {
     },
   }
 
+  static defaultProps = {
+    date: new Date(),
+    timeZoneOffsetInHours: (-1) * (new Date()).getTimezoneOffset() / 60,
+  }
+
+  state = {
+    date: this.props.date,
+    timeZoneOffsetInHours: this.props.timeZoneOffsetInHours,
+  }
+
+  onDateChange = (date) => {
+    this.setState({date: date});
+  }
+
+  onTimezoneChange = (event) => {
+    var offset = parseInt(event.nativeEvent.text, 10);
+    if (isNaN(offset)) {
+      return;
+    }
+    this.setState({timeZoneOffsetInHours: offset});
+  }
+
   render() {
     return (
       <View style={GlobalStyle.mainContainer}>
         <ScrollView
           style={GlobalStyle.scrollContainer}>
 
-          <Header title={I18n.t('selectAfflictionHeader')} />
+          <Header title={I18n.t('selectOpHeader')} />
+
+          <DatePickerIOS
+            date={this.state.date}
+            mode="date"
+            timeZoneOffsetInMinutes={this.state.timeZoneOffsetInHours * 60}
+            onDateChange={this.onDateChange}
+          />
 
           {/* Button for colon */}
           <Button
-            onPress={this._clickColon}>
-            {I18n.t('colon')}
-          </Button>
-
-          {/* Button for rectum */}
-          <Button
-            onPress={this._clickRectum}>
-            {I18n.t('rectum')}
+            onPress={this._clickNext}>
+            {I18n.t('next')}
           </Button>
 
         </ScrollView>
@@ -68,16 +92,10 @@ export default class SelectAffliction extends React.Component {
     );
   }
 
-  _clickColon = () => {
-    console.log("Kolon pressed");
-     this.props.navigator.push(Router.getRoute('scheme'));
-  }
-
-  _clickRectum = () => {
-    console.log("Rektum pressed");
-    this.props.navigator.push(Router.getRoute('scheme'));
-  }
-
+  _clickNext = () => {
+    console.log("Next pressed");
+     this.props.navigator.push(Router.getRoute('checkData'));
+  };
 
 }
 

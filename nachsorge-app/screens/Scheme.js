@@ -20,12 +20,12 @@ import Languages from '../constants/Languages';
 I18n.fallbacks = true
 I18n.translations = Languages
 
-export default class EnterOrImport extends React.Component {
+export default class Scheme extends React.Component {
   static route = {
     navigationBar: {
       title(params) {
         if (typeof params.title === 'undefined') {
-          return I18n.t('enterOrImportTitle');
+          return I18n.t('selectSchemeTitle');
         }
         return params.title;
        },
@@ -35,26 +35,32 @@ export default class EnterOrImport extends React.Component {
     },
   }
 
+  state = {
+    schemes: [
+      {name: 'Schema 1'},
+      {name: 'Schema 2'},
+    ]
+  }
+
   render() {
+    console.log(this.state.schemes);
     return (
       <View style={GlobalStyle.mainContainer}>
         <ScrollView
           style={GlobalStyle.scrollContainer}>
 
-          <Header title={I18n.t('enterOrImportHeader')} />
+          <Header title={I18n.t('selectSchemeHeader')} />
 
-  				{/* Button for Enter data */}
-          <Button
-            onPress={this._clickEnter}>
-            {I18n.t('enterData')}
-          </Button>
-
-  				{/* Button for Import */}
-          <Button
-            onPress={this._clickImport}
-            active={false}>
-            {I18n.t('importData')}
-          </Button>
+          {this.state.schemes.map((scheme, i) => {
+              return (
+                <Button
+                  onPress={this._clickScheme}
+                  key={i}>
+                  {scheme.name}
+                </Button>
+              )
+            })
+          }
 
         </ScrollView>
 
@@ -64,13 +70,10 @@ export default class EnterOrImport extends React.Component {
     );
   }
 
-	_clickEnter = () => {
-    console.log("Eingabe pressed");
-    this.props.navigator.push(Router.getRoute('selectAffliction'));
-  }
 
-  _clickImport = () => {
-    console.log("Import pressed");
+	_clickScheme = () => {
+    console.log("Scheme pressed");
+    this.props.navigator.push(Router.getRoute('selectOpDate'));
   }
 
 }

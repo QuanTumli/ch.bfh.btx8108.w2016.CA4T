@@ -8,6 +8,8 @@ import HomeScreen from '../screens/HomeScreen';
 import EnterOrImport from '../screens/EnterOrImport';
 import SelectAffliction from '../screens/SelectAffliction';
 import Scheme from '../screens/Scheme';
+import SelectOpDate from '../screens/SelectOpDate';
+import CheckData from '../screens/CheckData';
 
 
 // import files for document screens
@@ -23,6 +25,8 @@ export default createRouter(() => ({
   enterOrImport: () => EnterOrImport,
   selectAffliction: () => SelectAffliction,
   scheme: () => Scheme,
+  selectOpDate: () => SelectOpDate,
+  checkData: () => CheckData,
 
   documents: () => Documents,
 
