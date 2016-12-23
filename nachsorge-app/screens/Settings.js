@@ -16,7 +16,6 @@ import Router from '../navigation/Router';
 
 import I18n from 'react-native-i18n'
 import Languages from '../constants/Languages';
-import Database from '../constants/Database';
 
 I18n.fallbacks = true
 I18n.translations = Languages
@@ -31,10 +30,6 @@ export default class Settings extends React.Component {
        tintColor: Colors.navigationBarTint,
        titleStyle: {"color": Colors.textDark, "fontWeight": "bold"}
     },
-  }
-
-  constructor(props) {
-    super(props)
   }
 
   render() {

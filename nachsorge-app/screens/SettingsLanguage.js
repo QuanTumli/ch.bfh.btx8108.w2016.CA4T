@@ -1,14 +1,18 @@
-import React from 'react';
+import React from 'react'
 import {
   ScrollView,
   StyleSheet,
 	TouchableOpacity,
 	Text
-} from 'react-native';
+} from 'react-native'
 
 import {
   FontAwesome,
-} from '@exponent/vector-icons';
+} from '@exponent/vector-icons'
+
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux'
+import { changeLanguage } from '../actions'
 
 import Colors from '../constants/Colors';
 import GlobalStyle from '../constants/GlobalStyle';
@@ -16,12 +20,11 @@ import Router from '../navigation/Router';
 
 import I18n from 'react-native-i18n'
 import Languages from '../constants/Languages';
-import Database from '../constants/Database';
 
 I18n.fallbacks = true
 I18n.translations = Languages
 
-export default class SettingsLanguage extends React.Component {
+class SettingsLanguage extends React.Component {
   static route = {
     navigationBar: {
       title(params) {
@@ -35,9 +38,22 @@ export default class SettingsLanguage extends React.Component {
        titleStyle: {"color": Colors.textDark, "fontWeight": "bold"}
     },
   }
+  
+  _changeLanguage = (language) => () => {
+    I18n.locale = language;
+    this.props.navigator.updateCurrentRouteParams({
+      title: I18n.t('language')
+    })
+    this.props.changeLanguage(language)
+  }
 
   render() {
-    return (
+		const {
+			settings,
+			changeLanguage
+		} = this.props
+		
+		return (
       <ScrollView
         style={[GlobalStyle.mainContainer, GlobalStyle.scrollContainer]}>
 
@@ -98,15 +114,6 @@ export default class SettingsLanguage extends React.Component {
     );
   }
 
-	_changeLanguage = (language) => () => {
-    I18n.locale = language;
-    this.props.navigator.updateCurrentRouteParams({
-      title: I18n.t('language')
-    })
-    Database.settings.update({key: "language"}, {value: language});
-    this.forceUpdate();
-  }
-
 }
 
 const styles = StyleSheet.create({
@@ -151,3 +158,17 @@ const styles = StyleSheet.create({
     color: Colors.textDark,
   },
 });
+
+const mapStateToProps = (state) => {
+    return {
+      settings: state.settings
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+	return bindActionCreators({
+    changeLanguage: changeLanguage
+  }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SettingsLanguage);

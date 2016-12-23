@@ -2,6 +2,7 @@ import Exponent from 'exponent';
 import React from 'react';
 import {
   AppRegistry,
+  AsyncStorage,
   Platform,
   StatusBar,
   StyleSheet,
@@ -11,12 +12,33 @@ import {
   NavigationProvider,
   StackNavigation,
 } from '@exponent/ex-navigation';
-import {
-  FontAwesome,
-} from '@exponent/vector-icons';
+import { FontAwesome } from '@exponent/vector-icons';
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import { 
+  persistStore,
+  autoRehydrate
+} from 'redux-persist'
+//import createEncryptor from 'redux-persist-transform-encrypt'
 
 import Router from './navigation/Router';
 import cacheAssetsAsync from './utilities/cacheAssetsAsync';
+
+import reducer from './reducers';
+
+const store = createStore(reducer, undefined, autoRehydrate())
+/*const encryptor = createEncryptor({
+  secretKey: 'my-super-secret-key'
+})*/
+
+// save store (all the data) with encryption locally
+// encryption does not work atm: https://github.com/maxdeviant/redux-persist-transform-encrypt/issues/10
+persistStore(store, {
+  /*transforms: [
+    encryptor
+  ],*/
+  storage: AsyncStorage
+})
 
 class AppContainer extends React.Component {
   state = {
@@ -50,17 +72,19 @@ class AppContainer extends React.Component {
       let initialRoute = Router.getRoute('home', {notification});
 
       return (
-        <View style={styles.container}>
-          <NavigationProvider router={Router}>
-            <StackNavigation
-              id="root"
-              initialRoute={initialRoute}
-            />
-          </NavigationProvider>
+				<Provider store={store}>
+	        <View style={styles.container}>
+	          <NavigationProvider router={Router}>
+	            <StackNavigation
+	              id="root"
+	              initialRoute={initialRoute}
+	            />
+	          </NavigationProvider>
 
-          {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          {Platform.OS === 'android' && <View style={styles.statusBarUnderlay} />}
-        </View>
+	          {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+	          {Platform.OS === 'android' && <View style={styles.statusBarUnderlay} />}
+	        </View>
+				</Provider>
       );
     } else {
       return <Exponent.Components.AppLoading />;

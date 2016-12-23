@@ -12,31 +12,32 @@ import {
   FontAwesome,
 } from '@exponent/vector-icons';
 
+import { connect } from 'react-redux'
+
 import GlobalStyle from '../constants/GlobalStyle';
 import Router from '../navigation/Router';
 
 import InfoButton from '../components/InfoButton';
 import InfoModalBox from '../components/InfoModalBox';
-// import ReactNativeI18n from 'react-native-i18n'
-// const deviceLocale = ReactNativeI18n.locale
-// console.log("locale", deviceLocale)
 
 import Languages from '../constants/Languages';
-import Database from '../constants/Database';
 
 import I18n from 'react-native-i18n'
 I18n.fallbacks = true
 I18n.translations = Languages
+// const deviceLocale = ReactNativeI18n.locale
+// console.log("locale", deviceLocale)
 
-Database.settings.get({key: "language"}, function(results){
-  I18n.locale = results[0].value;
-})
-
-export default class HomeScreen extends React.Component {
+class HomeScreen extends React.Component {
   static route = {
     navigationBar: {
       visible: false,
     },
+  }
+	
+	constructor(props) {
+    super(props)
+		I18n.locale = props.settings.language
   }
 
   state = {
@@ -178,3 +179,11 @@ const styles = StyleSheet.create({
     color: '#3F3D73',
   }
 });
+
+const mapStateToProps = (state) => {
+    return {
+      settings: state.settings
+    }
+}
+
+export default connect(mapStateToProps)(HomeScreen);
