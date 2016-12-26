@@ -26,7 +26,7 @@ import Languages from '../constants/Languages';
 I18n.fallbacks = true
 I18n.translations = Languages
 
-class SelectAffliction extends React.Component {
+class MeetingList extends React.Component {
   static route = {
     navigationBar: {
       title(params) {
@@ -45,16 +45,7 @@ class SelectAffliction extends React.Component {
 		const {
 			schemes
 		} = this.props
-		var buttons = [];
-		var that = this
-		Object.keys(schemes).forEach(function(key, index) {
-		  buttons.push(<Button
-				key={key}
-				onPress={() => that._click(key)}>
-				{this[key].names.de}
-			</Button>)
-		}, schemes);
-		
+	
     return (
       <View style={GlobalStyle.mainContainer}>
         <ScrollView
@@ -62,7 +53,7 @@ class SelectAffliction extends React.Component {
 
           <Header title={I18n.t('selectAfflictionHeader')} />
 					
-					{buttons}
+					<Text>Some meetings...</Text>
 
         </ScrollView>
 
@@ -71,10 +62,6 @@ class SelectAffliction extends React.Component {
       </View>
 
     );
-  }
-
-  _click = (affliction) => {
-     this.props.navigator.push(Router.getRoute('scheme', {affliction: affliction}));
   }
 
 }
@@ -89,4 +76,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, null)(SelectAffliction);
+export default connect(mapStateToProps, null)(MeetingList);

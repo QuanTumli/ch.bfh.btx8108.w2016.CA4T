@@ -12,7 +12,7 @@ import {
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux'
-import { changeLanguage } from '../actions'
+import { updateLanguage } from '../actions'
 
 import Colors from '../constants/Colors';
 import GlobalStyle from '../constants/GlobalStyle';
@@ -44,13 +44,12 @@ class SettingsLanguage extends React.Component {
     this.props.navigator.updateCurrentRouteParams({
       title: I18n.t('language')
     })
-    this.props.changeLanguage(language)
+    this.props.updateLanguage(language)
   }
 
   render() {
 		const {
-			settings,
-			changeLanguage
+			settings
 		} = this.props
 		
 		return (
@@ -167,7 +166,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return bindActionCreators({
-    changeLanguage: changeLanguage
+    updateLanguage: updateLanguage
   }, dispatch);
 };
 

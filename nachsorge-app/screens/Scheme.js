@@ -7,6 +7,8 @@ import {
   View
 } from 'react-native';
 
+import { connect } from 'react-redux'
+
 import Colors from '../constants/Colors';
 import GlobalStyle from '../constants/GlobalStyle';
 import Router from '../navigation/Router';
@@ -20,7 +22,7 @@ import Languages from '../constants/Languages';
 I18n.fallbacks = true
 I18n.translations = Languages
 
-export default class Scheme extends React.Component {
+class Scheme extends React.Component {
   static route = {
     navigationBar: {
       title(params) {
@@ -38,14 +40,15 @@ export default class Scheme extends React.Component {
   state = {
     actualData: {
       affliction: this.props.affliction
-    },
-    schemes: [
-      {name: 'Schema 1'},
-      {name: 'Schema 2'},
-    ]
+    }
   }
 
   render() {
+		const {
+			affliction,
+			schemes
+		} = this.props
+		
     return (
       <View style={GlobalStyle.mainContainer}>
         <ScrollView
@@ -53,12 +56,12 @@ export default class Scheme extends React.Component {
 
           <Header title={I18n.t('selectSchemeHeader')} />
 
-          {this.state.schemes.map((scheme, i) => {
+          {schemes[affliction].schemes.map((scheme, i) => {
               return (
                 <Button
-                  onPress={() => this._clickScheme(scheme.name)}
+                  onPress={() => this._clickScheme(scheme.id)}
                   key={i}>
-                  {scheme.name}
+                  {scheme.names.de}
                 </Button>
               )
             })
@@ -88,3 +91,11 @@ export default class Scheme extends React.Component {
 const styles = StyleSheet.create({
 
 });
+
+const mapStateToProps = (state) => {
+    return {
+      schemes: state.schemes
+    }
+}
+
+export default connect(mapStateToProps, null)(Scheme);

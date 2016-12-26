@@ -12,7 +12,9 @@ import {
   FontAwesome,
 } from '@exponent/vector-icons';
 
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux'
+import { updateSchemaIsLoaded } from '../actions'
 
 import GlobalStyle from '../constants/GlobalStyle';
 import Router from '../navigation/Router';
@@ -113,12 +115,18 @@ class HomeScreen extends React.Component {
   }
 
   _clickMeetings = () => {
-    // this is how to navigate to another screen.
-    // the screen must be defined in /navigation/Router.js
-    this.props.navigator.push(Router.getRoute('enterOrImport'));
+		console.log(this.props.settings)
+    if(this.props.settings.schemaLoaded){
+    	this.props.navigator.push(Router.getRoute('meetingList'));
+		}else{
+			this.props.navigator.push(Router.getRoute('enterOrImport'));
+		}
   }
 
   _clickDocuments = () => {
+		this.props.updateSchemaIsLoaded(!this.props.settings.schemaLoaded);
+    // this is how to navigate to another screen.
+    // the screen must be defined in /navigation/Router.js
     this.props.navigator.push(Router.getRoute('documents'));
   }
 
@@ -186,4 +194,10 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(HomeScreen);
+const mapDispatchToProps = (dispatch) => {
+	return bindActionCreators({
+    updateSchemaIsLoaded: updateSchemaIsLoaded
+  }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
