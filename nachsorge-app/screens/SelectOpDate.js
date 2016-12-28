@@ -1,12 +1,15 @@
 import React from 'react';
 import {
+Platform,
   ScrollView,
   StyleSheet,
 	TouchableOpacity,
 	Text,
   View,
-  DatePickerIOS
-} from 'react-native';
+  DatePickerIOS,
+  DatePickerAndroid,
+  TouchableWithoutFeedback
+  } from 'react-native';
 
 import {
   FontAwesome,
@@ -64,6 +67,21 @@ export default class SelectOpDate extends React.Component {
     this.setState({timeZoneOffsetInHours: offset});
   }
 
+  showPicker = async (stateKey, options) => {
+    try {
+      var newState = {};
+      const {action, year, month, day} = await DatePickerAndroid.open(options);
+      if (action === DatePickerAndroid.dismissedAction) {
+        newState[stateKey + 'Text'] = 'dismissed';
+      } else {
+        var date = new Date(year, month, day);
+        this.onDateChange(date);
+      }
+    } catch ({code, message}) {
+      console.warn(`Error in example '${stateKey}': `, message);
+    }
+  };
+
   render() {
     return (
       <View style={GlobalStyle.mainContainer}>
@@ -72,12 +90,22 @@ export default class SelectOpDate extends React.Component {
 
           <Header title={I18n.t('selectOpHeader')} />
 
-          <DatePickerIOS
-            date={this.state.opDate}
-            mode="date"
-            timeZoneOffsetInMinutes={this.state.timeZoneOffsetInHours * 60}
-            onDateChange={this.onDateChange}
-          />
+          {Platform.OS === 'ios' && <DatePickerIOS
+              date={this.state.opDate}
+              mode="date"
+              timeZoneOffsetInMinutes={this.state.timeZoneOffsetInHours * 60}
+              onDateChange={this.onDateChange}/>
+          }
+
+          {Platform.OS === 'android' && <TouchableWithoutFeedback
+              onPress={this.showPicker.bind(this, 'preset', {date: this.state.opDate})}>
+                        <Button
+                          onPress={this.showPicker}>
+                          {I18n.t('chooseDate')}
+                        </Button>
+              </TouchableWithoutFeedback>
+          }
+
 
           <Button
             onPress={this._clickNext}>
