@@ -74,7 +74,7 @@ class SelectOpDate extends React.Component {
       if (action === DatePickerAndroid.dismissedAction) {
         newState[stateKey + 'Text'] = 'dismissed';
       } else {
-        var date = new Date(year, month, day);
+        var date = new Date(year, month, day+1);
         this.onDateChange(date);
       }
     } catch ({code, message}) {

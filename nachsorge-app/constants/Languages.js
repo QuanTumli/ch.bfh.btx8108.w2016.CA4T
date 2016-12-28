@@ -46,7 +46,7 @@ export default {
 		colon: 'Kolon',
 		rectum: 'Rektum',
 		settingsLanguageFooter: 'Hier können Sie die Sprache der App anpassen.',
-		chooseDate: 'Operationsdatum',
+		chooseDate: 'Datum wählen',
 		chosenDate: 'Gewählter Termin: ',
 	},
 	en: {
