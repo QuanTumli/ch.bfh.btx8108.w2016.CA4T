@@ -57,7 +57,7 @@ class CheckData extends React.Component {
 					
 					<View> 
 						<Text style={styles.title}>
-							{I18n.t('selectAfflictionTitle')}
+							{I18n.t('selectAfflictionTitle')}:
 						</Text>
 						<Text style={styles.text}>
 							{schemes[settings.affliction].names.de}
@@ -66,7 +66,7 @@ class CheckData extends React.Component {
 					
 					<View> 
 						<Text style={styles.title}>
-							{I18n.t('selectSchemeTitle')}
+							{I18n.t('selectSchemeTitle')}:
 						</Text>
 						<Text style={styles.text}>
 							{settings.schema.names.de}
@@ -75,7 +75,7 @@ class CheckData extends React.Component {
 					
 					<View> 
 						<Text style={styles.title}>
-							{I18n.t('selectOpTitle')}
+							{I18n.t('selectOpTitle')}:
 						</Text>
 						<Text style={styles.text}>
 							{settings.opDate}
@@ -108,14 +108,15 @@ const styles = StyleSheet.create({
 		marginTop: 10,
 		paddingTop: 5,
 		paddingBottom: 5,
+    paddingLeft: 20,
+		paddingRight: 20,
     fontSize: 30,
-		textAlign: 'center',
-    backgroundColor: Colors.navigationBarBackground
+		fontWeight: 'bold'
   },
   text: {
-		marginTop: 10,
     fontSize: 24,
-		textAlign: 'center'
+    paddingLeft: 40,
+		paddingRight: 20
   }
 });
 
