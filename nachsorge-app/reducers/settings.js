@@ -1,5 +1,6 @@
 import { 
-	UPDATE_LANGUAGE, 
+	UPDATE_LANGUAGE,
+	UPDATE_AFFLICTION,
 	UPDATE_OPDATE,
 	UPDATE_SCHEMA,
 	UPDATE_SCHEMA_LOADED
@@ -8,6 +9,7 @@ import {
 const initialState = {
   language: 'de',
 	schemaLoaded: false,
+	affliction: null,
 	opDate: null,
 	schema: null
 }
@@ -19,6 +21,11 @@ const settings = (state = initialState, action) => {
         ...state,
         language: action.language
       }
+		case UPDATE_AFFLICTION:
+      return {
+        ...state,
+        affliction: action.affliction
+      }
 		case UPDATE_OPDATE:
       return {
         ...state,
@@ -27,7 +34,7 @@ const settings = (state = initialState, action) => {
 		case UPDATE_SCHEMA:
       return {
         ...state,
-        opDate: action.schema
+        schema: action.schema
       }
 		case UPDATE_SCHEMA_LOADED:
       return {

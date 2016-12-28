@@ -45,16 +45,27 @@ class MeetingList extends React.Component {
 		const {
 			schemes
 		} = this.props
-	
+
     return (
       <View style={GlobalStyle.mainContainer}>
         <ScrollView
           style={GlobalStyle.scrollContainer}>
 
           <Header title={I18n.t('selectAfflictionHeader')} />
-					
-					<Text>Some meetings...</Text>
 
+          <View View style={styles.button}>
+					     <Text style={styles.bold}>Koloskopie</Text>
+               <Text style={styles.text}>Mai 2017</Text>
+          </View>
+
+
+          <TouchableOpacity
+            onPress={this._clickMeetings}
+            style={styles.button}>
+
+          <Text style={styles.bold}>CEA Titer bestimmen im Spital</Text>
+          <Text style={styles.text}>17. Januar 2017</Text>
+          </TouchableOpacity>
         </ScrollView>
 
         <InfoButton />
@@ -63,10 +74,40 @@ class MeetingList extends React.Component {
 
     );
   }
+  _clickMeetings = () => {
+    console.log("Meetings pressed");
+      this.props.navigator.push(Router.getRoute('meetingDetail'));
+
+  }
 
 }
 
+
+
 const styles = StyleSheet.create({
+
+  button: {
+    margin: 7,
+    padding: 5,
+    backgroundColor: '#eaeaea',
+    borderRadius: 3,
+  },
+  buttonContents: {
+    flexDirection: 'row',
+    width: 64,
+    height: 64,
+  },
+
+  bold:  {
+    fontWeight: 'bold',
+    fontSize: 30,
+},
+
+  text:
+    {fontSize: 30,
+}
+
+
 
 });
 
