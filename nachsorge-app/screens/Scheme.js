@@ -4,12 +4,8 @@ import {
   StyleSheet,
 	TouchableOpacity,
 	Text,
-  View,
+  View
 } from 'react-native';
-
-import {
-  FontAwesome,
-} from '@exponent/vector-icons';
 
 import { connect } from 'react-redux'
 
@@ -26,12 +22,12 @@ import Languages from '../constants/Languages';
 I18n.fallbacks = true
 I18n.translations = Languages
 
-class SelectAffliction extends React.Component {
+class Scheme extends React.Component {
   static route = {
     navigationBar: {
       title(params) {
         if (typeof params.title === 'undefined') {
-          return I18n.t('selectAfflictionTitle');
+          return I18n.t('selectSchemeTitle');
         }
         return params.title;
        },
@@ -41,42 +37,55 @@ class SelectAffliction extends React.Component {
     },
   }
 
+  state = {
+    actualData: {
+      affliction: this.props.affliction
+    }
+  }
+
   render() {
 		const {
+			affliction,
 			schemes
 		} = this.props
-		var buttons = [];
-		var that = this
-		Object.keys(schemes).forEach(function(key, index) {
-		  buttons.push(<Button
-				key={key}
-				onPress={() => that._click(key)}>
-				{this[key].names.de}
-			</Button>)
-		}, schemes);
 		
     return (
       <View style={GlobalStyle.mainContainer}>
         <ScrollView
           style={GlobalStyle.scrollContainer}>
 
-          <Header title={I18n.t('selectAfflictionHeader')} />
-					
-					{buttons}
+          <Header title={I18n.t('selectSchemeHeader')} />
+
+          {schemes[affliction].schemes.map((scheme, i) => {
+              return (
+                <Button
+                  onPress={() => this._clickScheme(scheme.id)}
+                  key={i}>
+                  {scheme.names.de}
+                </Button>
+              )
+            })
+          }
 
         </ScrollView>
 
         <InfoButton />
 
       </View>
-
     );
   }
 
-  _click = (affliction) => {
-     this.props.navigator.push(Router.getRoute('scheme', {affliction: affliction}));
-  }
 
+	_clickScheme = (name) => {
+    console.log("Scheme pressed: ", name);
+    const newData = {...this.state.actualData, scheme: name};
+    console.log(newData);
+    this.props.navigator.push(Router.getRoute('selectOpDate', {actualData: newData}));
+  };
+
+  static propTypes = {
+		affliction: React.PropTypes.string.isRequired
+	}
 }
 
 const styles = StyleSheet.create({
@@ -89,4 +98,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, null)(SelectAffliction);
+export default connect(mapStateToProps, null)(Scheme);

@@ -13,6 +13,7 @@ import Router from '../navigation/Router';
 
 import InfoButton from '../components/InfoButton';
 import Button from '../components/Button';
+import Header from '../components/Header';
 
 import I18n from 'react-native-i18n'
 import Languages from '../constants/Languages';
@@ -22,7 +23,12 @@ I18n.translations = Languages
 export default class EnterOrImport extends React.Component {
   static route = {
     navigationBar: {
-      title: I18n.t('addOverviewTitle'),
+      title(params) {
+        if (typeof params.title === 'undefined') {
+          return I18n.t('enterOrImportTitle');
+        }
+        return params.title;
+       },
       backgroundColor: Colors.navigationBarBackground,
       tintColor: Colors.navigationBarTint,
       titleStyle: {"color": Colors.textDark, "fontWeight": "bold"}
@@ -35,6 +41,8 @@ export default class EnterOrImport extends React.Component {
         <ScrollView
           style={GlobalStyle.scrollContainer}>
 
+          <Header title={I18n.t('enterOrImportHeader')} />
+
   				{/* Button for Enter data */}
           <Button
             onPress={this._clickEnter}>
@@ -43,7 +51,8 @@ export default class EnterOrImport extends React.Component {
 
   				{/* Button for Import */}
           <Button
-            onPress={this._clickImport}>
+            onPress={this._clickImport}
+            active={false}>
             {I18n.t('importData')}
           </Button>
 
@@ -56,7 +65,6 @@ export default class EnterOrImport extends React.Component {
   }
 
 	_clickEnter = () => {
-    console.log("Eingabe pressed");
     this.props.navigator.push(Router.getRoute('selectAffliction'));
   }
 

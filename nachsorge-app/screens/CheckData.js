@@ -5,13 +5,12 @@ import {
 	TouchableOpacity,
 	Text,
   View,
+  DatePickerIOS
 } from 'react-native';
 
 import {
   FontAwesome,
 } from '@exponent/vector-icons';
-
-import { connect } from 'react-redux'
 
 import Colors from '../constants/Colors';
 import GlobalStyle from '../constants/GlobalStyle';
@@ -26,12 +25,12 @@ import Languages from '../constants/Languages';
 I18n.fallbacks = true
 I18n.translations = Languages
 
-class SelectAffliction extends React.Component {
+export default class CheckData extends React.Component {
   static route = {
     navigationBar: {
       title(params) {
         if (typeof params.title === 'undefined') {
-          return I18n.t('selectAfflictionTitle');
+          return I18n.t('checkDataTitle');
         }
         return params.title;
        },
@@ -41,28 +40,32 @@ class SelectAffliction extends React.Component {
     },
   }
 
+  state = {
+    actualData: this.props.actualData
+  }
+
   render() {
-		const {
-			schemes
-		} = this.props
-		var buttons = [];
-		var that = this
-		Object.keys(schemes).forEach(function(key, index) {
-		  buttons.push(<Button
-				key={key}
-				onPress={() => that._click(key)}>
-				{this[key].names.de}
-			</Button>)
-		}, schemes);
-		
+    console.log("in check");
+    console.log(this.state.actualData);
     return (
       <View style={GlobalStyle.mainContainer}>
         <ScrollView
           style={GlobalStyle.scrollContainer}>
 
-          <Header title={I18n.t('selectAfflictionHeader')} />
-					
-					{buttons}
+          <Header title={I18n.t('checkDataHeader')} />
+
+          {Object.keys(this.state.actualData).map(key => {
+            return (
+              <Text key={key}>{key}: {this.state.actualData[key]}</Text>
+            )
+          })}
+
+
+          <Button
+            onPress={this._clickNext}
+            active={false}>
+            {I18n.t('next')}
+          </Button>
 
         </ScrollView>
 
@@ -73,20 +76,17 @@ class SelectAffliction extends React.Component {
     );
   }
 
-  _click = (affliction) => {
-     this.props.navigator.push(Router.getRoute('scheme', {affliction: affliction}));
-  }
+  _clickNext = () => {
+    console.log("Next pressed");
+     //this.props.navigator.push(Router.getRoute('scheme'));
+  };
+
+  static propTypes = {
+		actualData: React.PropTypes.object.isRequired
+	}
 
 }
 
 const styles = StyleSheet.create({
 
 });
-
-const mapStateToProps = (state) => {
-    return {
-      schemes: state.schemes
-    }
-}
-
-export default connect(mapStateToProps, null)(SelectAffliction);

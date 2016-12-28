@@ -12,31 +12,34 @@ import {
   FontAwesome,
 } from '@exponent/vector-icons';
 
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux'
+import { updateSchemaIsLoaded } from '../actions'
+
 import GlobalStyle from '../constants/GlobalStyle';
 import Router from '../navigation/Router';
 
 import InfoButton from '../components/InfoButton';
 import InfoModalBox from '../components/InfoModalBox';
-// import ReactNativeI18n from 'react-native-i18n'
-// const deviceLocale = ReactNativeI18n.locale
-// console.log("locale", deviceLocale)
 
 import Languages from '../constants/Languages';
-import Database from '../constants/Database';
 
 import I18n from 'react-native-i18n'
 I18n.fallbacks = true
 I18n.translations = Languages
+// const deviceLocale = ReactNativeI18n.locale
+// console.log("locale", deviceLocale)
 
-Database.settings.get({key: "language"}, function(results){
-  I18n.locale = results[0].value;
-})
-
-export default class HomeScreen extends React.Component {
+class HomeScreen extends React.Component {
   static route = {
     navigationBar: {
       visible: false,
     },
+  }
+	
+	constructor(props) {
+    super(props)
+		I18n.locale = props.settings.language
   }
 
   state = {
@@ -112,12 +115,18 @@ export default class HomeScreen extends React.Component {
   }
 
   _clickMeetings = () => {
-    // this is how to navigate to another screen.
-    // the screen must be defined in /navigation/Router.js
-    this.props.navigator.push(Router.getRoute('enterOrImport'));
+		console.log(this.props.settings)
+    if(this.props.settings.schemaLoaded){
+    	this.props.navigator.push(Router.getRoute('meetingList'));
+		}else{
+			this.props.navigator.push(Router.getRoute('enterOrImport'));
+		}
   }
 
   _clickDocuments = () => {
+		this.props.updateSchemaIsLoaded(!this.props.settings.schemaLoaded);
+    // this is how to navigate to another screen.
+    // the screen must be defined in /navigation/Router.js
     this.props.navigator.push(Router.getRoute('documents'));
   }
 
@@ -178,3 +187,17 @@ const styles = StyleSheet.create({
     color: '#3F3D73',
   }
 });
+
+const mapStateToProps = (state) => {
+    return {
+      settings: state.settings
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+	return bindActionCreators({
+    updateSchemaIsLoaded: updateSchemaIsLoaded
+  }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

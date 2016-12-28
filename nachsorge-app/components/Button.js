@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+	View,
 	TouchableOpacity,
 	Text,
 	StyleSheet
@@ -7,17 +8,35 @@ import {
 import Colors from '../constants/Colors';
 
 export default class Button extends React.Component {
+	static defaultProps = {
+    active: true
+  }
+
   render() {
-    return (
-			<TouchableOpacity
+		const buttonActive = <TouchableOpacity
 				onPress={this.props.onPress}
 				style={styles.fullWidthButton}>
 				<Text style={styles.fullWidthButtonText}>
 					{this.props.children}
 				</Text>
-			</TouchableOpacity>
+			</TouchableOpacity>;
+		const buttonInactive = <View
+				style={[styles.fullWidthButton, styles.buttonActive]}>
+				<Text style={styles.fullWidthButtonText}>
+					{this.props.children}
+				</Text>
+			</View>;
+    return (
+			<View>
+				{this.props.active ? buttonActive : buttonInactive}
+			</View>
     );
   }
+
+	static propTypes = {
+		children: React.PropTypes.string.isRequired,
+		active: React.PropTypes.bool
+	}
 }
 
 const styles = StyleSheet.create({
@@ -30,6 +49,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
+	buttonActive: {
+		backgroundColor: Colors.buttonLight
+	},
 	fullWidthButtonText: {
     fontSize: 50,
     fontWeight: 'normal',

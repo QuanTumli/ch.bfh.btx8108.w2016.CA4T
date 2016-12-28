@@ -4,11 +4,14 @@ import {
 
 import HomeScreen from '../screens/HomeScreen';
 
+import MeetingList from '../screens/MeetingList';
+
 // import files for adding new data
 import EnterOrImport from '../screens/EnterOrImport';
 import SelectAffliction from '../screens/SelectAffliction';
 import Scheme from '../screens/Scheme';
-
+import SelectOpDate from '../screens/SelectOpDate';
+import CheckData from '../screens/CheckData';
 
 // import files for document screens
 import Documents from '../screens/Documents';
@@ -19,10 +22,14 @@ import SettingsLanguage from '../screens/SettingsLanguage';
 
 export default createRouter(() => ({
   home: () => HomeScreen,
+  
+  meetingList: () => MeetingList,
 
   enterOrImport: () => EnterOrImport,
   selectAffliction: () => SelectAffliction,
   scheme: () => Scheme,
+  selectOpDate: () => SelectOpDate,
+  checkData: () => CheckData,
 
   documents: () => Documents,
 
