@@ -7,7 +7,9 @@ import {
   View
 } from 'react-native';
 
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { updateSchema } from '../actions'
 
 import Colors from '../constants/Colors';
 import GlobalStyle from '../constants/GlobalStyle';
@@ -37,16 +39,10 @@ class Scheme extends React.Component {
     },
   }
 
-  state = {
-    actualData: {
-      affliction: this.props.affliction
-    }
-  }
-
   render() {
-		const {
-			affliction,
-			schemes
+		const { 
+			schemes,
+		 	settings
 		} = this.props
 		
     return (
@@ -56,10 +52,10 @@ class Scheme extends React.Component {
 
           <Header title={I18n.t('selectSchemeHeader')} />
 
-          {schemes[affliction].schemes.map((scheme, i) => {
+          {schemes[settings.affliction].schemes.map((scheme, i) => {
               return (
                 <Button
-                  onPress={() => this._clickScheme(scheme.id)}
+                  onPress={() => this._clickScheme(scheme)}
                   key={i}>
                   {scheme.names.de}
                 </Button>
@@ -75,17 +71,11 @@ class Scheme extends React.Component {
     );
   }
 
-
-	_clickScheme = (name) => {
-    console.log("Scheme pressed: ", name);
-    const newData = {...this.state.actualData, scheme: name};
-    console.log(newData);
-    this.props.navigator.push(Router.getRoute('selectOpDate', {actualData: newData}));
+	_clickScheme = (schema) => {
+    this.props.updateSchema(schema);
+    this.props.navigator.push(Router.getRoute('selectOpDate'));
   };
-
-  static propTypes = {
-		affliction: React.PropTypes.string.isRequired
-	}
+  
 }
 
 const styles = StyleSheet.create({
@@ -94,8 +84,15 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     return {
-      schemes: state.schemes
+      schemes: state.schemes,
+			settings: state.settings
     }
-}
+};
 
-export default connect(mapStateToProps, null)(Scheme);
+const mapDispatchToProps = (dispatch) => {
+	return bindActionCreators({
+    updateSchema: updateSchema
+  }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Scheme);

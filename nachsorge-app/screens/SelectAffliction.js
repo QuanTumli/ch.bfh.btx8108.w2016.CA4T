@@ -11,7 +11,9 @@ import {
   FontAwesome,
 } from '@exponent/vector-icons';
 
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { updateAffliction } from '../actions'
 
 import Colors from '../constants/Colors';
 import GlobalStyle from '../constants/GlobalStyle';
@@ -74,7 +76,8 @@ class SelectAffliction extends React.Component {
   }
 
   _click = (affliction) => {
-     this.props.navigator.push(Router.getRoute('scheme', {affliction: affliction}));
+		this.props.updateAffliction(affliction);
+		this.props.navigator.push(Router.getRoute('scheme'));
   }
 
 }
@@ -87,6 +90,12 @@ const mapStateToProps = (state) => {
     return {
       schemes: state.schemes
     }
-}
+};
 
-export default connect(mapStateToProps, null)(SelectAffliction);
+const mapDispatchToProps = (dispatch) => {
+	return bindActionCreators({
+    updateAffliction: updateAffliction
+  }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SelectAffliction);

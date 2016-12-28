@@ -3,12 +3,15 @@ import {
   ScrollView,
   StyleSheet,
 	TouchableOpacity,
-	Text
+	Text,
+	View
 } from 'react-native';
 
 import {
   FontAwesome,
 } from '@exponent/vector-icons';
+
+import { connect } from 'react-redux'
 
 import Colors from '../constants/Colors';
 import GlobalStyle from '../constants/GlobalStyle';
@@ -20,7 +23,7 @@ import Languages from '../constants/Languages';
 I18n.fallbacks = true
 I18n.translations = Languages
 
-export default class Settings extends React.Component {
+class Settings extends React.Component {
   static route = {
     navigationBar: {
       title(params) {
@@ -33,6 +36,11 @@ export default class Settings extends React.Component {
   }
 
   render() {
+		const {
+			settings,
+			schemes
+		} = this.props
+		
     return (
       <ScrollView
         style={[GlobalStyle.mainContainer, GlobalStyle.scrollContainer]}>
@@ -53,6 +61,41 @@ export default class Settings extends React.Component {
               size={15} />
 					</Text>
 				</TouchableOpacity>
+				
+				<Text style={styles.tableHeaderText}>{I18n.t('selectAfflictionTitle').toUpperCase()}</Text>
+				
+				{/* Table Entry */}
+				<View
+					style={styles.tableEntry}>
+					<Text style={styles.tableEntryTextLeft}>
+						{I18n.t('selectAfflictionTitle')}
+					</Text>
+          <Text style={styles.tableEntryTextRight}>
+						{schemes[settings.affliction].names.de}
+					</Text>
+				</View>
+				
+				{/* Table Entry */}
+				<View
+					style={styles.tableEntry}>
+					<Text style={styles.tableEntryTextLeft}>
+						{I18n.t('selectSchemeTitle')}
+					</Text>
+          <Text style={styles.tableEntryTextRight}>
+						{settings.schema.names.de}
+					</Text>
+				</View>
+				
+				{/* Table Entry */}
+				<View
+					style={[styles.tableEntry, styles.tableEntryLast]}>
+					<Text style={styles.tableEntryTextLeft}>
+						{I18n.t('selectOpTitle')}
+					</Text>
+          <Text style={styles.tableEntryTextRight}>
+						{settings.opDate}
+					</Text>
+				</View>
 
       </ScrollView>
     );
@@ -110,3 +153,12 @@ const styles = StyleSheet.create({
     color: Colors.textMiddle,
   },
 });
+
+const mapStateToProps = (state) => {
+    return {
+      settings: state.settings,
+			schemes: state.schemes
+    }
+}
+
+export default connect(mapStateToProps, null)(Settings);

@@ -8,9 +8,9 @@ import {
   DatePickerIOS
 } from 'react-native';
 
-import {
-  FontAwesome,
-} from '@exponent/vector-icons';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import { updateSchemaIsLoaded } from '../actions'
 
 import Colors from '../constants/Colors';
 import GlobalStyle from '../constants/GlobalStyle';
@@ -25,7 +25,7 @@ import Languages from '../constants/Languages';
 I18n.fallbacks = true
 I18n.translations = Languages
 
-export default class CheckData extends React.Component {
+class CheckData extends React.Component {
   static route = {
     navigationBar: {
       title(params) {
@@ -40,30 +40,50 @@ export default class CheckData extends React.Component {
     },
   }
 
-  state = {
-    actualData: this.props.actualData
-  }
-
   render() {
     console.log("in check");
-    console.log(this.state.actualData);
+		const { 
+			settings,
+			schemes
+		} = this.props
+		
+		
     return (
       <View style={GlobalStyle.mainContainer}>
         <ScrollView
           style={GlobalStyle.scrollContainer}>
 
           <Header title={I18n.t('checkDataHeader')} />
-
-          {Object.keys(this.state.actualData).map(key => {
-            return (
-              <Text key={key}>{key}: {this.state.actualData[key]}</Text>
-            )
-          })}
-
+					
+					<View> 
+						<Text style={styles.title}>
+							{I18n.t('selectAfflictionTitle')}
+						</Text>
+						<Text style={styles.text}>
+							{schemes[settings.affliction].names.de}
+						</Text>
+					</View>
+					
+					<View> 
+						<Text style={styles.title}>
+							{I18n.t('selectSchemeTitle')}
+						</Text>
+						<Text style={styles.text}>
+							{settings.schema.names.de}
+						</Text>
+					</View>
+					
+					<View> 
+						<Text style={styles.title}>
+							{I18n.t('selectOpTitle')}
+						</Text>
+						<Text style={styles.text}>
+							{settings.opDate}
+						</Text>
+					</View>
 
           <Button
-            onPress={this._clickNext}
-            active={false}>
+            onPress={this._clickNext}>
             {I18n.t('next')}
           </Button>
 
@@ -77,16 +97,39 @@ export default class CheckData extends React.Component {
   }
 
   _clickNext = () => {
-    console.log("Next pressed");
-     //this.props.navigator.push(Router.getRoute('scheme'));
+		this.props.updateSchemaIsLoaded(true);
+  	this.props.navigator.popToTop();
   };
-
-  static propTypes = {
-		actualData: React.PropTypes.object.isRequired
-	}
 
 }
 
 const styles = StyleSheet.create({
-
+  title: {
+		marginTop: 10,
+		paddingTop: 5,
+		paddingBottom: 5,
+    fontSize: 30,
+		textAlign: 'center',
+    backgroundColor: Colors.navigationBarBackground
+  },
+  text: {
+		marginTop: 10,
+    fontSize: 24,
+		textAlign: 'center'
+  }
 });
+
+const mapStateToProps = (state) => {
+    return {
+			schemes: state.schemes,
+			settings: state.settings
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+	return bindActionCreators({
+    updateSchemaIsLoaded: updateSchemaIsLoaded
+  }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CheckData);

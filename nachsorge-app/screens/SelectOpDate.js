@@ -11,9 +11,9 @@ Platform,
   TouchableWithoutFeedback,
   } from 'react-native';
 
-import {
-  FontAwesome,
-} from '@exponent/vector-icons';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import { updateOpDate } from '../actions'
 
 import Colors from '../constants/Colors';
 import GlobalStyle from '../constants/GlobalStyle';
@@ -29,7 +29,7 @@ import Languages from '../constants/Languages';
 I18n.fallbacks = true
 I18n.translations = Languages
 
-export default class SelectOpDate extends React.Component {
+class SelectOpDate extends React.Component {
   static route = {
     navigationBar: {
       title(params) {
@@ -51,13 +51,12 @@ export default class SelectOpDate extends React.Component {
 
   state = {
     opDate: this.props.opDate,
-    timeZoneOffsetInHours: this.props.timeZoneOffsetInHours,
-    actualData: {...this.props.actualData, opDate: this.props.opDate.toISOString().substring(0, 10)},
+    timeZoneOffsetInHours: this.props.timeZoneOffsetInHours
   }
 
   onDateChange = (date) => {
-    const newData = {...this.state.actualData, opDate: date.toISOString().substring(0, 10)};
-    this.setState({actualData: newData, opDate: date});
+    this.setState({opDate: date});
+		this.props.updateOpDate(date.toISOString().substring(0, 10));
   }
 
   onTimezoneChange = (event) => {
@@ -126,18 +125,25 @@ export default class SelectOpDate extends React.Component {
   }
 
   _clickNext = () => {
-    console.log("Next pressed");
-    console.log(this.state.actualData);
-    const dataToPass = this.state.actualData;
-    this.props.navigator.push(Router.getRoute('checkData', {actualData: dataToPass}));
+    this.props.navigator.push(Router.getRoute('checkData'));
   };
-
-  static propTypes = {
-		actualData: React.PropTypes.object.isRequired
-	}
 
 }
 
 const styles = StyleSheet.create({
 
 });
+
+const mapStateToProps = (state) => {
+    return {
+			settings: state.settings
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+	return bindActionCreators({
+    updateOpDate: updateOpDate
+  }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SelectOpDate);
