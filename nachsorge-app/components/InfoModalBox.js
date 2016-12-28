@@ -14,6 +14,16 @@ I18n.fallbacks = true
 I18n.translations = Languages
 
 export default class InfoModalBox extends React.Component {
+	static propTypes = {
+		onPress: React.PropTypes.func,
+		visible: React.PropTypes.bool,
+		children: React.PropTypes.string.isRequired,
+	}
+	
+	static defaultProps = {
+    visible: false
+  }
+	
   render() {
     return (
 			<Modal

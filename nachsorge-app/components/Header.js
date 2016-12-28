@@ -7,6 +7,10 @@ import {
 import Colors from '../constants/Colors';
 
 export default class Header extends React.Component {
+	static propTypes = {
+		title: React.PropTypes.string.isRequired
+	}
+	
   render() {
     return (
 			<View style={styles.headingContainer}>
@@ -27,5 +31,5 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     color: Colors.buttonDark,
-  },
+  }
 });

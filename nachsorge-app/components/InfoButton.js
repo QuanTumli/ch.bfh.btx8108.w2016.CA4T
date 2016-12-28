@@ -7,6 +7,10 @@ import { FontAwesome } from '@exponent/vector-icons';
 import Colors from '../constants/Colors';
 
 export default class InfoButton extends React.Component {
+	static propTypes = {
+		onPress: React.PropTypes.func
+	}
+	
   render() {
     return (
 			<TouchableOpacity

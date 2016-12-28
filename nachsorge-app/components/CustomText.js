@@ -7,6 +7,10 @@ import {
 import Colors from '../constants/Colors';
 
 export default class CustomText extends React.Component {
+	static propTypes = {
+		text: React.PropTypes.string.isRequired
+	}
+	
   render() {
     return (
 			<View style={styles.customTextContainer}>

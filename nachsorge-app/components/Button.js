@@ -8,6 +8,11 @@ import {
 import Colors from '../constants/Colors';
 
 export default class Button extends React.Component {
+	static propTypes = {
+		children: React.PropTypes.string.isRequired,
+		active: React.PropTypes.bool
+	}
+	
 	static defaultProps = {
     active: true
   }
@@ -32,11 +37,6 @@ export default class Button extends React.Component {
 			</View>
     );
   }
-
-	static propTypes = {
-		children: React.PropTypes.string.isRequired,
-		active: React.PropTypes.bool
-	}
 }
 
 const styles = StyleSheet.create({
