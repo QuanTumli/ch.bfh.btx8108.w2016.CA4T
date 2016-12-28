@@ -46,6 +46,7 @@ export default {
 		colon: 'Kolon',
 		rectum: 'Rektum',
 		settingsLanguageFooter: 'Hier können Sie die Sprache der App anpassen.',
+		chooseDate: 'Operationsdatum',
 	},
 	en: {
 		greeting: 'Hi!',
@@ -73,6 +74,7 @@ export default {
 		colon: 'Colon',
 		rectum: 'Rectum',
 		settingsLanguageFooter: 'Here you can adapt the language of the app.',
+        chooseDate: 'Enter date of operation',
 	},
 	fr: {
 		greeting: 'Bonjour!',
@@ -100,5 +102,6 @@ export default {
 		colon: 'Côlon',
 		rectum: 'Rectum',
 		settingsLanguageFooter: 'Voici vous pouvez adapter la langue de l\'application.',
+        chooseDate: 'Entrez votre date d\'operation',
 	}
 }
