@@ -8,7 +8,7 @@ Platform,
   View,
   DatePickerIOS,
   DatePickerAndroid,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
   } from 'react-native';
 
 import {
@@ -22,6 +22,7 @@ import Router from '../navigation/Router';
 import InfoButton from '../components/InfoButton';
 import Button from '../components/Button';
 import Header from '../components/Header';
+import CustomText from '../components/CustomText';
 
 import I18n from 'react-native-i18n'
 import Languages from '../constants/Languages';
@@ -97,13 +98,16 @@ export default class SelectOpDate extends React.Component {
               onDateChange={this.onDateChange}/>
           }
 
-          {Platform.OS === 'android' && <TouchableWithoutFeedback
+          {Platform.OS === 'android' && <View><TouchableWithoutFeedback
               onPress={this.showPicker.bind(this, 'preset', {date: this.state.opDate})}>
                         <Button
                           onPress={this.showPicker}>
                           {I18n.t('chooseDate')}
                         </Button>
               </TouchableWithoutFeedback>
+              <CustomText text={I18n.t('chosenDate')}></CustomText>
+              <CustomText text={this.state.opDate.toISOString().substring(0, 10)}></CustomText>
+            </View>
           }
 
 

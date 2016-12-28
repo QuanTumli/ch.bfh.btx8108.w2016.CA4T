@@ -47,6 +47,7 @@ export default {
 		rectum: 'Rektum',
 		settingsLanguageFooter: 'Hier können Sie die Sprache der App anpassen.',
 		chooseDate: 'Operationsdatum',
+		chosenDate: 'Gewählter Termin: ',
 	},
 	en: {
 		greeting: 'Hi!',
@@ -75,6 +76,7 @@ export default {
 		rectum: 'Rectum',
 		settingsLanguageFooter: 'Here you can adapt the language of the app.',
         chooseDate: 'Enter date of operation',
+        chosenDate: 'Chosen Date: ',
 	},
 	fr: {
 		greeting: 'Bonjour!',
@@ -103,5 +105,6 @@ export default {
 		rectum: 'Rectum',
 		settingsLanguageFooter: 'Voici vous pouvez adapter la langue de l\'application.',
         chooseDate: 'Entrez votre date d\'operation',
+        chosenDate: 'Date choisie: ',
 	}
 }
