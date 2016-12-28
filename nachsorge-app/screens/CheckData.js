@@ -19,6 +19,7 @@ import Router from '../navigation/Router';
 import InfoButton from '../components/InfoButton';
 import Button from '../components/Button';
 import Header from '../components/Header';
+import DetailRow from '../components/DetailRow';
 
 import I18n from 'react-native-i18n'
 import Languages from '../constants/Languages';
@@ -41,12 +42,10 @@ class CheckData extends React.Component {
   }
 
   render() {
-    console.log("in check");
 		const { 
 			settings,
 			schemes
 		} = this.props
-		
 		
     return (
       <View style={GlobalStyle.mainContainer}>
@@ -55,32 +54,20 @@ class CheckData extends React.Component {
 
           <Header title={I18n.t('checkDataHeader')} />
 					
-					<View> 
-						<Text style={styles.title}>
-							{I18n.t('selectAfflictionTitle')}:
-						</Text>
-						<Text style={styles.text}>
-							{schemes[settings.affliction].names.de}
-						</Text>
-					</View>
+					<DetailRow
+						title={I18n.t('selectAfflictionTitle') + ":"}
+						text={schemes[settings.affliction].names.de}
+					/>
 					
-					<View> 
-						<Text style={styles.title}>
-							{I18n.t('selectSchemeTitle')}:
-						</Text>
-						<Text style={styles.text}>
-							{settings.schema.names.de}
-						</Text>
-					</View>
+					<DetailRow
+						title={I18n.t('selectSchemeTitle') + ":"}
+						text={schemes[settings.affliction].names.de}
+					/>
 					
-					<View> 
-						<Text style={styles.title}>
-							{I18n.t('selectOpTitle')}:
-						</Text>
-						<Text style={styles.text}>
-							{settings.opDate}
-						</Text>
-					</View>
+					<DetailRow
+						title={I18n.t('selectOpTitle') + ":"}
+						text={settings.opDate}
+					/>
 
           <Button
             onPress={this._clickNext}>
@@ -104,20 +91,7 @@ class CheckData extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  title: {
-		marginTop: 10,
-		paddingTop: 5,
-		paddingBottom: 5,
-    paddingLeft: 20,
-		paddingRight: 20,
-    fontSize: 30,
-		fontWeight: 'bold'
-  },
-  text: {
-    fontSize: 24,
-    paddingLeft: 40,
-		paddingRight: 20
-  }
+
 });
 
 const mapStateToProps = (state) => {
