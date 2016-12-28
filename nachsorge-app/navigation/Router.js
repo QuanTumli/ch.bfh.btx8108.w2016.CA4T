@@ -5,6 +5,7 @@ import {
 import HomeScreen from '../screens/HomeScreen';
 
 import MeetingList from '../screens/MeetingList';
+import MeetingDetail from '../screens/MeetingDetail';
 
 // import files for adding new data
 import EnterOrImport from '../screens/EnterOrImport';
@@ -22,8 +23,9 @@ import SettingsLanguage from '../screens/SettingsLanguage';
 
 export default createRouter(() => ({
   home: () => HomeScreen,
-  
+
   meetingList: () => MeetingList,
+  meetingDetail: () => MeetingDetail,
 
   enterOrImport: () => EnterOrImport,
   selectAffliction: () => SelectAffliction,
