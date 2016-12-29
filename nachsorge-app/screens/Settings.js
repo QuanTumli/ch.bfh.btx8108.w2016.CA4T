@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+	Alert,
   ScrollView,
   StyleSheet,
 	TouchableOpacity,
@@ -11,11 +12,15 @@ import {
   FontAwesome,
 } from '@exponent/vector-icons';
 
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { resetSchemeSettings, resetStore } from '../actions'
 
 import Colors from '../constants/Colors';
 import GlobalStyle from '../constants/GlobalStyle';
 import Router from '../navigation/Router';
+
+import Button from '../components/Button';
 
 import I18n from 'react-native-i18n'
 import Languages from '../constants/Languages';
@@ -71,7 +76,7 @@ class Settings extends React.Component {
 						{I18n.t('selectAfflictionTitle')}
 					</Text>
           <Text style={styles.tableEntryTextRight}>
-						{schemes[settings.affliction].names.de}
+						{settings.affliction ? schemes[settings.affliction].names.de : '-'}
 					</Text>
 				</View>
 				
@@ -82,20 +87,50 @@ class Settings extends React.Component {
 						{I18n.t('selectSchemeTitle')}
 					</Text>
           <Text style={styles.tableEntryTextRight}>
-						{settings.schema.names.de}
+						{settings.schema ? settings.schema.names.de : '-'}
 					</Text>
 				</View>
 				
 				{/* Table Entry */}
 				<View
-					style={[styles.tableEntry, styles.tableEntryLast]}>
+					style={styles.tableEntry}>
 					<Text style={styles.tableEntryTextLeft}>
 						{I18n.t('selectOpTitle')}
 					</Text>
           <Text style={styles.tableEntryTextRight}>
-						{settings.opDate}
+						{settings.opDate ? settings.opDate : '-'}
 					</Text>
 				</View>
+        
+        {/* Table Entry */}
+				<TouchableOpacity
+					onPress={this._handlePressResetSchema}
+					style={[styles.tableEntry, styles.tableEntryLast]}>
+					<Text style={[styles.tableEntryTextLeft, styles.italic]}>
+						{I18n.t('resetSchemeSettings')}
+					</Text>
+          <Text style={styles.tableEntryTextRight}>
+						<FontAwesome
+              name="chevron-right"
+              size={15} />
+					</Text>
+				</TouchableOpacity>
+				
+				<Text style={styles.tableHeaderText}>{I18n.t('resetAllSettings').toUpperCase()}</Text>
+				
+				{/* Table Entry */}
+				<TouchableOpacity
+					onPress={this._handlePressResetAllSettings}
+					style={[styles.tableEntry, styles.tableEntryLast]}>
+					<Text style={[styles.tableEntryTextLeft, styles.italic]}>
+						{I18n.t('resetAllSettings')}
+					</Text>
+          <Text style={styles.tableEntryTextRight}>
+						<FontAwesome
+              name="chevron-right"
+              size={15} />
+					</Text>
+				</TouchableOpacity>
 
       </ScrollView>
     );
@@ -108,6 +143,24 @@ class Settings extends React.Component {
   _handlePressImport = () => {
     console.log("Import pressed");
   }
+	
+	_handlePressResetSchema = () => Alert.alert(
+		I18n.t('resetSchemeSettings'),
+		I18n.t('resetSchemeSettingsAlertMessage'),
+		[
+			{text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
+			{text: 'OK', onPress: () => this.props.resetSchemeSettings()},
+		]
+	)
+	
+	_handlePressResetAllSettings = () => Alert.alert(
+		I18n.t('resetAllSettings'),
+		I18n.t('resetAllSettingsAlertMessage'),
+		[
+			{text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
+			{text: 'OK', onPress: () => this.props.resetAllSettings()},
+		]
+	)
 
 }
 
@@ -152,6 +205,9 @@ const styles = StyleSheet.create({
     fontWeight: 'normal',
     color: Colors.textMiddle,
   },
+	italic: {
+		fontStyle: 'italic'
+	}
 });
 
 const mapStateToProps = (state) => {
@@ -161,4 +217,11 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, null)(Settings);
+const mapDispatchToProps = (dispatch) => {
+	return bindActionCreators({
+    resetSchemeSettings: resetSchemeSettings,
+		resetAllSettings: resetStore
+  }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Settings);

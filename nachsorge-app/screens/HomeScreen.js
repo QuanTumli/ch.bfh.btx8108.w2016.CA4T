@@ -124,8 +124,7 @@ class HomeScreen extends React.Component {
   }
 
   _clickDocuments = () => {
-		this.props.updateSchemaIsLoaded(!this.props.settings.schemaLoaded);
-    // this is how to navigate to another screen.
+		// this is how to navigate to another screen.
     // the screen must be defined in /navigation/Router.js
     this.props.navigator.push(Router.getRoute('documents'));
   }
@@ -194,10 +193,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
-	return bindActionCreators({
-    updateSchemaIsLoaded: updateSchemaIsLoaded
-  }, dispatch);
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
+export default connect(mapStateToProps, null)(HomeScreen);

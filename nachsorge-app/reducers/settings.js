@@ -3,7 +3,9 @@ import {
 	UPDATE_AFFLICTION,
 	UPDATE_OPDATE,
 	UPDATE_SCHEMA,
-	UPDATE_SCHEMA_LOADED
+	UPDATE_SCHEMA_LOADED,
+	RESET_SCHEME_SETTINGS,
+	RESET
 } from '../actions'
 
 const initialState = {
@@ -16,6 +18,14 @@ const initialState = {
 
 const settings = (state = initialState, action) => {
   switch (action.type) {
+		case RESET_SCHEME_SETTINGS:
+      return {
+        ...state,
+				schemaLoaded: false,
+				affliction: null,
+				opDate: null,
+				schema: null
+      }
     case UPDATE_LANGUAGE:
       return {
         ...state,
@@ -41,6 +51,8 @@ const settings = (state = initialState, action) => {
         ...state,
         schemaLoaded: action.isLoaded
       }
+		case RESET:
+    	return initialState
     default:
       return state;
   }

@@ -1,7 +1,8 @@
 /*
  * action types
  */
-
+ 
+export const RESET_SCHEME_SETTINGS = 'RESET_SCHEME_SETTINGS'
 export const UPDATE_LANGUAGE = 'UPDATE_LANGUAGE'
 export const UPDATE_AFFLICTION = 'UPDATE_AFFLICTION'
 export const UPDATE_OPDATE = 'UPDATE_OPDATE'
@@ -13,10 +14,17 @@ export const UPDATE_MEETING = 'UPDATE_MEETING'
 
 export const LOAD_SCHEMAS = 'LOAD_SCHEMAS'
 
+
+export const RESET = 'RESET'
+
 /*
  * action creators
  */
 
+export const resetSchemeSettings = () => {
+   return { type: RESET_SCHEME_SETTINGS }
+ }
+ 
 export const updateLanguage = (language) => {
   return { type: UPDATE_LANGUAGE, language }
 }
@@ -47,4 +55,8 @@ export const updateMeeting = (meeting) => {
 
 export const loadSchemas = (schemas) => {
   return { type: LOAD_SCHEMAS, schemas }
+}
+
+export const resetStore = () => {
+  return { type: RESET }
 }

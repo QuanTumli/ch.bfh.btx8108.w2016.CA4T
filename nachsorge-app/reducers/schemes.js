@@ -1,21 +1,22 @@
 import { 
-	LOAD_SCHEMAS
+	LOAD_SCHEMAS,
+	RESET
 } from '../actions'
 
 const initialState = {
 	colon: {
 		names: {
-			de: 'Kolon DE',
-			fr: 'Kolon FR',
-			en: 'Kolon EN'
+			de: 'Kolonkarzinom',
+			fr: 'cancer du côlon',
+			en: 'colon cancer'
 		},
 		schemes: [
 			{
 				id: 'colon-stadium_2_3',
 				names: {
-					de: 'Stadium II + III DE',
-					fr: 'Stadium II + III FR',
-					en: 'Stadium II + III EN'
+					de: 'Stadium II + III',
+					fr: 'étape II + III',
+					en: 'stage II + III'
 				},
 				checks: [
 					{
@@ -89,9 +90,9 @@ const initialState = {
 			{
 				id: 'colon-stadium_1',
 				names: {
-					de: 'Stadium I DE',
-					fr: 'Stadium I FR',
-					en: 'Stadium I EN'
+					de: 'Stadium I',
+					fr: 'étape I',
+					en: 'stage I'
 				},
 				checks: [
 					{
@@ -144,17 +145,17 @@ const initialState = {
 	},
 	rectum: {
 		names: {
-			de: 'Rektum DE',
-			fr: 'Rektum FR',
-			en: 'Rektum EN'
+			de: 'Rektumkarzinom',
+			fr: 'cancer du rectum',
+			en: 'rectal cancer'
 		},
 		schemes: [
 			{
 				id: 'rectum-stadium_all',
 				names: {
-					de: 'Stadium Alle DE',
-					fr: 'Stadium Alle FR',
-					en: 'Stadium Alle EN'
+					de: 'Alle Stadien',
+					fr: 'tous étapes',
+					en: 'all stages'
 				},
 				checks: [
 					{
@@ -266,8 +267,10 @@ const schemes = (state = initialState, action) => {
   switch (action.type) {
     case LOAD_SCHEMAS:
       return action.schemes
+		case RESET:
+    	return initialState
     default:
-      return state;
+      return state
   }
 }
 

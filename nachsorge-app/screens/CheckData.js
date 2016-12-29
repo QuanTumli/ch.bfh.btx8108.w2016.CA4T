@@ -61,7 +61,7 @@ class CheckData extends React.Component {
 					
 					<DetailRow
 						title={I18n.t('selectSchemeTitle') + ":"}
-						text={schemes[settings.affliction].names.de}
+						text={settings.schema.names.de}
 					/>
 					
 					<DetailRow
