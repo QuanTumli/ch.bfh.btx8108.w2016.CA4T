@@ -10,6 +10,7 @@ import {
 
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { updateSchemaIsLoaded } from '../actions'
 
 import Colors from '../constants/Colors';
 import GlobalStyle from '../constants/GlobalStyle';
@@ -25,7 +26,7 @@ import Languages from '../constants/Languages';
 I18n.fallbacks = true
 I18n.translations = Languages
 
-class CheckData extends React.Component {
+class DatenschutzHaftung extends React.Component {
   static route = {
     navigationBar: {
       title(params) {
@@ -51,26 +52,20 @@ class CheckData extends React.Component {
         <ScrollView
           style={GlobalStyle.scrollContainer}>
 
-          <Header title={I18n.t('checkDataHeader')} />
+          <Header title={I18n.t('datenschutzHaftungTitle')} />
 					
-					<DetailRow
-						title={I18n.t('selectAfflictionTitle') + ":"}
-						text={schemes[settings.affliction].names.de}
-					/>
+					<Text>
+						Datenschutz- & Haftungserklärung bla bla bla bla bla...
+					</Text>
 					
-					<DetailRow
-						title={I18n.t('selectSchemeTitle') + ":"}
-						text={settings.schema.names.de}
-					/>
-					
-					<DetailRow
-						title={I18n.t('selectOpTitle') + ":"}
-						text={settings.opDate}
-					/>
+					<Text>
+						Indem Sie auf Speichern klicken, akzeptierien Sie die obenstehende
+						Datenschutz- & Haftungserklärung.
+					</Text>
 
           <Button
             onPress={this._clickNext}>
-            {I18n.t('next')}
+            {I18n.t('save')}
           </Button>
 
         </ScrollView>
@@ -83,7 +78,8 @@ class CheckData extends React.Component {
   }
 
   _clickNext = () => {
-		this.props.navigator.push(Router.getRoute('datenschutzHaftung'));
+		this.props.updateSchemaIsLoaded(true);
+  	this.props.navigator.popToTop();
   };
 
 }
@@ -99,4 +95,10 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default connect(mapStateToProps, null)(CheckData);
+const mapDispatchToProps = (dispatch) => {
+	return bindActionCreators({
+    updateSchemaIsLoaded: updateSchemaIsLoaded
+  }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DatenschutzHaftung);

@@ -76,7 +76,7 @@ class Settings extends React.Component {
 						{I18n.t('selectAfflictionTitle')}
 					</Text>
           <Text style={styles.tableEntryTextRight}>
-						{settings.affliction ? schemes[settings.affliction].names.de : '-'}
+						{settings.schemaLoaded ? schemes[settings.affliction].names.de : '-'}
 					</Text>
 				</View>
 				
@@ -87,7 +87,7 @@ class Settings extends React.Component {
 						{I18n.t('selectSchemeTitle')}
 					</Text>
           <Text style={styles.tableEntryTextRight}>
-						{settings.schema ? settings.schema.names.de : '-'}
+						{settings.schemaLoaded ? settings.schema.names.de : '-'}
 					</Text>
 				</View>
 				
@@ -98,7 +98,7 @@ class Settings extends React.Component {
 						{I18n.t('selectOpTitle')}
 					</Text>
           <Text style={styles.tableEntryTextRight}>
-						{settings.opDate ? settings.opDate : '-'}
+						{settings.schemaLoaded ? settings.opDate : '-'}
 					</Text>
 				</View>
         

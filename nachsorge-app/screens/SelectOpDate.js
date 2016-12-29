@@ -53,6 +53,10 @@ class SelectOpDate extends React.Component {
     opDate: this.props.opDate,
     timeZoneOffsetInHours: this.props.timeZoneOffsetInHours
   }
+  
+  componentWillMount() {
+    this.props.updateOpDate(this.state.opDate.toISOString().substring(0, 10));
+  } 
 
   onDateChange = (date) => {
     this.setState({opDate: date});

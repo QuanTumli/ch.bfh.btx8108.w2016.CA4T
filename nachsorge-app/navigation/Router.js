@@ -13,6 +13,7 @@ import SelectAffliction from '../screens/SelectAffliction';
 import Scheme from '../screens/Scheme';
 import SelectOpDate from '../screens/SelectOpDate';
 import CheckData from '../screens/CheckData';
+import DatenschutzHaftung from '../screens/DatenschutzHaftung';
 
 // import files for document screens
 import Documents from '../screens/Documents';
@@ -32,6 +33,7 @@ export default createRouter(() => ({
   scheme: () => Scheme,
   selectOpDate: () => SelectOpDate,
   checkData: () => CheckData,
+  datenschutzHaftung: () => DatenschutzHaftung,
 
   documents: () => Documents,
 
