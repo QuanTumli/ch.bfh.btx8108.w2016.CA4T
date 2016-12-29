@@ -55,6 +55,6 @@ const styles = StyleSheet.create({
 	fullWidthButtonText: {
     fontSize: 46,
     fontWeight: 'normal',
-    color: Colors.textLight,
+    color: Colors.textLight
   },
 });

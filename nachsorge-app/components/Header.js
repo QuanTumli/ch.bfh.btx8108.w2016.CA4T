@@ -25,11 +25,11 @@ export default class Header extends React.Component {
 const styles = StyleSheet.create({
 	headingContainer: {
     paddingLeft: 20,
-    paddingRight: 20,
+    paddingRight: 20
   },
 	heading: {
     fontSize: 30,
     fontWeight: 'bold',
-    color: Colors.buttonDark,
+    color: Colors.buttonDark
   }
 });

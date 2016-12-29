@@ -1,6 +1,7 @@
 import { 
 	ADD_MEETING,
-	UPDATE_MEETING 
+	UPDATE_MEETING,
+	RESET
 } from '../actions'
 
 const initialState = []
@@ -16,6 +17,8 @@ const meetings = (state = initialState, action) => {
 				}
 				return meeting
 			})
+		case RESET:
+    	return initialState
     default:
       return state;
   }

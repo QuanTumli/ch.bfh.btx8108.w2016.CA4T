@@ -14,7 +14,6 @@ export const UPDATE_MEETING = 'UPDATE_MEETING'
 
 export const LOAD_SCHEMAS = 'LOAD_SCHEMAS'
 
-
 export const RESET = 'RESET'
 
 /*

@@ -25,10 +25,10 @@ export default class CustomText extends React.Component {
 const styles = StyleSheet.create({
 	customTextContainer: {
     paddingLeft: 20,
-    paddingRight: 20,
+    paddingRight: 20
   },
 	textStyle: {
     fontSize: 30,
-    fontWeight: 'bold',
+    fontWeight: 'bold'
   },
 });

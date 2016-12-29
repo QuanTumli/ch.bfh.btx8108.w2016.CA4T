@@ -60,13 +60,13 @@ const styles = StyleSheet.create({
   infoModalText: {
     fontSize: 20,
 		paddingBottom: 10,
-    color: Colors.textDark,
+    color: Colors.textDark
   },
 	infoModalTitle: {
 		alignSelf: 'center',
 		paddingBottom: 20,
     fontSize: 25,
 		fontWeight: 'bold',
-    color: Colors.modalTitle,
+    color: Colors.modalTitle
   }
 });
