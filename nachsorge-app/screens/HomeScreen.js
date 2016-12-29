@@ -52,9 +52,9 @@ class HomeScreen extends React.Component {
 
         {/* info modal box*/}
         <InfoModalBox
-        onPress={this._closeModal}
-        visible={this.state.modalVisible}>
-        This is the text of the help box, very long and so on
+            onPress={this._closeModal}
+            visible={this.state.modalVisible}>
+          This is the text of the help box, very long and so on
         </InfoModalBox>
 
         <ScrollView
@@ -79,8 +79,8 @@ class HomeScreen extends React.Component {
             </Text>
           </TouchableOpacity>
 
-          {/* Button for Dokumente */}
           <View style={styles.buttonContainer}>
+						{/* Button for Dokumente */}
             <TouchableOpacity
               onPress={this._clickDocuments}
               style={styles.halfWidthButton}>
@@ -105,7 +105,24 @@ class HomeScreen extends React.Component {
                 {I18n.t('settings')}
               </Text>
             </TouchableOpacity>
+					</View>	
+					
+					<View style={styles.buttonContainer}>
+            {/* Button for Midata */}
+            <TouchableOpacity
+              onPress={this._clickMidata}
+              style={styles.halfWidthButton}>
+              <FontAwesome
+                name="magic"
+                size={64}
+                color="#3F3D73" />
+              <Text style={styles.halfWidthButtonText}>
+                {I18n.t('midata')}
+              </Text>
+            </TouchableOpacity> 
+						<View style={styles.halfWidthView}></View> 
           </View>
+					
         </ScrollView>
 
         <InfoButton onPress={this._clickInfoButton} />
@@ -115,7 +132,6 @@ class HomeScreen extends React.Component {
   }
 
   _clickMeetings = () => {
-		console.log(this.props.settings)
     if(this.props.settings.schemaLoaded){
     	this.props.navigator.push(Router.getRoute('meetingList'));
 		}else{
@@ -132,9 +148,12 @@ class HomeScreen extends React.Component {
   _clickSettings = () => {
     this.props.navigator.push(Router.getRoute('settings'));
   }
+	
+	_clickMidata = () => {
+    console.log("add some magic midata things...");
+  }
 
   _clickInfoButton = () => {
-    console.log("InfoButton clicked on HomeScreen");
     this.setState({modalVisible: true});
   }
 
@@ -145,22 +164,22 @@ class HomeScreen extends React.Component {
 
 const styles = StyleSheet.create({
   contentContainer: {
-    paddingTop: 80,
+    paddingTop: 80
   },
   welcomeContainer: {
     alignItems: 'center',
     marginTop: 10,
-    marginBottom: 20,
+    marginBottom: 20
   },
   welcomeImage: {
     width: 200,
     height: 98.4,
-    marginTop: 3,
+    marginTop: 3
   },
   fullWidthButton: {
     backgroundColor: '#DFDEE6',
     flex: 1,
-    margin: 20,
+		marginHorizontal: 20,
     padding: 5,
     height: 120,
     alignItems: 'center',
@@ -169,6 +188,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flex: 1,
     flexDirection: 'row',
+		marginTop: 20
   },
   halfWidthButton: {
     backgroundColor: '#DFDEE6',
@@ -183,8 +203,14 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#3F3D73',
-  }
+    color: '#3F3D73'
+  },
+	halfWidthView: {
+    flex: 1,
+		padding: 5,
+    marginHorizontal: 20,
+    height: 120
+  },
 });
 
 const mapStateToProps = (state) => {

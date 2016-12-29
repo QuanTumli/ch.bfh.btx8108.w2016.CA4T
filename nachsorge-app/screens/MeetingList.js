@@ -7,10 +7,6 @@ import {
   View,
 } from 'react-native';
 
-import {
-  FontAwesome,
-} from '@exponent/vector-icons';
-
 import { connect } from 'react-redux'
 
 import Colors from '../constants/Colors';
@@ -18,8 +14,7 @@ import GlobalStyle from '../constants/GlobalStyle';
 import Router from '../navigation/Router';
 
 import InfoButton from '../components/InfoButton';
-import Button from '../components/Button';
-import Header from '../components/Header';
+import ListCell from '../components/ListCell';
 
 import I18n from 'react-native-i18n'
 import Languages from '../constants/Languages';
@@ -31,7 +26,7 @@ class MeetingList extends React.Component {
     navigationBar: {
       title(params) {
         if (typeof params.title === 'undefined') {
-          return I18n.t('selectAfflictionTitle');
+          return I18n.t('meetings');
         }
         return params.title;
        },
@@ -43,29 +38,26 @@ class MeetingList extends React.Component {
 
   render() {
 		const {
-			schemes
+			meetings
 		} = this.props
 
     return (
       <View style={GlobalStyle.mainContainer}>
         <ScrollView
           style={GlobalStyle.scrollContainer}>
+					
+					<ListCell
+						onPress={this._clickMeetings}
+						title="CEA Titer bestimmen im Spital"
+						subtitle="17. Januar 2017"
+					/>
+					
+					<ListCell
+						onPress={this._clickMeetings}
+						title="Koloskopie"
+						subtitle="Mai 2017"
+					/>
 
-          <Header title={I18n.t('selectAfflictionHeader')} />
-
-          <View View style={styles.button}>
-					     <Text style={styles.bold}>Koloskopie</Text>
-               <Text style={styles.text}>Mai 2017</Text>
-          </View>
-
-
-          <TouchableOpacity
-            onPress={this._clickMeetings}
-            style={styles.button}>
-
-          <Text style={styles.bold}>CEA Titer bestimmen im Spital</Text>
-          <Text style={styles.text}>17. Januar 2017</Text>
-          </TouchableOpacity>
         </ScrollView>
 
         <InfoButton />
@@ -76,44 +68,19 @@ class MeetingList extends React.Component {
   }
   _clickMeetings = () => {
     console.log("Meetings pressed");
-      this.props.navigator.push(Router.getRoute('meetingDetail'));
-
+    //this.props.navigator.push(Router.getRoute('meetingDetail'));
   }
 
 }
 
 
-
 const styles = StyleSheet.create({
-
-  button: {
-    margin: 7,
-    padding: 5,
-    backgroundColor: '#eaeaea',
-    borderRadius: 3,
-  },
-  buttonContents: {
-    flexDirection: 'row',
-    width: 64,
-    height: 64,
-  },
-
-  bold:  {
-    fontWeight: 'bold',
-    fontSize: 30,
-},
-
-  text:
-    {fontSize: 30,
-}
-
-
 
 });
 
 const mapStateToProps = (state) => {
     return {
-      schemes: state.schemes
+      meetings: state.meetings
     }
 }
 
