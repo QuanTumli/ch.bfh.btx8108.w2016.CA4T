@@ -11,7 +11,7 @@ import {
 
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { midataLogout, midataPutTemperature } from '../actions'
+import { midataLogout, midataPutTemperature, midataGetLast3Temperatures } from '../actions'
 
 import Colors from '../constants/Colors';
 import GlobalStyle from '../constants/GlobalStyle';
@@ -20,6 +20,7 @@ import Router from '../navigation/Router';
 import InfoButton from '../components/InfoButton';
 import Button from '../components/Button';
 import Header from '../components/Header';
+import DetailRow from '../components/DetailRow';
 
 import I18n from 'react-native-i18n'
 import Languages from '../constants/Languages';
@@ -45,6 +46,21 @@ class MidataScreen extends React.Component {
     super(props);
     this.state = { temp: 38 };
   }
+	
+	componentWillMount() {
+		this.props.midataGetLast3Temperatures(this.props.midata.authToken)
+	}
+	
+	_renderLoadingSpinner() {
+		return (
+			<ActivityIndicator
+        animating={true}
+        style={{height: 80}}
+        size="large"
+				color={Colors.navigationBarTint}
+      />
+		)
+	}
 
   render() {
 		const {
@@ -53,32 +69,55 @@ class MidataScreen extends React.Component {
 			midataLogout,
 			midataPutTemperature
 		} = this.props
-		console.log(midata)
+		
     return (
       <View style={GlobalStyle.mainContainer}>
         <ScrollView
           style={GlobalStyle.scrollContainer}>	
 					<Header title={I18n.t('midata')} />
-					<Button
-						onPress={() => midataLogout()}>
-						{I18n.t('midataLogout')}
-					</Button>
+					<Text
+						style={styles.label}
+						>
+						{I18n.t('temperature')}
+					</Text>
 					<TextInput
-		        style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+		        style={styles.textInput}
 						onChangeText={(temp) => this.setState({temp})}
 		        value={this.state.temp.toString()}
 						keyboardType='numeric'
-						maxLength={2}
+						maxLength={4}
 		      />
 					<Button
-						active={false}
-						onPress={() => midataPutTemperature(this.state.temp)}>
+						active={!midata.loading}
+						onPress={() => midataPutTemperature(this.state.temp, midata.authToken)}
+						small={true}
+						>
 						{I18n.t('midataSend')}
+					</Button>
+					
+					{midata.loading && this._renderLoadingSpinner()}
+					
+					<Header title={I18n.t('last3Values')} />
+					{midata.temperatures.map((entry, i) => {
+						const date = new Date(entry.date);
+						const dateString =  date.getDate()+ "." + (date.getMonth()+1) + "." 
+							+ date.getFullYear().toString().substr(2,2) + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+						return (
+							<DetailRow key={i}
+								title={dateString}
+								text={entry.value.toString() + "°"}
+							/>
+							)
+					})}
+					
+					<Button
+						onPress={() => midataLogout()}
+						small={true}
+						>
+						{I18n.t('midataLogout')}
 					</Button>
 
         </ScrollView>
-
-        <InfoButton />
 
       </View>
 
@@ -89,7 +128,17 @@ class MidataScreen extends React.Component {
 
 
 const styles = StyleSheet.create({
-
+	label: {
+		marginHorizontal: 20,
+		fontSize: 20,
+	},
+	textInput: {
+		height: 40,
+		borderColor: 'gray',
+		borderWidth: 1,
+		marginHorizontal: 20,
+		paddingHorizontal: 5
+	}
 });
 
 const mapStateToProps = (state) => {
@@ -101,7 +150,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return bindActionCreators({
     midataLogout: midataLogout,
-		midataPutTemperature: midataPutTemperature
+		midataPutTemperature: midataPutTemperature,
+		midataGetLast3Temperatures: midataGetLast3Temperatures
   }, dispatch);
 };
 

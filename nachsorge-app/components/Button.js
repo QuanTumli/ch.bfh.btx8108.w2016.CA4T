@@ -10,24 +10,26 @@ import Colors from '../constants/Colors';
 export default class Button extends React.Component {
 	static propTypes = {
 		children: React.PropTypes.string.isRequired,
-		active: React.PropTypes.bool
+		active: React.PropTypes.bool,
+		small: React.PropTypes.bool
 	}
 	
 	static defaultProps = {
-    active: true
+    active: true,
+		small: false
   }
 
   render() {
 		const buttonActive = <TouchableOpacity
 				onPress={this.props.onPress}
-				style={styles.fullWidthButton}>
-				<Text style={styles.fullWidthButtonText}>
+				style={[styles.fullWidthButton, this.props.small && styles.buttonSmall]}>
+				<Text style={[styles.fullWidthButtonText, this.props.small && styles.buttonSmallText]}>
 					{this.props.children}
 				</Text>
 			</TouchableOpacity>;
 		const buttonInactive = <View
-				style={[styles.fullWidthButton, styles.buttonActive]}>
-				<Text style={styles.fullWidthButtonText}>
+				style={[styles.fullWidthButton, styles.buttonActive, this.props.small && styles.buttonSmall]}>
+				<Text style={[styles.fullWidthButtonText, this.props.small && styles.buttonSmallText]}>
 					{this.props.children}
 				</Text>
 			</View>;
@@ -57,4 +59,10 @@ const styles = StyleSheet.create({
     fontWeight: 'normal',
     color: Colors.textLight
   },
+	buttonSmall: {
+		height: 60,
+	},
+	buttonSmallText: {
+		fontSize: 36
+	}
 });

@@ -8,6 +8,9 @@ export const MIDATA_LOGIN_SUCCESS = 'MIDATA_LOGIN_SUCCESS'
 
 export const MIDATA_SEND_TEMP = 'MIDATA_SEND_TEMP'
 export const MIDATA_SEND_TEMP_SUCCESS = 'MIDATA_SEND_TEMP_SUCCESS'
+
+export const MIDATA_GET_TEMP = 'MIDATA_GET_TEMP'
+export const MIDATA_GET_TEMP_SUCCESS = 'MIDATA_GET_TEMP_SUCCESS'
  
 export const RESET_SCHEME_SETTINGS = 'RESET_SCHEME_SETTINGS'
 export const UPDATE_LANGUAGE = 'UPDATE_LANGUAGE'
@@ -59,25 +62,73 @@ export const midataLogout = () => {
    return { type: MIDATA_LOGOUT }
  }
  
- export const midataPutTemperature = (temp) => {
-	 //todo...
- 	/*return (dispatch) => {
- 	 dispatch({ type: MIDATA_SEND_TEMP })
- 	 return fetch(baseurl + "/v1/auth", {
- 		 headers: {
- 			 'Accept': 'application/json',
- 			 'Content-Type': 'application/json'
- 		 },
- 		 method: "POST",
- 		 body: JSON.stringify({appname: appname, secret: secret, username: username, password: password})
- 	 })
- 	 .then((response) => {
-		 dispatch({
- 					type: MIDATA_SEND_TEMP_SUCCESS
- 		 });
- 	 })
- }*/
+ export const midataPutTemperature = (temp, authToken) => {
+	 const body = JSON.stringify({
+		 authToken: authToken, name: "Temperature", description: "Body Temperature",
+		 format: "fhir/Observation", code: "http://loinc.org 8310-5",
+		 data: {
+			 resourceType: "Observation", code: { 
+				 coding: [
+					 {system: "http://loinc.org", code: "8310-5", display: "Body temperature"}
+				 ]
+			 }, effectiveDateTime: new Date(), valueQuantity: {
+				 value: temp, unit: "degrees C", system: "http://snomed.info/sct", code: "258710007"
+			 }
+		 }
+	 });
+	 return (dispatch) => {
+	 	 dispatch({ type: MIDATA_SEND_TEMP })
+	 	 return fetch(baseurl + "/v1/records/create", {
+	 		 headers: {
+	 			 'Accept': 'application/json',
+	 			 'Content-Type': 'application/json'
+	 		 },
+	 		 method: "POST",
+	 		 body: body
+	 	 })
+		 .then((response) => {
+			 dispatch(midataGetLast3Temperatures(authToken));
+				dispatch({
+						 type: MIDATA_SEND_TEMP_SUCCESS
+				});
+		 })
+	}
+}
+
+export const midataGetLast3Temperatures = (authToken) => {
+	const body = JSON.stringify({
+		authToken: authToken, fields : ["name", "data"],     
+		properties : { 
+			format : "fhir/Observation",
+			code : "http://loinc.org 8310-5",
+			limit: 3
+		} 
+	});
+	return (dispatch) => {
+		dispatch({ type: MIDATA_GET_TEMP })
+		return fetch(baseurl + "/v1/records/search", {
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			method: "POST",
+			body: body
+		})
+		.then((response) => {
+			return(response.json())
+		})
+		.then(function(json) {
+			const data = [];
+			json.map((entry) => {
+				data.push({date: entry.data.effectiveDateTime, value: entry.data.valueQuantity.value})
+			})
+			dispatch({
+		       type: MIDATA_GET_TEMP_SUCCESS,
+		       data: data
+		  });
+		});
  }
+}
 
 export const resetSchemeSettings = () => {
    return { type: RESET_SCHEME_SETTINGS }

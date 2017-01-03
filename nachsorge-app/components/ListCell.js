@@ -7,7 +7,7 @@ import {
 
 export default class ListCell extends React.Component {
 	static propTypes = {
-		onPress: React.PropTypes.func.isRequired,
+		onPress: React.PropTypes.func,
 		title: React.PropTypes.string.isRequired,
 		subtitle: React.PropTypes.string.isRequired
 	}

@@ -57,7 +57,6 @@ class MidataLogin extends React.Component {
 			midata,
 			midataLogin
 		} = this.props
-		console.log(midata)
     return (
       <View style={GlobalStyle.mainContainer}>
         <ScrollView

@@ -2,6 +2,10 @@ import {
 	MIDATA_LOGIN,
 	MIDATA_LOGIN_SUCCESS,
 	MIDATA_LOGOUT,
+	MIDATA_SEND_TEMP,
+	MIDATA_SEND_TEMP_SUCCESS,
+	MIDATA_GET_TEMP,
+	MIDATA_GET_TEMP_SUCCESS,
 	RESET
 } from '../actions'
 
@@ -31,17 +35,37 @@ const midata = (state = initialState, action) => {
 		case MIDATA_LOGIN_SUCCESS:
 			return {
 				...state,
-				loading: true,
+				loading: false,
 				error: null,
 				authToken: action.authToken
 			}
 		case MIDATA_LOGOUT:
-			console.log("logout...");
 			return {
 				...state,
 				loading: false,
 				error: null,
 				authToken: null
+			}
+		case MIDATA_SEND_TEMP:
+			return {
+				...state,
+				loading: true
+			}
+		case MIDATA_SEND_TEMP_SUCCESS:
+			return {
+				...state,
+				loading: false
+			}
+		case MIDATA_GET_TEMP:
+			return {
+				...state,
+				loading: true
+			}
+		case MIDATA_GET_TEMP_SUCCESS:
+			return {
+				...state,
+				loading: false,
+				temperatures: action.data
 			}
 		case RESET:
     	return initialState
