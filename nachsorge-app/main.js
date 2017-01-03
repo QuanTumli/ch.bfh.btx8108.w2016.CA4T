@@ -13,8 +13,9 @@ import {
   StackNavigation,
 } from '@exponent/ex-navigation';
 import { FontAwesome } from '@exponent/vector-icons';
-import { createStore } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
+import thunk from 'redux-thunk';
 import { 
   persistStore,
   autoRehydrate
@@ -26,7 +27,12 @@ import cacheAssetsAsync from './utilities/cacheAssetsAsync';
 
 import reducer from './reducers';
 
-const store = createStore(reducer, undefined, autoRehydrate())
+const store = createStore(reducer,
+	{},
+  compose(
+    autoRehydrate(),
+    applyMiddleware(thunk)
+  ))
 /*const encryptor = createEncryptor({
   secretKey: 'my-super-secret-key'
 })*/

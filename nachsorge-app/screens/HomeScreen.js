@@ -150,7 +150,7 @@ class HomeScreen extends React.Component {
   }
 	
 	_clickMidata = () => {
-    console.log("add some magic midata things...");
+    this.props.navigator.push(Router.getRoute('midata'));
   }
 
   _clickInfoButton = () => {

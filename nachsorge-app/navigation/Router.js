@@ -4,6 +4,8 @@ import {
 
 import HomeScreen from '../screens/HomeScreen';
 
+import Midata from '../screens/Midata';
+
 import MeetingList from '../screens/MeetingList';
 import MeetingDetail from '../screens/MeetingDetail';
 
@@ -24,6 +26,8 @@ import SettingsLanguage from '../screens/SettingsLanguage';
 
 export default createRouter(() => ({
   home: () => HomeScreen,
+  
+  midata: () => Midata,
 
   meetingList: () => MeetingList,
   meetingDetail: () => MeetingDetail,

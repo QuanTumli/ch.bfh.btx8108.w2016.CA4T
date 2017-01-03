@@ -2,6 +2,13 @@
  * action types
  */
  
+export const MIDATA_LOGIN = 'MIDATA_LOGIN'
+export const MIDATA_LOGOUT = 'MIDATA_LOGOUT'
+export const MIDATA_LOGIN_SUCCESS = 'MIDATA_LOGIN_SUCCESS'
+
+export const MIDATA_SEND_TEMP = 'MIDATA_SEND_TEMP'
+export const MIDATA_SEND_TEMP_SUCCESS = 'MIDATA_SEND_TEMP_SUCCESS'
+ 
 export const RESET_SCHEME_SETTINGS = 'RESET_SCHEME_SETTINGS'
 export const UPDATE_LANGUAGE = 'UPDATE_LANGUAGE'
 export const UPDATE_AFFLICTION = 'UPDATE_AFFLICTION'
@@ -19,6 +26,58 @@ export const RESET = 'RESET'
 /*
  * action creators
  */
+ const appname = 'Tuna'
+ const secret = '5UjykfCjK6tVrW6K'
+ const username = 'tuna@midata.coop'
+ const password = 'Tuna123456'
+ const baseurl = 'https://test.midata.coop:9000'
+
+ export const midataLogin = () => {
+	 return (dispatch) => {
+		dispatch({ type: MIDATA_LOGIN })
+		return fetch(baseurl + "/v1/auth", {
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			method: "POST",
+			body: JSON.stringify({appname: appname, secret: secret, username: username, password: password})
+		})
+		.then((response) => {
+			return(response.json())
+		})
+		.then(function(json) {
+			dispatch({
+		       type: MIDATA_LOGIN_SUCCESS,
+		       authToken: json.authToken
+		  });
+		});
+	}
+}
+
+export const midataLogout = () => {
+   return { type: MIDATA_LOGOUT }
+ }
+ 
+ export const midataPutTemperature = (temp) => {
+	 //todo...
+ 	/*return (dispatch) => {
+ 	 dispatch({ type: MIDATA_SEND_TEMP })
+ 	 return fetch(baseurl + "/v1/auth", {
+ 		 headers: {
+ 			 'Accept': 'application/json',
+ 			 'Content-Type': 'application/json'
+ 		 },
+ 		 method: "POST",
+ 		 body: JSON.stringify({appname: appname, secret: secret, username: username, password: password})
+ 	 })
+ 	 .then((response) => {
+		 dispatch({
+ 					type: MIDATA_SEND_TEMP_SUCCESS
+ 		 });
+ 	 })
+ }*/
+ }
 
 export const resetSchemeSettings = () => {
    return { type: RESET_SCHEME_SETTINGS }
