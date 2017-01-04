@@ -1,3 +1,11 @@
+import {
+  Asset,
+  Font,
+  Notifications,
+} from 'exponent';
+
+import Exponent from 'exponent';
+
 /*
  * action types
  */
@@ -183,6 +191,9 @@ export const calculateMeetingsFromScheme = (scheme, opDate) => {
 				titles: check.names,
 				date: newDate 
 			};
+
+            Exponent.Notifications.scheduleLocalNotificationAsync({title: check.names,data: {}, ios: {sound: true}, android: {vibrate: true,},}, {time: (new Date()).getTime()+3000})
+
 			console.log(check.names.de);
 			console.log("Start:" + check.start + "repeatEach:" + check.repeatEach + "End:" + check.end);
 			console.log(newDate);
