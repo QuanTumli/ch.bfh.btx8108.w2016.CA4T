@@ -74,8 +74,8 @@ class MeetingDetail extends React.Component {
 
 
           <Button
-            onPress={this._clickNext}>
-            {I18n.t('next')}
+            onPress={this._clickChange}>
+            Ändern
           </Button>
 
         </ScrollView>
@@ -87,9 +87,8 @@ class MeetingDetail extends React.Component {
     );
   }
 
-  _clickNext = () => {
-		this.props.updateSchemaIsLoaded(true);
-  	this.props.navigator.popToTop();
+  _clickChange = () => {
+  	this.props.navigator.push(Router.getRoute('meetingFind'));
   };
 
 }

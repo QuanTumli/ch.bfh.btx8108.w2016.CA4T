@@ -8,6 +8,7 @@ import Midata from '../screens/Midata';
 
 import MeetingList from '../screens/MeetingList';
 import MeetingDetail from '../screens/MeetingDetail';
+import MeetingFind from '../screens/MeetingFind';
 
 // import files for adding new data
 import EnterOrImport from '../screens/EnterOrImport';
@@ -26,11 +27,12 @@ import SettingsLanguage from '../screens/SettingsLanguage';
 
 export default createRouter(() => ({
   home: () => HomeScreen,
-  
+
   midata: () => Midata,
 
   meetingList: () => MeetingList,
   meetingDetail: () => MeetingDetail,
+  meetingFind: () => MeetingFind,
 
   enterOrImport: () => EnterOrImport,
   selectAffliction: () => SelectAffliction,
