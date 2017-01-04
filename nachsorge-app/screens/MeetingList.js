@@ -45,19 +45,24 @@ class MeetingList extends React.Component {
       <View style={GlobalStyle.mainContainer}>
         <ScrollView
           style={GlobalStyle.scrollContainer}>
-					
+
 					{meetings.map((meeting, i) => {
+
+            const date = new Date(meeting.date);
+            const meetingString =  ("0" + date.getDate()).slice(-2) + "." + ("0" + (date.getMonth()+1)).slice(-2) + "."
+              + date.getFullYear();
+
 						return (
 							<ListCell
 								key={i}
-								onPress={this._clickMeetings}
+								onPress={() => this._clickMeetings(meeting)}
 								title={meeting.titles.de}
-								subtitle={meeting.date}
+								subtitle={meetingString}
 							/>
 						)
 					})}
 
-					
+
 
         </ScrollView>
 
@@ -67,9 +72,10 @@ class MeetingList extends React.Component {
 
     );
   }
-  _clickMeetings = () => {
+  _clickMeetings = (meeting) => {
     console.log("Meetings pressed");
-    this.props.navigator.push(Router.getRoute('meetingDetail'));
+    console.log(meeting);
+    this.props.navigator.push(Router.getRoute('meetingDetail', {meeting: meeting}));
   }
 
 }

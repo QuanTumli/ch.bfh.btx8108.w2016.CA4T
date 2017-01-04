@@ -47,7 +47,9 @@ class MeetingDetail extends React.Component {
 			schemes
 		} = this.props
 
-
+    const date = new Date(this.props.route.params.meeting.date);
+    const meetingString =  ("0" + date.getDate()).slice(-2) + "." + ("0" + (date.getMonth()+1)).slice(-2) + "."
+      + date.getFullYear();
     return (
       <View style={GlobalStyle.mainContainer}>
         <ScrollView
@@ -59,7 +61,7 @@ class MeetingDetail extends React.Component {
 							{I18n.t('meetingDetailWhat')}:
 						</Text>
 						<Text style={styles.text}>
-            {I18n.t('meetingDetailWhatKoloskopie')}:
+            {this.props.route.params.meeting.titles.de}
 						</Text>
 					</View>
 
@@ -68,7 +70,7 @@ class MeetingDetail extends React.Component {
 							{I18n.t('meetingDetailWhen')}:
 						</Text>
 						<Text style={styles.text}>
-            17. Januar 2017
+            {meetingString}
 						</Text>
 					</View>
 
