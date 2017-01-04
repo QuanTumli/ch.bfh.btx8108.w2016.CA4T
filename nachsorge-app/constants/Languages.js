@@ -62,6 +62,12 @@ export default {
     resetAllSettingsAlertMessage: 'Wollen Sie die alle Einstellungen wirklich zurücksetzen?',
     resetSchemeSettings: 'Setze Schema Einstellungen zurück.',
     resetSchemeSettingsAlertMessage: 'Wollen Sie die Schema Einstellungen wirklich zurücksetzen?',
+
+		meetingDetailHeader: 'Terminübersicht',
+		meetingDetailWhat: 'Was',
+		meetingDetailWhatKoloskopie: 'Koloskopie',
+		meetingDetailWhen: 'Wann',
+
 	},
 	en: {
 		greeting: 'Hi!',
@@ -105,6 +111,12 @@ export default {
     resetAllSettingsAlertMessage: 'Wollen Sie die alle Einstellungen wirklich zurücksetzen?',
     resetSchemeSettings: 'Reset scheme settings',
     resetSchemeSettingsAlertMessage: 'Wollen Sie die Schema Einstellungen wirklich zurücksetzen?',
+
+		meetingDetailHeader: 'Terminübersicht',
+    meetingDetailWhat: 'What',
+    meetingDetailWhatKoloskopie: 'Koloskopie',
+    meetingDetailWhen: 'When',
+
 	},
 	fr: {
 		greeting: 'Bonjour!',
@@ -148,5 +160,11 @@ export default {
     resetAllSettingsAlertMessage: 'Wollen Sie die alle Einstellungen wirklich zurücksetzen?',
     resetSchemeSettings: 'Reset scheme settings',
     resetSchemeSettingsAlertMessage: 'Wollen Sie die Schema Einstellungen wirklich zurücksetzen?',
+
+		meetingDetailHeader: 'Terminübersicht',
+  	meetingDetailWhat: 'Was',
+    meetingDetailWhatKoloskopie: 'Koloskopie',
+    meetingDetailWhen: 'Wann',
+
 	}
 }

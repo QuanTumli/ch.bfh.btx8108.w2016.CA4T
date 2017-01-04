@@ -45,17 +45,11 @@ class MeetingList extends React.Component {
       <View style={GlobalStyle.mainContainer}>
         <ScrollView
           style={GlobalStyle.scrollContainer}>
-					
+
 					<ListCell
 						onPress={this._clickMeetings}
-						title="CEA Titer bestimmen im Spital"
-						subtitle="17. Januar 2017"
-					/>
-					
-					<ListCell
-						onPress={this._clickMeetings}
-						title="Koloskopie"
-						subtitle="Mai 2017"
+						title="Koloskopie"  //actual action should be inserted
+						subtitle="17. Januar 2017"             //actual date should be inserted
 					/>
 
         </ScrollView>
@@ -68,7 +62,7 @@ class MeetingList extends React.Component {
   }
   _clickMeetings = () => {
     console.log("Meetings pressed");
-    //this.props.navigator.push(Router.getRoute('meetingDetail'));
+    this.props.navigator.push(Router.getRoute('meetingDetail'));
   }
 
 }
