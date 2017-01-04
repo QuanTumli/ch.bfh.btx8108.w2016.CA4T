@@ -45,7 +45,11 @@ class CheckData extends React.Component {
 			settings,
 			schemes
 		} = this.props
-		
+    
+		const date = new Date(settings.opDate);
+		const opDateString =  ("0" + date.getDate()).slice(-2) + "." + ("0" + (date.getMonth()+1)).slice(-2) + "." 
+			+ date.getFullYear();
+    
     return (
       <View style={GlobalStyle.mainContainer}>
         <ScrollView
@@ -65,7 +69,7 @@ class CheckData extends React.Component {
 					
 					<DetailRow
 						title={I18n.t('selectOpTitle') + ":"}
-						text={settings.opDate}
+						text={opDateString}
 					/>
 
           <Button

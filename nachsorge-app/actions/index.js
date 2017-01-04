@@ -18,6 +18,7 @@ export const UPDATE_AFFLICTION = 'UPDATE_AFFLICTION'
 export const UPDATE_OPDATE = 'UPDATE_OPDATE'
 export const UPDATE_SCHEMA = 'UPDATE_SCHEMA'
 export const UPDATE_SCHEMA_LOADED = 'UPDATE_SCHEMA_LOADED'
+export const UPDATE_MIDATA_ENABLED = 'UPDATE_MIDATA_ENABLED'
 
 export const ADD_MEETING = 'ADD_MEETING'
 export const UPDATE_MEETING = 'UPDATE_MEETING'
@@ -152,6 +153,10 @@ export const updateSchema= (schema) => {
 
 export const updateSchemaIsLoaded= (isLoaded) => {
   return { type: UPDATE_SCHEMA_LOADED, isLoaded }
+}
+
+export const updateMidataEnabled= (midataEnabled) => {
+  return { type: UPDATE_MIDATA_ENABLED, midataEnabled }
 }
 
 export const addMeeting = (meeting) => {

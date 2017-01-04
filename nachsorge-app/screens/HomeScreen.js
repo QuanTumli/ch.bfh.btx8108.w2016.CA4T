@@ -47,6 +47,10 @@ class HomeScreen extends React.Component {
   }
 
   render() {
+		const {
+			settings
+		} = this.props
+		
     return (
       <View style={GlobalStyle.mainContainer}>
 
@@ -107,7 +111,7 @@ class HomeScreen extends React.Component {
             </TouchableOpacity>
 					</View>	
 					
-					<View style={styles.buttonContainer}>
+					{settings.midataEnabled && <View style={styles.buttonContainer}>
             {/* Button for Midata */}
             <TouchableOpacity
               onPress={this._clickMidata}
@@ -121,7 +125,7 @@ class HomeScreen extends React.Component {
               </Text>
             </TouchableOpacity> 
 						<View style={styles.halfWidthView}></View> 
-          </View>
+          </View>}
 					
         </ScrollView>
 

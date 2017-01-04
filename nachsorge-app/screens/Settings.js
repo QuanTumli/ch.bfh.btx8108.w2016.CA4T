@@ -3,6 +3,7 @@ import {
 	Alert,
   ScrollView,
   StyleSheet,
+	Switch,
 	TouchableOpacity,
 	Text,
 	View
@@ -14,7 +15,7 @@ import {
 
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { resetSchemeSettings, resetStore } from '../actions'
+import { resetSchemeSettings, resetStore, updateMidataEnabled } from '../actions'
 
 import Colors from '../constants/Colors';
 import GlobalStyle from '../constants/GlobalStyle';
@@ -45,7 +46,6 @@ class Settings extends React.Component {
 			settings,
 			schemes
 		} = this.props
-		
     return (
       <ScrollView
         style={[GlobalStyle.mainContainer, GlobalStyle.scrollContainer]}>
@@ -115,6 +115,22 @@ class Settings extends React.Component {
               size={15} />
 					</Text>
 				</TouchableOpacity>
+				
+				<Text style={styles.tableHeaderText}>{I18n.t('midata').toUpperCase()}</Text>
+				
+				{/* Table Entry */}
+				<View
+					style={[styles.tableEntry, styles.tableEntryLast]}>
+					<Text style={styles.tableEntryTextLeft}>
+						{I18n.t('midata')}
+					</Text>
+          <Text style={styles.tableEntryTextRight}>
+						<Switch
+		          onValueChange={(value) => this.props.updateMidataEnabled(value)}
+		          style={{marginBottom: 10}}
+		          value={settings.midataEnabled} />
+					</Text>
+				</View>
 				
 				<Text style={styles.tableHeaderText}>{I18n.t('resetAllSettings').toUpperCase()}</Text>
 				
@@ -220,7 +236,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return bindActionCreators({
     resetSchemeSettings: resetSchemeSettings,
-		resetAllSettings: resetStore
+		resetAllSettings: resetStore,
+		updateMidataEnabled: updateMidataEnabled
   }, dispatch);
 }
 

@@ -5,6 +5,7 @@ import {
 	UPDATE_SCHEMA,
 	UPDATE_SCHEMA_LOADED,
 	RESET_SCHEME_SETTINGS,
+	UPDATE_MIDATA_ENABLED,
 	RESET
 } from '../actions'
 
@@ -13,7 +14,8 @@ const initialState = {
 	schemaLoaded: false,
 	affliction: null,
 	opDate: null,
-	schema: null
+	schema: null,
+	midataEnabled: false
 }
 
 const settings = (state = initialState, action) => {
@@ -50,6 +52,11 @@ const settings = (state = initialState, action) => {
       return {
         ...state,
         schemaLoaded: action.isLoaded
+      }
+		case UPDATE_MIDATA_ENABLED:
+      return {
+        ...state,
+        midataEnabled: action.midataEnabled
       }
 		case RESET:
     	return initialState

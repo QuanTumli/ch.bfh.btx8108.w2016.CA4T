@@ -100,8 +100,11 @@ class MidataScreen extends React.Component {
 					<Header title={I18n.t('last3Values')} />
 					{midata.temperatures.map((entry, i) => {
 						const date = new Date(entry.date);
-						const dateString =  date.getDate()+ "." + (date.getMonth()+1) + "." 
-							+ date.getFullYear().toString().substr(2,2) + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+						const dateString =  ("0" + date.getDate()).slice(-2) + "." + ("0" + (date.getMonth()+1)).slice(-2) + "." 
+							+ date.getFullYear().toString().substr(2,2) + " " 
+							+ ("0" + date.getHours()).slice(-2) + ":"
+							+ ("0" + date.getMinutes()).slice(-2) + ":"
+							+ ("0" + date.getSeconds()).slice(-2);
 						return (
 							<DetailRow key={i}
 								title={dateString}
