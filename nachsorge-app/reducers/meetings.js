@@ -9,7 +9,7 @@ const initialState = []
 const meetings = (state = initialState, action) => {
   switch (action.type) {
     case ADD_MEETING:
-			return [action.meeting, ...todos]
+			return [action.meeting, ...state]
 		case UPDATE_MEETING:
 			return state.map(meeting => {
 				if(meeting.id === action.meeting.id) {

@@ -10,7 +10,7 @@ import {
 
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { updateSchemaIsLoaded } from '../actions'
+import { updateSchemaIsLoaded, calculateMeetingsFromScheme } from '../actions'
 
 import Colors from '../constants/Colors';
 import GlobalStyle from '../constants/GlobalStyle';
@@ -79,6 +79,7 @@ class DatenschutzHaftung extends React.Component {
 
   _clickNext = () => {
 		this.props.updateSchemaIsLoaded(true);
+    this.props.calculateMeetingsFromScheme(this.props.settings.schema, this.props.settings.opDate);
   	this.props.navigator.popToTop();
   };
 
@@ -97,7 +98,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return bindActionCreators({
-    updateSchemaIsLoaded: updateSchemaIsLoaded
+    updateSchemaIsLoaded: updateSchemaIsLoaded,
+		calculateMeetingsFromScheme: calculateMeetingsFromScheme
   }, dispatch);
 };
 

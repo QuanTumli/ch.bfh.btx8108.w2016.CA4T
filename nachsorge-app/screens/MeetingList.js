@@ -40,17 +40,24 @@ class MeetingList extends React.Component {
 		const {
 			meetings
 		} = this.props
-
+    console.log(meetings);
     return (
       <View style={GlobalStyle.mainContainer}>
         <ScrollView
           style={GlobalStyle.scrollContainer}>
+					
+					{meetings.map((meeting, i) => {
+						return (
+							<ListCell
+								key={i}
+								onPress={this._clickMeetings}
+								title={meeting.titles.de}
+								subtitle={meeting.date}
+							/>
+						)
+					})}
 
-					<ListCell
-						onPress={this._clickMeetings}
-						title="Koloskopie"  //actual action should be inserted
-						subtitle="17. Januar 2017"             //actual date should be inserted
-					/>
+					
 
         </ScrollView>
 

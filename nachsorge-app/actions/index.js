@@ -171,6 +171,27 @@ export const loadSchemas = (schemas) => {
   return { type: LOAD_SCHEMAS, schemas }
 }
 
+export const calculateMeetingsFromScheme = (scheme, opDate) => {
+	return (dispatch) => {
+	  console.log("Schema: ");
+		console.log(opDate);
+	  const checks = scheme.checks;
+		checks.map((check) => {
+			var newDate = new Date(opDate);
+			newDate.setMonth(newDate.getMonth() + check.start);
+			var meeting = {
+				titles: check.names,
+				date: newDate 
+			};
+			console.log(check.names.de);
+			console.log("Start:" + check.start + "repeatEach:" + check.repeatEach + "End:" + check.end);
+			console.log(newDate);
+			dispatch( { type: ADD_MEETING, meeting });
+		})
+	}
+  
+}
+
 export const resetStore = () => {
   return { type: RESET }
 }
