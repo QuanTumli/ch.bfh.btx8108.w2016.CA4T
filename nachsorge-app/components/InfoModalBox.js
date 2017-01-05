@@ -29,7 +29,9 @@ export default class InfoModalBox extends React.Component {
 			<Modal
 				animationType={"fade"}
 				transparent={true}
-				visible={this.props.visible}>
+				visible={this.props.visible}
+				onRequestClose={() => {/*alert("Modal has been closed.")*/}}
+                >
 				<TouchableWithoutFeedback
 					onPress={this.props.onPress}>
 					<View style={styles.infoModalContainer}>

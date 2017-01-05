@@ -57,7 +57,8 @@ class HomeScreen extends React.Component {
         {/* info modal box*/}
         <InfoModalBox
             onPress={this._closeModal}
-            visible={this.state.modalVisible}>
+            visible={this.state.modalVisible}
+            >
           This is the text of the help box, very long and so on
         </InfoModalBox>
 
