@@ -169,7 +169,7 @@ export const updateMidataEnabled= (midataEnabled) => {
   return { type: UPDATE_MIDATA_ENABLED, midataEnabled }
 }
 
-export const updatetnmEnabled= (tnmEnabled) => {
+export const updateTnmEnabled= (tnmEnabled) => {
   return { type: UPDATE_TNM_ENABLED, tnmEnabled }
 }
 
