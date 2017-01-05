@@ -4,16 +4,8 @@ import {
   StyleSheet,
 	TouchableOpacity,
 	Text,
-  View,
+  View
 } from 'react-native';
-
-import {
-  FontAwesome,
-} from '@exponent/vector-icons';
-
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import { updateAffliction } from '../actions'
 
 import Colors from '../constants/Colors';
 import GlobalStyle from '../constants/GlobalStyle';
@@ -28,12 +20,12 @@ import Languages from '../constants/Languages';
 I18n.fallbacks = true
 I18n.translations = Languages
 
-class SelectAffliction extends React.Component {
+export default class Tnm extends React.Component {
   static route = {
     navigationBar: {
       title(params) {
         if (typeof params.title === 'undefined') {
-          return I18n.t('selectAfflictionTitle');
+          return I18n.t('enterOrImportTitle');
         }
         return params.title;
        },
@@ -44,46 +36,40 @@ class SelectAffliction extends React.Component {
   }
 
   render() {
-		const {
-			schemes
-		} = this.props
-		var buttons = [];
-		var that = this
-		Object.keys(schemes).forEach(function(key, index) {
-		  buttons.push(<Button
-				key={key}
-				onPress={() => that._click(key)}>
-				{this[key].names.de}
-			</Button>)
-		}, schemes);
-
     return (
       <View style={GlobalStyle.mainContainer}>
         <ScrollView
           style={GlobalStyle.scrollContainer}>
 
-          <Header title={I18n.t('selectAfflictionHeader')} />
+          <Header title={I18n.t('enterOrImportHeader')} />
 
-					{buttons}
+  				{/* Button for Enter data */}
+          <Button
+            onPress={this._clickEnter}>
+            TNM eingeben
+          </Button>
+
+  				{/* Button for Import */}
+          <Button
+            onPress={this._clickImport}
+            active={false}>
+            {I18n.t('importData')}
+          </Button>
 
         </ScrollView>
 
         <InfoButton />
 
       </View>
-
     );
   }
 
-  _click = (affliction) => {
-		this.props.updateAffliction(affliction);
+	_clickEnter = () => {
+    this.props.navigator.push(Router.getRoute('selectAffliction'));
+  }
 
-
-
-
-
-
-    this.props.navigator.push(Router.getRoute('tnm'));
+  _clickImport = () => {
+    console.log("Import pressed");
   }
 
 }
@@ -91,17 +77,3 @@ class SelectAffliction extends React.Component {
 const styles = StyleSheet.create({
 
 });
-
-const mapStateToProps = (state) => {
-    return {
-      schemes: state.schemes
-    }
-};
-
-const mapDispatchToProps = (dispatch) => {
-	return bindActionCreators({
-    updateAffliction: updateAffliction
-  }, dispatch);
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(SelectAffliction);

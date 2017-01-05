@@ -17,6 +17,7 @@ import Scheme from '../screens/Scheme';
 import SelectOpDate from '../screens/SelectOpDate';
 import CheckData from '../screens/CheckData';
 import DatenschutzHaftung from '../screens/DatenschutzHaftung';
+import Tnm from '../screens/Tnm';
 
 // import files for document screens
 import Documents from '../screens/Documents';
@@ -40,6 +41,7 @@ export default createRouter(() => ({
   selectOpDate: () => SelectOpDate,
   checkData: () => CheckData,
   datenschutzHaftung: () => DatenschutzHaftung,
+  tnm: () => Tnm,
 
   documents: () => Documents,
 

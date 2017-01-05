@@ -1,4 +1,4 @@
-import { 
+import {
 	LOAD_SCHEMAS,
 	RESET
 } from '../actions'
@@ -6,9 +6,9 @@ import {
 const initialState = {
 	colon: {
 		names: {
-			de: 'Kolonkarzinom',
-			fr: 'cancer du côlon',
-			en: 'colon cancer'
+			de: 'Kolon',
+			fr: 'côlon',
+			en: 'colon'
 		},
 		schemes: [
 			{
@@ -145,9 +145,9 @@ const initialState = {
 	},
 	rectum: {
 		names: {
-			de: 'Rektumkarzinom',
-			fr: 'cancer du rectum',
-			en: 'rectal cancer'
+			de: 'Rektum',
+			fr: 'rectum',
+			en: 'rectum'
 		},
 		schemes: [
 			{

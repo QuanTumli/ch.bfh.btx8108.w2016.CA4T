@@ -9,7 +9,7 @@ import Exponent from 'exponent';
 /*
  * action types
  */
- 
+
 export const MIDATA_LOGIN = 'MIDATA_LOGIN'
 export const MIDATA_LOGOUT = 'MIDATA_LOGOUT'
 export const MIDATA_LOGIN_SUCCESS = 'MIDATA_LOGIN_SUCCESS'
@@ -19,7 +19,7 @@ export const MIDATA_SEND_TEMP_SUCCESS = 'MIDATA_SEND_TEMP_SUCCESS'
 
 export const MIDATA_GET_TEMP = 'MIDATA_GET_TEMP'
 export const MIDATA_GET_TEMP_SUCCESS = 'MIDATA_GET_TEMP_SUCCESS'
- 
+
 export const RESET_SCHEME_SETTINGS = 'RESET_SCHEME_SETTINGS'
 export const UPDATE_LANGUAGE = 'UPDATE_LANGUAGE'
 export const UPDATE_AFFLICTION = 'UPDATE_AFFLICTION'
@@ -27,6 +27,8 @@ export const UPDATE_OPDATE = 'UPDATE_OPDATE'
 export const UPDATE_SCHEMA = 'UPDATE_SCHEMA'
 export const UPDATE_SCHEMA_LOADED = 'UPDATE_SCHEMA_LOADED'
 export const UPDATE_MIDATA_ENABLED = 'UPDATE_MIDATA_ENABLED'
+
+export const UPDATE_TNM_ENABLED = 'UPDATE_TNM_ENABLED'
 
 export const ADD_MEETING = 'ADD_MEETING'
 export const UPDATE_MEETING = 'UPDATE_MEETING'
@@ -70,13 +72,13 @@ export const RESET = 'RESET'
 export const midataLogout = () => {
    return { type: MIDATA_LOGOUT }
  }
- 
+
  export const midataPutTemperature = (temp, authToken) => {
 	 const body = JSON.stringify({
 		 authToken: authToken, name: "Temperature", description: "Body Temperature",
 		 format: "fhir/Observation", code: "http://loinc.org 8310-5",
 		 data: {
-			 resourceType: "Observation", code: { 
+			 resourceType: "Observation", code: {
 				 coding: [
 					 {system: "http://loinc.org", code: "8310-5", display: "Body temperature"}
 				 ]
@@ -106,12 +108,12 @@ export const midataLogout = () => {
 
 export const midataGetLast3Temperatures = (authToken) => {
 	const body = JSON.stringify({
-		authToken: authToken, fields : ["name", "data"],     
-		properties : { 
+		authToken: authToken, fields : ["name", "data"],
+		properties : {
 			format : "fhir/Observation",
 			code : "http://loinc.org 8310-5",
 			limit: 3
-		} 
+		}
 	});
 	return (dispatch) => {
 		dispatch({ type: MIDATA_GET_TEMP })
@@ -142,7 +144,7 @@ export const midataGetLast3Temperatures = (authToken) => {
 export const resetSchemeSettings = () => {
    return { type: RESET_SCHEME_SETTINGS }
  }
- 
+
 export const updateLanguage = (language) => {
   return { type: UPDATE_LANGUAGE, language }
 }
@@ -167,6 +169,11 @@ export const updateMidataEnabled= (midataEnabled) => {
   return { type: UPDATE_MIDATA_ENABLED, midataEnabled }
 }
 
+export const updatetnmEnabled= (tnmEnabled) => {
+  return { type: UPDATE_TNM_ENABLED, tnmEnabled }
+}
+
+
 export const addMeeting = (meeting) => {
   return { type: ADD_MEETING, meeting }
 }
@@ -189,7 +196,7 @@ export const calculateMeetingsFromScheme = (scheme, opDate) => {
 			newDate.setMonth(newDate.getMonth() + check.start);
 			var meeting = {
 				titles: check.names,
-				date: newDate 
+				date: newDate
 			};
 
             Exponent.Notifications.scheduleLocalNotificationAsync({title: check.names,data: {}, ios: {sound: true}, android: {vibrate: true,},}, {time: (new Date()).getTime()+3000})
@@ -200,7 +207,7 @@ export const calculateMeetingsFromScheme = (scheme, opDate) => {
 			dispatch( { type: ADD_MEETING, meeting });
 		})
 	}
-  
+
 }
 
 export const resetStore = () => {
