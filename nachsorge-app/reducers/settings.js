@@ -16,7 +16,8 @@ const initialState = {
 	affliction: null,
 	opDate: null,
 	schema: null,
-	midataEnabled: false
+	midataEnabled: false,
+	tnmEnabled: false
 }
 
 const settings = (state = initialState, action) => {

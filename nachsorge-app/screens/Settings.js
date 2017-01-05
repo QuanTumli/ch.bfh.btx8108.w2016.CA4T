@@ -15,7 +15,7 @@ import {
 
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { resetSchemeSettings, resetStore, updateMidataEnabled, updatetnmEnabled } from '../actions'
+import { resetSchemeSettings, resetStore, updateMidataEnabled, updateTnmEnabled } from '../actions'
 
 import Colors from '../constants/Colors';
 import GlobalStyle from '../constants/GlobalStyle';
@@ -143,7 +143,7 @@ class Settings extends React.Component {
 					</Text>
 					<Text style={styles.tableEntryTextRight}>
 						<Switch
-							onValueChange={(value) => this.props.updatetnmEnabled(value)}
+							onValueChange={(value) => this.props.updateTnmEnabled(value)}
 							style={{marginBottom: 10}}
 							value={settings.tnmEnabled} />
 					</Text>
@@ -255,7 +255,7 @@ const mapDispatchToProps = (dispatch) => {
     resetSchemeSettings: resetSchemeSettings,
 		resetAllSettings: resetStore,
 		updateMidataEnabled: updateMidataEnabled,
-		updatetnmEnabled: updatetnmEnabled
+		updateTnmEnabled: updateTnmEnabled
   }, dispatch);
 }
 
