@@ -6,7 +6,8 @@ import {
 	Switch,
 	TouchableOpacity,
 	Text,
-	View
+	View,
+	Platform
 } from 'react-native';
 
 import {
@@ -119,18 +120,17 @@ class Settings extends React.Component {
 				<Text style={styles.tableHeaderText}>{I18n.t('midata').toUpperCase()}</Text>
 				
 				{/* Table Entry */}
-				<View
-					style={[styles.tableEntry, styles.tableEntryLast]}>
-					<Text style={styles.tableEntryTextLeft}>
-						{I18n.t('midata')}
-					</Text>
-          <Text style={styles.tableEntryTextRight}>
-						<Switch
-		          onValueChange={(value) => this.props.updateMidataEnabled(value)}
-		          style={{marginBottom: 10}}
-		          value={settings.midataEnabled} />
-					</Text>
-				</View>
+				 {Platform.OS === 'ios' && <View style={[styles.tableEntry, styles.tableEntryLast]}>
+                                            <Text style={styles.tableEntryTextLeft}>
+                                                {I18n.t('midata')}
+                                            </Text>
+                                            <Text style={styles.tableEntryTextRight}>
+                                                <Switch
+                                                    onValueChange={(value) => this.props.updateMidataEnabled(value)}
+                                                    style={{marginBottom: 10}}
+                                                    value={settings.midataEnabled} />
+                                            </Text>
+                                        </View>}
 				
 				<Text style={styles.tableHeaderText}>{I18n.t('resetAllSettings').toUpperCase()}</Text>
 				
