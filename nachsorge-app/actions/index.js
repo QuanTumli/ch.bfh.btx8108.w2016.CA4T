@@ -35,6 +35,9 @@ export const LOAD_SCHEMAS = 'LOAD_SCHEMAS'
 
 export const RESET = 'RESET'
 
+
+
+
 /*
  * action creators
  */
@@ -180,6 +183,7 @@ export const loadSchemas = (schemas) => {
 }
 
 export const calculateMeetingsFromScheme = (scheme, opDate) => {
+	Exponent.Notifications.scheduleLocalNotificationAsync({title:'Test' , data: {}, ios: {sound: true}, android: {vibrate: true,},}, {time: (new Date()).getTime()+3000});
 	return (dispatch) => {
 	  console.log("Schema: ");
 		console.log(opDate);
@@ -189,11 +193,8 @@ export const calculateMeetingsFromScheme = (scheme, opDate) => {
 			newDate.setMonth(newDate.getMonth() + check.start);
 			var meeting = {
 				titles: check.names,
-				date: newDate 
+				date: newDate
 			};
-
-            Exponent.Notifications.scheduleLocalNotificationAsync({title: check.names,data: {}, ios: {sound: true}, android: {vibrate: true,},}, {time: (new Date()).getTime()+3000})
-
 			console.log(check.names.de);
 			console.log("Start:" + check.start + "repeatEach:" + check.repeatEach + "End:" + check.end);
 			console.log(newDate);
