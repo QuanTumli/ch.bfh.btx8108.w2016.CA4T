@@ -78,7 +78,7 @@ class SelectAffliction extends React.Component {
   _click = (affliction) => {
     this.props.updateAffliction(affliction);
     if(this.props.settings.tnmEnabled){
-      this.props.navigator.push(Router.getRoute('tnm'));
+      this.props.navigator.push(Router.getRoute('tnm', {affliction: this.props.settings.affliction}));
     }else{
       this.props.navigator.push(Router.getRoute('scheme'));
   }

@@ -115,7 +115,7 @@ export default class Tnm extends React.Component{
 
   _clickEnter = () =>
   {
-    if(this.state.N>0 || this.state.M>0)
+    if(this.state.M>0)
       {Alert.alert
         (
           'Warnung',
