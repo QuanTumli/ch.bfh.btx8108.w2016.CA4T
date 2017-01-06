@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Alert,
   AppRegistry,
   StyleSheet,
   Text,
@@ -112,9 +113,25 @@ export default class Tnm extends React.Component{
     );
   }
 
-  _clickEnter = () => {
+  _clickEnter = () =>
+  {
+    if(this.state.N>0 || this.state.M>0)
+      {Alert.alert
+        (
+          'Warnung',
+          'Diese App ist für das vorliegende Stadium nicht geeignet. Bitte wenden Sie sich an Ihre Ärztin oder Ihren Arzt.',
+            [
+              {text: 'Ok', onPress: () =>
+              {console.log('Ok Pressed!'), this.props.navigator.popToTop()}},
+            ]
+        )
+      }
+
+  else{
     this.props.navigator.push(Router.getRoute('selectOpDate'));
   }
+
+}
 
 };
 
