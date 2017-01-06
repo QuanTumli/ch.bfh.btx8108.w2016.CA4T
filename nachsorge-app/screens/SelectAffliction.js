@@ -91,7 +91,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     return {
-      schemes: state.schemes
+      schemes: state.schemes,
+      settings: state.settings
     }
 };
 
