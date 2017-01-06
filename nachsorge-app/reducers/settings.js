@@ -1,4 +1,4 @@
-import { 
+import {
 	UPDATE_LANGUAGE,
 	UPDATE_AFFLICTION,
 	UPDATE_OPDATE,
@@ -6,6 +6,7 @@ import {
 	UPDATE_SCHEMA_LOADED,
 	RESET_SCHEME_SETTINGS,
 	UPDATE_MIDATA_ENABLED,
+	UPDATE_TNM_ENABLED,
 	RESET
 } from '../actions'
 
@@ -15,7 +16,8 @@ const initialState = {
 	affliction: null,
 	opDate: null,
 	schema: null,
-	midataEnabled: false
+	midataEnabled: false,
+	tnmEnabled: false
 }
 
 const settings = (state = initialState, action) => {
@@ -58,6 +60,11 @@ const settings = (state = initialState, action) => {
         ...state,
         midataEnabled: action.midataEnabled
       }
+		case UPDATE_TNM_ENABLED:
+			return {
+				...state,
+				tnmEnabled: action.tnmEnabled
+			}
 		case RESET:
     	return initialState
     default:

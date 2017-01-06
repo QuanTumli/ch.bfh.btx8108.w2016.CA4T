@@ -56,14 +56,14 @@ class SelectAffliction extends React.Component {
 				{this[key].names.de}
 			</Button>)
 		}, schemes);
-		
+
     return (
       <View style={GlobalStyle.mainContainer}>
         <ScrollView
           style={GlobalStyle.scrollContainer}>
 
           <Header title={I18n.t('selectAfflictionHeader')} />
-					
+
 					{buttons}
 
         </ScrollView>
@@ -76,10 +76,13 @@ class SelectAffliction extends React.Component {
   }
 
   _click = (affliction) => {
-		this.props.updateAffliction(affliction);
-		this.props.navigator.push(Router.getRoute('scheme'));
+    this.props.updateAffliction(affliction);
+    if(this.props.settings.tnmEnabled){
+      this.props.navigator.push(Router.getRoute('tnm'));
+    }else{
+      this.props.navigator.push(Router.getRoute('schema'));
   }
-
+}
 }
 
 const styles = StyleSheet.create({

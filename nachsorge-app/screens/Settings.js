@@ -16,7 +16,7 @@ import {
 
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { resetSchemeSettings, resetStore, updateMidataEnabled } from '../actions'
+import { resetSchemeSettings, resetStore, updateMidataEnabled, updateTnmEnabled } from '../actions'
 
 import Colors from '../constants/Colors';
 import GlobalStyle from '../constants/GlobalStyle';
@@ -67,9 +67,9 @@ class Settings extends React.Component {
               size={15} />
 					</Text>
 				</TouchableOpacity>
-				
+
 				<Text style={styles.tableHeaderText}>{I18n.t('selectAfflictionTitle').toUpperCase()}</Text>
-				
+
 				{/* Table Entry */}
 				<View
 					style={styles.tableEntry}>
@@ -80,7 +80,7 @@ class Settings extends React.Component {
 						{settings.schemaLoaded ? schemes[settings.affliction].names.de : '-'}
 					</Text>
 				</View>
-				
+
 				{/* Table Entry */}
 				<View
 					style={styles.tableEntry}>
@@ -91,7 +91,7 @@ class Settings extends React.Component {
 						{settings.schemaLoaded ? settings.schema.names.de : '-'}
 					</Text>
 				</View>
-				
+
 				{/* Table Entry */}
 				<View
 					style={styles.tableEntry}>
@@ -102,7 +102,7 @@ class Settings extends React.Component {
 						{settings.schemaLoaded ? settings.opDate : '-'}
 					</Text>
 				</View>
-        
+
         {/* Table Entry */}
 				<TouchableOpacity
 					onPress={this._handlePressResetSchema}
@@ -116,10 +116,11 @@ class Settings extends React.Component {
               size={15} />
 					</Text>
 				</TouchableOpacity>
-				
+
 				<Text style={styles.tableHeaderText}>{I18n.t('midata').toUpperCase()}</Text>
-				
+
 				{/* Table Entry */}
+<<<<<<< HEAD
 				 {Platform.OS === 'ios' && <View style={[styles.tableEntry, styles.tableEntryLast]}>
                                             <Text style={styles.tableEntryTextLeft}>
                                                 {I18n.t('midata')}
@@ -132,8 +133,40 @@ class Settings extends React.Component {
                                             </Text>
                                         </View>}
 				
+=======
+				<View
+					style={[styles.tableEntry, styles.tableEntryLast]}>
+					<Text style={styles.tableEntryTextLeft}>
+						{I18n.t('midata')}
+					</Text>
+          <Text style={styles.tableEntryTextRight}>
+						<Switch
+		          onValueChange={(value) => this.props.updateMidataEnabled(value)}
+		          style={{marginBottom: 10}}
+		          value={settings.midataEnabled} />
+					</Text>
+				</View>
+
+
+				<Text style={styles.tableHeaderText}>TNM</Text>
+
+				{/* Table Entry */}
+				<View
+					style={[styles.tableEntry, styles.tableEntryLast]}>
+					<Text style={styles.tableEntryTextLeft}>
+						TNM
+					</Text>
+					<Text style={styles.tableEntryTextRight}>
+						<Switch
+							onValueChange={(value) => this.props.updateTnmEnabled(value)}
+							style={{marginBottom: 10}}
+							value={settings.tnmEnabled} />
+					</Text>
+				</View>
+
+>>>>>>> tnm
 				<Text style={styles.tableHeaderText}>{I18n.t('resetAllSettings').toUpperCase()}</Text>
-				
+
 				{/* Table Entry */}
 				<TouchableOpacity
 					onPress={this._handlePressResetAllSettings}
@@ -159,7 +192,7 @@ class Settings extends React.Component {
   _handlePressImport = () => {
     console.log("Import pressed");
   }
-	
+
 	_handlePressResetSchema = () => Alert.alert(
 		I18n.t('resetSchemeSettings'),
 		I18n.t('resetSchemeSettingsAlertMessage'),
@@ -168,7 +201,7 @@ class Settings extends React.Component {
 			{text: 'OK', onPress: () => this.props.resetSchemeSettings()},
 		]
 	)
-	
+
 	_handlePressResetAllSettings = () => Alert.alert(
 		I18n.t('resetAllSettings'),
 		I18n.t('resetAllSettingsAlertMessage'),
@@ -237,7 +270,8 @@ const mapDispatchToProps = (dispatch) => {
 	return bindActionCreators({
     resetSchemeSettings: resetSchemeSettings,
 		resetAllSettings: resetStore,
-		updateMidataEnabled: updateMidataEnabled
+		updateMidataEnabled: updateMidataEnabled,
+		updateTnmEnabled: updateTnmEnabled
   }, dispatch);
 }
 
