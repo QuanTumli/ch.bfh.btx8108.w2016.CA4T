@@ -32,22 +32,26 @@ export default class Tnm extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      T1: false,
-      T2: false,
-      T3: false,
-      T4: false,
-      N0: false,
-      N1: false,
-      N2: false,
-      M0: false,
-      M1: false,
+      T: null,
+      N: null,
+      M: null,
+
     }
   }
 
-  updateChoice(type) {
-    let newState = {...this.state};
-    newState[type] = !newState[type];
-    this.setState(newState);
+  updateT(number) {
+
+    this.setState({T: number});
+  }
+
+  updateN(number) {
+
+    this.setState({N: number});
+  }
+
+  updateM(number) {
+
+    this.setState({M: number});
   }
 
   static route = {
@@ -73,23 +77,23 @@ export default class Tnm extends React.Component{
 
           <View style={styles.container}>
             <View style={{flex: 1, alignItems: 'center', flexDirection: 'row',justifyContent: 'center',marginTop:20}}>
-              <SelectButton label='1' onPress={() => { this.updateChoice('T1') }} selected={this.state.T1} />
-              <SelectButton label='2' onPress={() => { this.updateChoice('T2') }} selected={this.state.T2} />
-              <SelectButton label='3' onPress={() => { this.updateChoice('T3') }} selected={this.state.T3} />
-              <SelectButton label='4' onPress={() => { this.updateChoice('T4') }} selected={this.state.T4} />
+            <SelectButton label='T1' onPress={() => { this.updateT(1) }} selected={this.state.T==1} />
+            <SelectButton label='T2' onPress={() => { this.updateT(2) }} selected={this.state.T==2} />
+            <SelectButton label='T3' onPress={() => { this.updateT(3) }} selected={this.state.T==3} />
+            <SelectButton label='T4' onPress={() => { this.updateT(4) }} selected={this.state.T==4} />
 
             </View>
 
             <View style={{flex: 1, alignItems: 'center', flexDirection: 'row',justifyContent: 'center',marginTop:20}}>
-              <SelectButton label='N0' onPress={() => { this.updateChoice('N0') }} selected={this.state.N0} />
-              <SelectButton label='N1' onPress={() => { this.updateChoice('N1') }} selected={this.state.N1} />
-              <SelectButton label='N2' onPress={() => { this.updateChoice('N2') }} selected={this.state.N2} />
+              <SelectButton label='N0' onPress={() => { this.updateN(0) }} selected={this.state.N==0} />
+              <SelectButton label='N1' onPress={() => { this.updateN(1) }} selected={this.state.N==1} />
+              <SelectButton label='N2' onPress={() => { this.updateN(2) }} selected={this.state.N==2} />
 
             </View>
 
             <View style={{flex: 1, alignItems: 'center', flexDirection: 'row',justifyContent: 'center',marginTop:20}}>
-              <SelectButton label='M0' onPress={() => { this.updateChoice('M0') }} selected={this.state.M0} />
-              <SelectButton label='M1' onPress={() => { this.updateChoice('M1') }} selected={this.state.M1} />
+              <SelectButton label='M0' onPress={() => { this.updateM(0) }} selected={this.state.M==0} />
+              <SelectButton label='M1' onPress={() => { this.updateM(1) }} selected={this.state.M==1} />
 
             </View>
 
@@ -127,7 +131,7 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: -30,
+    marginTop: 30,
   },
 
 

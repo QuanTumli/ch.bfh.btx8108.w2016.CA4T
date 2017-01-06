@@ -40,20 +40,13 @@ var styles = StyleSheet.create({
     marginRight: 2,
     width: window.height/8.335,
   },
-  row: {
-    flex: 1,
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginTop: -30,
-  },
+
   choicetext: {
     alignItems: 'center',
     alignSelf: 'center',
     color: 'white',
-    marginTop: 35,
+    marginTop: 23,
     fontWeight: 'normal',
-    marginLeft: -18,
     fontSize: 46,
     flex: 1,
     textAlign: 'center'
@@ -61,7 +54,7 @@ var styles = StyleSheet.create({
   overlay: {
     backgroundColor: Colors.buttonDark,
     height: 100,
-    width: 100,
+    width: 80,
     alignItems:'center'
   },
 

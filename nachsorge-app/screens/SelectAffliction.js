@@ -80,7 +80,7 @@ class SelectAffliction extends React.Component {
     if(this.props.settings.tnmEnabled){
       this.props.navigator.push(Router.getRoute('tnm'));
     }else{
-      this.props.navigator.push(Router.getRoute('schema'));
+      this.props.navigator.push(Router.getRoute('scheme'));
   }
 }
 }
