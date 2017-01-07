@@ -14,7 +14,10 @@ import GlobalStyle from '../constants/GlobalStyle';
 import Router from '../navigation/Router';
 
 import InfoButton from '../components/InfoButton';
+import Header from '../components/Header';
 import ListCell from '../components/ListCell';
+
+import { getReadableDateLong } from '../utilities/dateHelper'
 
 import I18n from 'react-native-i18n'
 import Languages from '../constants/Languages';
@@ -35,41 +38,69 @@ class MeetingList extends React.Component {
       titleStyle: {"color": Colors.textDark, "fontWeight": "bold"}
     },
   }
+	
+	_renderCalculatedMeetings(meeting, key) {
+		const meetingDateString = getReadableDateLong(new Date(meeting.dateCalculated))
+		return ( 
+			<ListCell
+				key={key}
+				onPress={() => this._clickMeetings(meeting)}
+				title={meeting.titles.de}
+				subtitle={meetingDateString}
+			/>
+		)
+	}
+	
+	_getCompletedMeetings(meetings){
+		return meetings.filter(meeting => meeting.completed).sort((a,b) => {
+			const dateA = new Date(a.dateAppointed)
+			const dateB = new Date(b.dateAppointed)
+      return (dateA > dateB) ? 1 : ((dateB > dateA) ? -1 : 0);
+    })
+	}
+	
+	_getAppointedMeetings(meetings){
+		return meetings.filter(meeting => meeting.dateAppointed && !meeting.completed).sort((a,b) => {
+			const dateA = new Date(a.dateAppointed)
+			const dateB = new Date(b.dateAppointed)
+      return (dateA > dateB) ? 1 : ((dateB > dateA) ? -1 : 0);
+    })
+	}
+	
+	_getCalculatedMeetings(meetings){
+		return meetings.filter(meeting => !meeting.dateAppointed && !meeting.completed).sort((a,b) => {
+			const dateA = new Date(a.dateCalculated)
+			const dateB = new Date(b.dateCalculated)
+      return (dateA > dateB) ? 1 : ((dateB > dateA) ? -1 : 0);
+    })
+	}
 
   render() {
 		const {
 			meetings
 		} = this.props
-    
-    const meetingsSorted = meetings.sort((a,b) => {
-			const dateA = new Date(a.dateCalculated)
-			const dateB = new Date(b.dateCalculated)
-      return (dateA > dateB) ? 1 : ((dateB > dateA) ? -1 : 0);
-    })
+
+		const meetingsCompleted = this._getCompletedMeetings(meetings)
+		const meetingsAppointed = this._getAppointedMeetings(meetings)
+		const meetingsCalculated = this._getCalculatedMeetings(meetings)
     return (
       <View style={GlobalStyle.mainContainer}>
         <ScrollView
           style={GlobalStyle.scrollContainer}>
-					{/* TODO: display first all appointed meetings, then all future, 
-						maybe alos display all passed/completed meetings. */}
-					{meetingsSorted.map((meeting, i) => {
-						var date = new Date(meeting.dateCalculated);
-						if(meeting.dateAppointed){
-							date = new Date(meeting.dateAppointed);
-						}
-            const meetingString =  ("0" + date.getDate()).slice(-2) + "." + ("0" + (date.getMonth()+1)).slice(-2) + "."
-              + date.getFullYear();
-
-						return (
-							<ListCell
-								key={i}
-								onPress={() => this._clickMeetings(meeting)}
-								title={meeting.titles.de}
-								subtitle={meetingString}
-							/>
-						)
+					<Header title={I18n.t('meetingsCompleted')} />
+					{meetingsCompleted.map((meeting, i) => {
+						return this._renderCalculatedMeetings(meeting, i)
 					})}
-          
+					<View style={{margin: 20}}></View>
+					<Header title={I18n.t('meetingsAppointed')} />
+					{meetingsAppointed.map((meeting, i) => {
+						return this._renderCalculatedMeetings(meeting, i)
+					})}
+					<View style={{margin: 20}}></View>
+					<Header title={I18n.t('meetingsCalculated')} />
+					{meetingsCalculated.map((meeting, i) => {
+						return this._renderCalculatedMeetings(meeting, i)
+					})}
         </ScrollView>
 
         <InfoButton />

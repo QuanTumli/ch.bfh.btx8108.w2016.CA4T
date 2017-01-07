@@ -21,6 +21,8 @@ import InfoButton from '../components/InfoButton';
 import Button from '../components/Button';
 import Header from '../components/Header';
 
+import { getReadableDateLong } from '../utilities/dateHelper'
+
 import I18n from 'react-native-i18n'
 import Languages from '../constants/Languages';
 I18n.fallbacks = true
@@ -77,9 +79,8 @@ class MeetingDetail extends React.Component {
 		const date = this.state.inEditMode ? 
 			new Date(this.state.actualMeeting.dateCalculated) :
 			this.state.date;
-    const meetingString =  ("0" + date.getDate()).slice(-2) + "." + 
-			("0" + (date.getMonth()+1)).slice(-2) + "."
-      + date.getFullYear();
+    const meetingDateString = getReadableDateLong(date)
+		
     return (
       <View style={GlobalStyle.mainContainer}>
         <ScrollView
@@ -99,7 +100,7 @@ class MeetingDetail extends React.Component {
 							{I18n.t('meetingDetailWhen')}:
 						</Text>
 						<Text style={styles.text}>
-            {meetingString}
+            {meetingDateString}
 						</Text>
 					</View>
 					
@@ -146,8 +147,7 @@ class MeetingDetail extends React.Component {
 
   _clickChange = () => {
 		this.setState({ inEditMode: !this.state.inEditMode })
-		this.props.updateAppointedDate(this.state.actualMeeting.id, this.state.date)
-  	//this.props.navigator.push(Router.getRoute('meetingFind'));
+		this.props.updateAppointedDate(this.state.actualMeeting.id, this.state.date.toString())
   }
 }
 

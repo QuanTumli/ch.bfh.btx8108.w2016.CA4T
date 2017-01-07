@@ -204,7 +204,8 @@ export const calculateMeetingsFromScheme = (scheme, opDate) => {
 					checkId: check.id,
 					titles: check.names,
 					dateCalculated: newDate.toString(),
-					dateAppointed: null
+					dateAppointed: null,
+          completed: false
 				};
 				dispatch( { type: ADD_MEETING, meeting });
 			}

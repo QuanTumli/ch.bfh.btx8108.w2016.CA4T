@@ -1,14 +1,13 @@
 import React from 'react';
 import {
+  DatePickerIOS,
   ScrollView,
   StyleSheet,
 	TouchableOpacity,
 	Text,
-  View,
-  DatePickerIOS
+  View
 } from 'react-native';
 
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import Colors from '../constants/Colors';
@@ -19,6 +18,8 @@ import InfoButton from '../components/InfoButton';
 import Button from '../components/Button';
 import Header from '../components/Header';
 import DetailRow from '../components/DetailRow';
+
+import { getReadableDateLong } from '../utilities/dateHelper'
 
 import I18n from 'react-native-i18n'
 import Languages from '../constants/Languages';
@@ -46,9 +47,7 @@ class CheckData extends React.Component {
 			schemes
 		} = this.props
     
-		const date = new Date(settings.opDate);
-		const opDateString =  ("0" + date.getDate()).slice(-2) + "." + ("0" + (date.getMonth()+1)).slice(-2) + "." 
-			+ date.getFullYear();
+		const opDateString = getReadableDateLong(new Date(settings.opDate))
     
     return (
       <View style={GlobalStyle.mainContainer}>
