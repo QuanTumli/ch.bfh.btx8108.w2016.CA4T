@@ -60,7 +60,6 @@ class SelectOpDate extends React.Component {
 
   onDateChange = (date) => {
     this.setState({opDate: date});
-		this.props.updateOpDate(date.toISOString().substring(0, 10));
   }
 
   onTimezoneChange = (event) => {
@@ -129,6 +128,7 @@ class SelectOpDate extends React.Component {
   }
 
   _clickNext = () => {
+    this.props.updateOpDate(this.state.opDate.toISOString().substring(0, 10));
     this.props.navigator.push(Router.getRoute('checkData'));
   };
 

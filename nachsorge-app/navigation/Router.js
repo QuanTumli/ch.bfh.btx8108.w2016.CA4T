@@ -8,7 +8,6 @@ import Midata from '../screens/Midata';
 
 import MeetingList from '../screens/MeetingList';
 import MeetingDetail from '../screens/MeetingDetail';
-import MeetingFind from '../screens/MeetingFind';
 
 // import files for adding new data
 import EnterOrImport from '../screens/EnterOrImport';
@@ -19,7 +18,7 @@ import CheckData from '../screens/CheckData';
 import DatenschutzHaftung from '../screens/DatenschutzHaftung';
 import Tnm from '../screens/Tnm';
 
-// import files for document screens
+// import files for document screen
 import Documents from '../screens/Documents';
 
 // import files for settings screens
@@ -33,7 +32,6 @@ export default createRouter(() => ({
 
   meetingList: () => MeetingList,
   meetingDetail: () => MeetingDetail,
-  meetingFind: () => MeetingFind,
 
   enterOrImport: () => EnterOrImport,
   selectAffliction: () => SelectAffliction,
