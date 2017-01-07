@@ -1,16 +1,17 @@
 import React from 'react';
 import {
+	DatePickerIOS,
+	Platform,
   ScrollView,
   StyleSheet,
 	TouchableOpacity,
 	Text,
-  View,
-  DatePickerIOS
+  View
 } from 'react-native';
 
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { updateSchemaIsLoaded } from '../actions'
+import { updateAppointedDate } from '../actions'
 
 import Colors from '../constants/Colors';
 import GlobalStyle from '../constants/GlobalStyle';
@@ -39,29 +40,57 @@ class MeetingDetail extends React.Component {
       titleStyle: {"color": Colors.textDark, "fontWeight": "bold"}
     },
   }
+	
+	state = {
+		inEditMode: false,
+		date: new Date(this.props.route.params.meeting.dateCalculated),
+		timeZoneOffsetInHours: (-1) * (new Date()).getTimezoneOffset() / 60,
+		actualMeeting: this.props.route.params.meeting,
+	}
+
+  onDateChange = (date) => {
+    this.setState({date: date})
+  }
+
+  onTimezoneChange = (event) => {
+    var offset = parseInt(event.nativeEvent.text, 10);
+    if (isNaN(offset)) {
+      return;
+    }
+    this.setState({timeZoneOffsetInHours: offset});
+  }
+
+  showPicker = async (stateKey, options) => {
+    try {
+      const {action, year, month, day} = await DatePickerAndroid.open(options);
+      if (action !== DatePickerAndroid.dismissedAction) {
+        var date = new Date(year, month, day+1);
+        this.onDateChange(date);
+      }
+    } catch ({code, message}) {
+      console.warn(`Error in example '${stateKey}': `, message);
+    }
+  };
 
   render() {
-    console.log("in check");
-		const {
-			settings,
-			schemes
-		} = this.props
-
-    const date = new Date(this.props.route.params.meeting.date);
-    const meetingString =  ("0" + date.getDate()).slice(-2) + "." + ("0" + (date.getMonth()+1)).slice(-2) + "."
+		
+		const date = this.state.inEditMode ? 
+			new Date(this.state.actualMeeting.dateCalculated) :
+			this.state.date;
+    const meetingString =  ("0" + date.getDate()).slice(-2) + "." + 
+			("0" + (date.getMonth()+1)).slice(-2) + "."
       + date.getFullYear();
     return (
       <View style={GlobalStyle.mainContainer}>
         <ScrollView
           style={GlobalStyle.scrollContainer}>
 
-
 					<View>
 						<Text style={styles.title}>
 							{I18n.t('meetingDetailWhat')}:
 						</Text>
 						<Text style={styles.text}>
-            {this.props.route.params.meeting.titles.de}
+            {this.state.actualMeeting.titles.de}
 						</Text>
 					</View>
 
@@ -73,7 +102,8 @@ class MeetingDetail extends React.Component {
             {meetingString}
 						</Text>
 					</View>
-
+					
+					{this.state.inEditMode && this._renderDatePicker()}
 
           <Button
             onPress={this._clickChange}>
@@ -88,11 +118,37 @@ class MeetingDetail extends React.Component {
 
     );
   }
+	
+	_renderDatePicker() {
+		return (
+			<View>
+				{Platform.OS === 'ios' && <DatePickerIOS
+						date={this.state.date}
+						mode="date"
+						timeZoneOffsetInMinutes={this.state.timeZoneOffsetInHours * 60}
+						onDateChange={this.onDateChange}/>
+				}
+
+				{Platform.OS === 'android' && <View><TouchableWithoutFeedback
+						onPress={this.showPicker.bind(this, 'preset', {date: this.state.date})}>
+											<Button
+												onPress={this.showPicker}>
+												{I18n.t('chooseDate')}
+											</Button>
+						</TouchableWithoutFeedback>
+						<CustomText text={I18n.t('chosenDate')}></CustomText>
+						<CustomText text={this.state.date.toISOString().substring(0, 10)}></CustomText>
+					</View>
+				}
+			</View>
+		)
+	}
 
   _clickChange = () => {
-  	this.props.navigator.push(Router.getRoute('meetingFind'));
-  };
-
+		this.setState({ inEditMode: !this.state.inEditMode })
+		this.props.updateAppointedDate(this.state.actualMeeting.id, this.state.date)
+  	//this.props.navigator.push(Router.getRoute('meetingFind'));
+  }
 }
 
 const styles = StyleSheet.create({
@@ -114,14 +170,13 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     return {
-			schemes: state.schemes,
-			settings: state.settings
+			meetings: state.meetings
     }
-};
+}
 
 const mapDispatchToProps = (dispatch) => {
 	return bindActionCreators({
-    updateSchemaIsLoaded: updateSchemaIsLoaded
+    updateAppointedDate: updateAppointedDate
   }, dispatch);
 };
 

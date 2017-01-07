@@ -31,7 +31,7 @@ export const UPDATE_MIDATA_ENABLED = 'UPDATE_MIDATA_ENABLED'
 export const UPDATE_TNM_ENABLED = 'UPDATE_TNM_ENABLED'
 
 export const ADD_MEETING = 'ADD_MEETING'
-export const UPDATE_MEETING = 'UPDATE_MEETING'
+export const UPDATE_MEETING_APPOINTED_DATE = 'UPDATE_MEETING_APPOINTED_DATE'
 
 export const LOAD_SCHEMAS = 'LOAD_SCHEMAS'
 
@@ -181,8 +181,8 @@ export const addMeeting = (meeting) => {
   return { type: ADD_MEETING, meeting }
 }
 
-export const updateMeeting = (meeting) => {
-  return { type: UPDATE_MEETING, meeting }
+export const updateAppointedDate = (meetingId, appointedDate) => {
+  return { type: UPDATE_MEETING_APPOINTED_DATE, payload: { id: meetingId, date: appointedDate} }
 }
 
 export const loadSchemas = (schemas) => {
@@ -190,22 +190,24 @@ export const loadSchemas = (schemas) => {
 }
 
 export const calculateMeetingsFromScheme = (scheme, opDate) => {
-	Exponent.Notifications.scheduleLocalNotificationAsync({title:'Test' , data: {}, ios: {sound: true}, android: {vibrate: true,},}, {time: (new Date()).getTime()+3000});
+	//Exponent.Notifications.scheduleLocalNotificationAsync({title:'Test' , data: {}, ios: {sound: true}, android: {vibrate: true,},}, {time: (new Date()).getTime()+3000});
 	return (dispatch) => {
-	  console.log("Schema: ");
-		console.log(opDate);
 	  const checks = scheme.checks;
-		checks.map((check) => {
-			var newDate = new Date(opDate);
-			newDate.setMonth(newDate.getMonth() + check.start);
-			var meeting = {
-				titles: check.names,
-				date: newDate
-			};
-			console.log(check.names.de);
-			console.log("Start:" + check.start + "repeatEach:" + check.repeatEach + "End:" + check.end);
-			console.log(newDate);
-			dispatch( { type: ADD_MEETING, meeting });
+		checks.map((check, i) => {
+			var i = check.start;
+			while(i <= check.end){
+				i += check.repeatEach;
+				var newDate = new Date(opDate);
+				newDate.setMonth(newDate.getMonth() + i);
+				var meeting = {
+					id: i,
+					checkId: check.id,
+					titles: check.names,
+					dateCalculated: newDate.toString(),
+					dateAppointed: null
+				};
+				dispatch( { type: ADD_MEETING, meeting });
+			}
 		})
 	}
 

@@ -1,6 +1,6 @@
 import { 
 	ADD_MEETING,
-	UPDATE_MEETING,
+	UPDATE_MEETING_APPOINTED_DATE,
 	RESET
 } from '../actions'
 
@@ -10,10 +10,10 @@ const meetings = (state = initialState, action) => {
   switch (action.type) {
     case ADD_MEETING:
 			return [action.meeting, ...state]
-		case UPDATE_MEETING:
+		case UPDATE_MEETING_APPOINTED_DATE:
 			return state.map(meeting => {
-				if(meeting.id === action.meeting.id) {
-					return action.meeting
+				if(meeting.id === action.payload.id) {
+					return {...meeting, dateAppointed: action.payload.date}
 				}
 				return meeting
 			})

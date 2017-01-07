@@ -40,15 +40,23 @@ class MeetingList extends React.Component {
 		const {
 			meetings
 		} = this.props
-    console.log(meetings);
+    
+    const meetingsSorted = meetings.sort((a,b) => {
+			const dateA = new Date(a.dateCalculated)
+			const dateB = new Date(b.dateCalculated)
+      return (dateA > dateB) ? 1 : ((dateB > dateA) ? -1 : 0);
+    })
     return (
       <View style={GlobalStyle.mainContainer}>
         <ScrollView
           style={GlobalStyle.scrollContainer}>
-
-					{meetings.map((meeting, i) => {
-
-            const date = new Date(meeting.date);
+					{/* TODO: display first all appointed meetings, then all future, 
+						maybe alos display all passed/completed meetings. */}
+					{meetingsSorted.map((meeting, i) => {
+						var date = new Date(meeting.dateCalculated);
+						if(meeting.dateAppointed){
+							date = new Date(meeting.dateAppointed);
+						}
             const meetingString =  ("0" + date.getDate()).slice(-2) + "." + ("0" + (date.getMonth()+1)).slice(-2) + "."
               + date.getFullYear();
 
@@ -61,9 +69,7 @@ class MeetingList extends React.Component {
 							/>
 						)
 					})}
-
-
-
+          
         </ScrollView>
 
         <InfoButton />
@@ -73,17 +79,13 @@ class MeetingList extends React.Component {
     );
   }
   _clickMeetings = (meeting) => {
-    console.log("Meetings pressed");
-    console.log(meeting);
     this.props.navigator.push(Router.getRoute('meetingDetail', {meeting: meeting}));
   }
-
 }
-
 
 const styles = StyleSheet.create({
 
-});
+})
 
 const mapStateToProps = (state) => {
     return {
