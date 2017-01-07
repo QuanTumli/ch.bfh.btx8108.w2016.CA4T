@@ -39,6 +39,29 @@ class MeetingList extends React.Component {
     },
   }
 	
+	_renderCompletedMeetings(meeting, key) {
+		const meetingDateString = getReadableDateLong(new Date(meeting.dateAppointed))
+		return ( 
+			<ListCell
+				key={key}
+				title={meeting.titles.de}
+				subtitle={meetingDateString}
+			/>
+		)
+	}
+	
+	_renderAppointedMeetings(meeting, key) {
+		const meetingDateString = getReadableDateLong(new Date(meeting.dateAppointed))
+		return ( 
+			<ListCell
+				key={key}
+				onPress={() => this._clickMeetings(meeting)}
+				title={meeting.titles.de}
+				subtitle={meetingDateString}
+			/>
+		)
+	}
+	
 	_renderCalculatedMeetings(meeting, key) {
 		const meetingDateString = getReadableDateLong(new Date(meeting.dateCalculated))
 		return ( 
@@ -89,12 +112,12 @@ class MeetingList extends React.Component {
           style={GlobalStyle.scrollContainer}>
 					<Header title={I18n.t('meetingsCompleted')} />
 					{meetingsCompleted.map((meeting, i) => {
-						return this._renderCalculatedMeetings(meeting, i)
+						return this._renderCompletedMeetings(meeting, i)
 					})}
 					<View style={{margin: 20}}></View>
 					<Header title={I18n.t('meetingsAppointed')} />
 					{meetingsAppointed.map((meeting, i) => {
-						return this._renderCalculatedMeetings(meeting, i)
+						return this._renderAppointedMeetings(meeting, i)
 					})}
 					<View style={{margin: 20}}></View>
 					<Header title={I18n.t('meetingsCalculated')} />

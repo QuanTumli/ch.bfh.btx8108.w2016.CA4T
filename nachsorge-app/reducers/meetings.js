@@ -1,6 +1,7 @@
 import { 
 	ADD_MEETING,
 	UPDATE_MEETING_APPOINTED_DATE,
+	UPDATE_MEETING_COMPLETED,
 	RESET
 } from '../actions'
 
@@ -14,6 +15,13 @@ const meetings = (state = initialState, action) => {
 			return state.map(meeting => {
 				if(meeting.id === action.payload.id) {
 					return {...meeting, dateAppointed: action.payload.date}
+				}
+				return meeting
+			})
+		case UPDATE_MEETING_COMPLETED:
+			return state.map(meeting => {
+				if(meeting.id === action.meetingId) {
+					return {...meeting, completed: true}
 				}
 				return meeting
 			})

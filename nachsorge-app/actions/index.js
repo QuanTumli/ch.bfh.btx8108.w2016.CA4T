@@ -32,6 +32,7 @@ export const UPDATE_TNM_ENABLED = 'UPDATE_TNM_ENABLED'
 
 export const ADD_MEETING = 'ADD_MEETING'
 export const UPDATE_MEETING_APPOINTED_DATE = 'UPDATE_MEETING_APPOINTED_DATE'
+export const UPDATE_MEETING_COMPLETED = 'UPDATE_MEETING_COMPLETED'
 
 export const LOAD_SCHEMAS = 'LOAD_SCHEMAS'
 
@@ -185,6 +186,11 @@ export const updateAppointedDate = (meetingId, appointedDate) => {
   return { type: UPDATE_MEETING_APPOINTED_DATE, payload: { id: meetingId, date: appointedDate} }
 }
 
+export const updateMeetingCompleted = (meetingId) => {
+  return { type: UPDATE_MEETING_COMPLETED, meetingId }
+}
+
+
 export const loadSchemas = (schemas) => {
   return { type: LOAD_SCHEMAS, schemas }
 }
@@ -193,14 +199,14 @@ export const calculateMeetingsFromScheme = (scheme, opDate) => {
 	//Exponent.Notifications.scheduleLocalNotificationAsync({title:'Test' , data: {}, ios: {sound: true}, android: {vibrate: true,},}, {time: (new Date()).getTime()+3000});
 	return (dispatch) => {
 	  const checks = scheme.checks;
-		checks.map((check, i) => {
+		checks.map((check, index) => {
 			var i = check.start;
 			while(i <= check.end){
 				i += check.repeatEach;
 				var newDate = new Date(opDate);
 				newDate.setMonth(newDate.getMonth() + i);
 				var meeting = {
-					id: i,
+					id: "" + index + i,
 					checkId: check.id,
 					titles: check.names,
 					dateCalculated: newDate.toString(),

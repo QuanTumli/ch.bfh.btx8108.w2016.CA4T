@@ -11,7 +11,7 @@ import {
 
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { updateAppointedDate } from '../actions'
+import { updateAppointedDate, updateMeetingCompleted } from '../actions'
 
 import Colors from '../constants/Colors';
 import GlobalStyle from '../constants/GlobalStyle';
@@ -45,9 +45,17 @@ class MeetingDetail extends React.Component {
 	
 	state = {
 		inEditMode: false,
-		date: new Date(this.props.route.params.meeting.dateCalculated),
+		date: this.props.route.params.meeting.dateAppointed ? 
+			new Date(this.props.route.params.meeting.dateAppointed) :
+			new Date(this.props.route.params.meeting.dateCalculated),
+		dateFromProps: this.props.route.params.meeting.dateAppointed ? 
+			new Date(this.props.route.params.meeting.dateAppointed) :
+			new Date(this.props.route.params.meeting.dateCalculated),
 		timeZoneOffsetInHours: (-1) * (new Date()).getTimezoneOffset() / 60,
 		actualMeeting: this.props.route.params.meeting,
+		completed: this.props.route.params.meeting.meetingsCompleted,
+		appointed: (this.props.route.params.meeting.dateAppointed && 
+			!this.props.route.params.meeting.meetingsCompleted) ? true : false
 	}
 
   onDateChange = (date) => {
@@ -75,10 +83,14 @@ class MeetingDetail extends React.Component {
   };
 
   render() {
-		
-		const date = this.state.inEditMode ? 
-			new Date(this.state.actualMeeting.dateCalculated) :
-			this.state.date;
+		var date, buttonString
+		if(this.state.actualMeeting.meetingsCompleted){
+			date = new Date(this.state.actualMeeting.dateAppointed)
+			buttonString = null
+		}else {
+			date = new Date(this.state.dateFromProps)
+			buttonString = this.state.inEditMode ? I18n.t('save') : I18n.t('edit')
+		}
     const meetingDateString = getReadableDateLong(date)
 		
     return (
@@ -105,12 +117,20 @@ class MeetingDetail extends React.Component {
 					</View>
 					
 					{this.state.inEditMode && this._renderDatePicker()}
-
-          <Button
-            onPress={this._clickChange}>
-            Ändern
-          </Button>
-
+					
+					{!this.state.completed &&
+	          <Button
+	            onPress={this._clickSave}>
+	            {this.state.inEditMode ? I18n.t('save') : I18n.t('edit')}
+	          </Button>
+					}
+					
+					{(this.state.appointed && !this.state.completed)  &&
+						<Button
+	            onPress={this._clickCompleted}>
+	            {I18n.t('complete')}
+	          </Button>
+					}
         </ScrollView>
 
         <InfoButton />
@@ -145,9 +165,14 @@ class MeetingDetail extends React.Component {
 		)
 	}
 
-  _clickChange = () => {
-		this.setState({ inEditMode: !this.state.inEditMode })
+  _clickSave = () => {
+		this.setState({ inEditMode: !this.state.inEditMode, dateFromProps: this.state.date, appointed: this.state.inEditMode })
 		this.props.updateAppointedDate(this.state.actualMeeting.id, this.state.date.toString())
+  }
+	
+	_clickCompleted = () => {
+		this.setState({ completed: true })
+		this.props.updateMeetingCompleted(this.state.actualMeeting.id)
   }
 }
 
@@ -170,13 +195,14 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     return {
-			meetings: state.meetings
+			
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
 	return bindActionCreators({
-    updateAppointedDate: updateAppointedDate
+    updateAppointedDate: updateAppointedDate,
+		updateMeetingCompleted: updateMeetingCompleted
   }, dispatch);
 };
 
