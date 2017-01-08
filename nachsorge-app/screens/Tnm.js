@@ -1,61 +1,30 @@
 import React from 'react';
 import {
   Alert,
-  AppRegistry,
   StyleSheet,
-  Text,
   View,
-  NavigatorIOS,
-  Image,
-  TouchableHighlight,
-  TouchableOpacity,
-  TextInput,
   ScrollView,
 } from 'react-native';
 
 import SelectButton from '../components/SelectButton';
-import Colors from '../constants/Colors';
 import Header from '../components/Header';
-import GlobalStyle from '../constants/GlobalStyle';
 import Button from '../components/Button';
+
+import GlobalStyle from '../constants/GlobalStyle';
 import Router from '../navigation/Router';
+import Colors from '../constants/Colors';
 
-
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import { updateSchema } from '../actions'
 
 import I18n from 'react-native-i18n'
 import Languages from '../constants/Languages';
 I18n.fallbacks = true
 I18n.translations = Languages
 
-
-export default class Tnm extends React.Component{
-
-  constructor(props){
-    super(props);
-    this.state = {
-      T: null,
-      N: null,
-      M: null,
-
-    }
-  }
-
-  updateT(number) {
-
-    this.setState({T: number});
-  }
-
-  updateN(number) {
-
-    this.setState({N: number});
-  }
-
-  updateM(number) {
-
-    this.setState({M: number});
-  }
-
-  static route = {
+class Tnm extends React.Component{
+	static route = {
     navigationBar: {
       title(params) {
         if (typeof params.title === 'undefined') {
@@ -67,6 +36,24 @@ export default class Tnm extends React.Component{
       tintColor: Colors.navigationBarTint,
       titleStyle: {"color": Colors.textDark, "fontWeight": "bold"}
     },
+  }
+	
+  state = {
+    T: null,
+    N: null,
+    M: null
+  }
+
+  updateT(number) {
+    this.setState({T: number});
+  }
+
+  updateN(number) {
+    this.setState({N: number});
+  }
+
+  updateM(number) {
+    this.setState({M: number});
   }
 
   render() {
@@ -97,8 +84,6 @@ export default class Tnm extends React.Component{
               <SelectButton label='M1' onPress={() => { this.updateM(1) }} selected={this.state.M==1} />
 
             </View>
-
-
           </View>
 
           <Button
@@ -106,32 +91,50 @@ export default class Tnm extends React.Component{
             Weiter
           </Button>
 
-
-
         </ScrollView>
       </View>
     );
   }
 
-  _clickEnter = () =>
-  {
-    if(this.state.M>0)
-      {Alert.alert
-        (
-          'Warnung',
-          'Diese App ist für das vorliegende Stadium nicht geeignet. Bitte wenden Sie sich an Ihre Ärztin oder Ihren Arzt.',
-            [
-              {text: 'Ok', onPress: () =>
-              {console.log('Ok Pressed!'), this.props.navigator.popToTop()}},
-            ]
-        )
-      }
+  _clickEnter = () => {
+		const {
+			settings,
+			schemes
+		} = this.props
+		
+    if(this.state.T == null || this.state.N == null || this.state.M == null){
+			console.log("not all selected")
+      return;
+    }
+    if(this.state.M>0){
+      Alert.alert(
+        'Warnung',
+        'Diese App ist für das vorliegende Stadium nicht geeignet. Bitte wenden Sie sich an Ihre Ärztin oder Ihren Arzt.',
+        [
+          {
+            text: 'Ok', onPress: () => {
+              console.log('Ok Pressed!'), this.props.navigator.popToTop()
+            }
+          },
+        ]
+      )
+    } else {
+			if(settings.affliction == 'rectum'){
+				// use rectum schema
+				this.props.updateSchema(schemes.rectum.schemes[0])
+			}else if(settings.affliction == 'colon'){
+				if((this.state.T==1 || this.state.T==2) && this.state.N==0){
+					// use colon stadium I schema
+					this.props.updateSchema(schemes.colon.schemes[1])
+				}else{
+					// use colon stadium II schema
+					this.props.updateSchema(schemes.colon.schemes[0])
+				}
+			}
+			this.props.navigator.push(Router.getRoute('selectOpDate'));
+    }
 
-  else{
-    this.props.navigator.push(Router.getRoute('selectOpDate'));
   }
-
-}
 
 };
 
@@ -155,6 +158,17 @@ var styles = StyleSheet.create({
 
 });
 
-module.exports = Tnm;
+const mapStateToProps = (state) => {
+    return {
+      settings: state.settings,
+			schemes: state.schemes
+    }
+}
 
-AppRegistry.registerComponent('main', () => Tnm);
+const mapDispatchToProps = (dispatch) => {
+	return bindActionCreators({
+    updateSchema: updateSchema
+  }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Tnm);
