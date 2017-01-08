@@ -1,7 +1,7 @@
-import React from 'react';
-import { StyleSheet } from 'react-native';
+import React from 'react'
+import { StyleSheet } from 'react-native'
 
-import Colors from '../constants/Colors';
+import Colors from '../constants/Colors'
 
 const GlobalStyle = StyleSheet.create({
   mainContainer: {
@@ -9,8 +9,8 @@ const GlobalStyle = StyleSheet.create({
 		backgroundColor: Colors.containerBackground
   },
 	scrollContainer: {
-    paddingTop: 10,
+    paddingTop: 10
   }
-});
+})
 
-export default GlobalStyle;
+export default GlobalStyle

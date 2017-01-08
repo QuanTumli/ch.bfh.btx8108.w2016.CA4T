@@ -10,7 +10,7 @@ import {
   FontAwesome,
 } from '@exponent/vector-icons'
 
-import { bindActionCreators } from 'redux';
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { updateLanguage } from '../actions'
 
@@ -112,7 +112,6 @@ class SettingsLanguage extends React.Component {
       </ScrollView>
     );
   }
-
 }
 
 const styles = StyleSheet.create({
@@ -121,16 +120,14 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     paddingTop: 10,
     paddingBottom: 5,
-    color: Colors.textMiddle,
-
+    color: Colors.textMiddle
   },
   tableFooterText: {
     fontSize: 14,
     paddingLeft: 15,
     paddingTop: 5,
     paddingBottom: 10,
-    color: Colors.textMiddle,
-
+    color: Colors.textMiddle
   },
 	tableEntry: {
     backgroundColor: Colors.light,
@@ -139,22 +136,22 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     padding: 15,
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   tableEntryLast: {
     borderBottomColor: Colors.tableBorder,
-    borderBottomWidth: 1,
+    borderBottomWidth: 1
   },
 	tableEntryTextLeft: {
     flex: 1,
     fontSize: 20,
     fontWeight: 'normal',
-    color: Colors.textDark,
+    color: Colors.textDark
   },
   tableEntryActivated: {
     fontSize: 20,
     fontWeight: 'normal',
-    color: Colors.textDark,
+    color: Colors.textDark
   },
 });
 

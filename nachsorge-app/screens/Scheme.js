@@ -38,6 +38,11 @@ class Scheme extends React.Component {
       titleStyle: {"color": Colors.textDark, "fontWeight": "bold"}
     },
   }
+  
+  _clickScheme = (schema) => {
+    this.props.updateSchema(schema);
+    this.props.navigator.push(Router.getRoute('selectOpDate'));
+  };
 
   render() {
 		const { 
@@ -70,12 +75,6 @@ class Scheme extends React.Component {
       </View>
     );
   }
-
-	_clickScheme = (schema) => {
-    this.props.updateSchema(schema);
-    this.props.navigator.push(Router.getRoute('selectOpDate'));
-  };
-  
 }
 
 const styles = StyleSheet.create({

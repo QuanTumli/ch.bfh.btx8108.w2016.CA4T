@@ -11,4 +11,4 @@ export default {
   navigationBarTint: "#3f3d73",
   modalBackground: "#DFDEE6",
   modalTitle: "#3f3d73"
-};
+}

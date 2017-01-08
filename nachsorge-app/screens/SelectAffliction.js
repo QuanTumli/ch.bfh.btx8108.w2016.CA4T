@@ -42,6 +42,15 @@ class SelectAffliction extends React.Component {
       titleStyle: {"color": Colors.textDark, "fontWeight": "bold"}
     },
   }
+  
+  _click = (affliction) => {
+    this.props.updateAffliction(affliction);
+    if(this.props.settings.tnmEnabled){
+      this.props.navigator.push(Router.getRoute('tnm', {affliction: this.props.settings.affliction}));
+    }else{
+      this.props.navigator.push(Router.getRoute('scheme'));
+    }
+  }
 
   render() {
 		const {
@@ -74,15 +83,6 @@ class SelectAffliction extends React.Component {
 
     );
   }
-
-  _click = (affliction) => {
-    this.props.updateAffliction(affliction);
-    if(this.props.settings.tnmEnabled){
-      this.props.navigator.push(Router.getRoute('tnm', {affliction: this.props.settings.affliction}));
-    }else{
-      this.props.navigator.push(Router.getRoute('scheme'));
-  }
-}
 }
 
 const styles = StyleSheet.create({

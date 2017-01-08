@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     color: Colors.textLight
   },
 	buttonSmall: {
-		height: 60,
+		height: 60
 	},
 	buttonSmallText: {
 		fontSize: 36
