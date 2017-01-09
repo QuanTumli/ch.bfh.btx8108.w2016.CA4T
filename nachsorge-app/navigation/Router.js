@@ -14,6 +14,7 @@ import EnterOrImport from '../screens/EnterOrImport';
 import SelectAffliction from '../screens/SelectAffliction';
 import Scheme from '../screens/Scheme';
 import SelectOpDate from '../screens/SelectOpDate';
+import SelectKoloskopie from '../screens/SelectKoloskopie';
 import CheckData from '../screens/CheckData';
 import DatenschutzHaftung from '../screens/DatenschutzHaftung';
 import Tnm from '../screens/Tnm';
@@ -37,6 +38,7 @@ export default createRouter(() => ({
   selectAffliction: () => SelectAffliction,
   scheme: () => Scheme,
   selectOpDate: () => SelectOpDate,
+  selectKoloskopie: () => SelectKoloskopie,
   checkData: () => CheckData,
   datenschutzHaftung: () => DatenschutzHaftung,
   tnm: () => Tnm,

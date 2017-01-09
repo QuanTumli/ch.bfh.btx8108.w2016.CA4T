@@ -129,7 +129,7 @@ class SelectOpDate extends React.Component {
 
   _clickNext = () => {
     this.props.updateOpDate(this.state.opDate.toISOString().substring(0, 10));
-    this.props.navigator.push(Router.getRoute('checkData'));
+    this.props.navigator.push(Router.getRoute('selectKoloskopie'));
   };
 
 }

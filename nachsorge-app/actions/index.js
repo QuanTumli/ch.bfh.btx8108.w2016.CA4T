@@ -23,6 +23,7 @@ export const MIDATA_GET_TEMP_SUCCESS = 'MIDATA_GET_TEMP_SUCCESS'
 export const RESET_SCHEME_SETTINGS = 'RESET_SCHEME_SETTINGS'
 export const UPDATE_LANGUAGE = 'UPDATE_LANGUAGE'
 export const UPDATE_AFFLICTION = 'UPDATE_AFFLICTION'
+export const UPDATE_KOLOSKOPIE = 'UPDATE_KOLOSKOPIE'
 export const UPDATE_OPDATE = 'UPDATE_OPDATE'
 export const UPDATE_SCHEMA = 'UPDATE_SCHEMA'
 export const UPDATE_SCHEMA_LOADED = 'UPDATE_SCHEMA_LOADED'
@@ -155,6 +156,10 @@ export const updateLanguage = (language) => {
 
 export const updateAffliction = (affliction) => {
   return { type: UPDATE_AFFLICTION, affliction }
+}
+
+export const updateKoloskopie = (isKoloskopie) => {
+  return { type: UPDATE_KOLOSKOPIE, isKoloskopie }
 }
 
 export const updateOpDate = (opDate) => {

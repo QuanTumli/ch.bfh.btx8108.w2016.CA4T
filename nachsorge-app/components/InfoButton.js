@@ -33,6 +33,8 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     backgroundColor: Colors.buttonDark,
+		borderColor: Colors.navigationBarBackground,
+		borderWidth: 2,
     alignItems: 'center',
     justifyContent: 'center'
   }

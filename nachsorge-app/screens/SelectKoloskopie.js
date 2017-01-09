@@ -1,14 +1,19 @@
 import React from 'react';
 import {
-  DatePickerIOS,
   ScrollView,
   StyleSheet,
 	TouchableOpacity,
 	Text,
-  View
+  View,
 } from 'react-native';
 
+import {
+  FontAwesome,
+} from '@exponent/vector-icons';
+
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { updateKoloskopie } from '../actions'
 
 import Colors from '../constants/Colors';
 import GlobalStyle from '../constants/GlobalStyle';
@@ -17,21 +22,18 @@ import Router from '../navigation/Router';
 import InfoButton from '../components/InfoButton';
 import Button from '../components/Button';
 import Header from '../components/Header';
-import DetailRow from '../components/DetailRow';
-
-import { getReadableDateLong } from '../utilities/dateHelper'
 
 import I18n from 'react-native-i18n'
 import Languages from '../constants/Languages';
 I18n.fallbacks = true
 I18n.translations = Languages
 
-class CheckData extends React.Component {
+class SelectKoloskopie extends React.Component {
   static route = {
     navigationBar: {
       title(params) {
         if (typeof params.title === 'undefined') {
-          return I18n.t('checkDataTitle');
+          return I18n.t('selectAfflictionTitle');
         }
         return params.title;
        },
@@ -40,46 +42,32 @@ class CheckData extends React.Component {
       titleStyle: {"color": Colors.textDark, "fontWeight": "bold"}
     },
   }
+  
+  _click = (koloskopie) => {
+    this.props.updateKoloskopie(koloskopie);
+		this.props.navigator.push(Router.getRoute('checkData'));
+  }
 
   render() {
-		const { 
-			settings,
+		const {
 			schemes
 		} = this.props
-    
-		const opDateString = getReadableDateLong(new Date(settings.opDate))
-    
+
     return (
       <View style={GlobalStyle.mainContainer}>
         <ScrollView
           style={GlobalStyle.scrollContainer}>
 
-          <Header title={I18n.t('checkDataHeader')} />
-					
-					<DetailRow
-						title={I18n.t('selectAfflictionTitle') + ":"}
-						text={schemes[settings.affliction].names.de}
-					/>
-					
-					<DetailRow
-						title={I18n.t('selectSchemeTitle') + ":"}
-						text={settings.schema.names.de}
-					/>
-					
-					<DetailRow
-						title={I18n.t('selectOpTitle') + ":"}
-						text={opDateString}
-					/>
-          
-          <DetailRow
-						title={I18n.t('selectKoloskopieTitle') + ":"}
-						text={settings.koloskopie ? I18n.t('yes') : I18n.t('no')}
-					/>
+          <Header title={I18n.t('selectKoloskopieHeader')} />
 
-          <Button
-            onPress={this._clickNext}>
-            {I18n.t('next')}
-          </Button>
+					<Button
+						onPress={() => this._click(true)}>
+						{I18n.t('yes')}
+					</Button>
+					<Button
+						onPress={() => this._click(false)}>
+						{I18n.t('no')}
+					</Button>
 
         </ScrollView>
 
@@ -89,11 +77,6 @@ class CheckData extends React.Component {
 
     );
   }
-
-  _clickNext = () => {
-		this.props.navigator.push(Router.getRoute('datenschutzHaftung'));
-  };
-
 }
 
 const styles = StyleSheet.create({
@@ -102,9 +85,15 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     return {
-			schemes: state.schemes,
-			settings: state.settings
+      schemes: state.schemes,
+      settings: state.settings
     }
 };
 
-export default connect(mapStateToProps, null)(CheckData);
+const mapDispatchToProps = (dispatch) => {
+	return bindActionCreators({
+    updateKoloskopie: updateKoloskopie
+  }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SelectKoloskopie);

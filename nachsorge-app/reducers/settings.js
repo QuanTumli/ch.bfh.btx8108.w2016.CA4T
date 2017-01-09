@@ -7,6 +7,7 @@ import {
 	RESET_SCHEME_SETTINGS,
 	UPDATE_MIDATA_ENABLED,
 	UPDATE_TNM_ENABLED,
+	UPDATE_KOLOSKOPIE,
 	RESET
 } from '../actions'
 
@@ -16,6 +17,7 @@ const initialState = {
 	affliction: null,
 	opDate: null,
 	schema: null,
+	koloskopie: null,
 	midataEnabled: false,
 	tnmEnabled: false
 }
@@ -28,7 +30,8 @@ const settings = (state = initialState, action) => {
 				schemaLoaded: false,
 				affliction: null,
 				opDate: null,
-				schema: null
+				schema: null,
+				koloskopie: null
       }
     case UPDATE_LANGUAGE:
       return {
@@ -39,6 +42,11 @@ const settings = (state = initialState, action) => {
       return {
         ...state,
         affliction: action.affliction
+      }
+		case UPDATE_KOLOSKOPIE:
+      return {
+        ...state,
+        koloskopie: action.isKoloskopie
       }
 		case UPDATE_OPDATE:
       return {
