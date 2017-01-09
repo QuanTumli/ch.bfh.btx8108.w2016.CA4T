@@ -203,6 +203,17 @@ export const loadSchemas = (schemas) => {
 export const calculateMeetingsFromScheme = (scheme, opDate) => {
 	//Exponent.Notifications.scheduleLocalNotificationAsync({title:'Test' , data: {}, ios: {sound: true}, android: {vibrate: true,},}, {time: (new Date()).getTime()+3000});
 	return (dispatch) => {
+		var newDate = new Date(opDate);
+		// if 'vollständige Koloskopie' was not made, remind in 3 months
+		newDate.setMonth(newDate.getMonth() + 3);
+		var meeting = {
+			id: "vollstandige-koloskopie",
+			titles: {de: 'Vollständige Koloskopie', fr: 'Vollständige Koloskopie', en: 'Vollständige Koloskopie'},
+			dateCalculated: newDate.toString(),
+			dateAppointed: null,
+			completed: false
+		};
+		dispatch( { type: ADD_MEETING, meeting });
 	  const checks = scheme.checks;
 		checks.map((check, index) => {
 			var i = check.start;
