@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+	Alert,
   Image,
   ScrollView,
   StyleSheet,
@@ -7,6 +8,8 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
+
+import Exponent from 'exponent';
 
 import {
   FontAwesome,
@@ -22,6 +25,8 @@ import Router from '../navigation/Router';
 import InfoButton from '../components/InfoButton';
 import InfoModalBox from '../components/InfoModalBox';
 
+import { getMonthNameAndYear } from '../utilities/dateHelper'
+
 import Languages from '../constants/Languages';
 
 import I18n from 'react-native-i18n'
@@ -34,23 +39,55 @@ class HomeScreen extends React.Component {
   static route = {
     navigationBar: {
       visible: false,
-    },
+    }
   }
 	
-	constructor(props) {
-    super(props)
-		I18n.locale = props.settings.language
-  }
-
   state = {
     modalVisible: false,
   }
+	
+	constructor(props) {
+		super(props)
+		I18n.locale = props.settings.language
+	}
+	
+	componentWillMount() {
+		Exponent.Notifications.addListener((listener) => {
+			console.log("in addListener");
+			console.log(listener);
+			this._noticationOpened(listener.data);
+		})
+	}
+	
+	_noticationOpened = (data) => {
+		if(data.type == 'notification-calculated'){
+			return (
+					Alert.alert(
+					data.titles[I18n.locale],
+					data.titles[I18n.locale] + "ist fällig im " + getMonthNameAndYear(new Date(data.dateCalculated), I18n.locale),
+					[
+						{text: 'OK', onPress: () => console.log('OK Pressed!')}
+					]
+				)
+			)
+		}else{
+			return (
+					Alert.alert(
+					'Another Title here',
+					data.someData + ": " + data.secondsPassed + " seconds passed...",
+					[
+						{text: 'OK', onPress: () => console.log('OK Pressed!')}
+					]
+				)
+			)
+		}
+	}
 
   render() {
 		const {
 			settings
 		} = this.props
-		
+			
     return (
       <View style={GlobalStyle.mainContainer}>
 
@@ -215,7 +252,7 @@ const styles = StyleSheet.create({
 		padding: 5,
     marginHorizontal: 20,
     height: 120
-  },
+  }
 });
 
 const mapStateToProps = (state) => {

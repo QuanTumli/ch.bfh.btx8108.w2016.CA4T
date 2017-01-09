@@ -1,10 +1,17 @@
-import {
-  Asset,
-  Font,
-  Notifications,
+import Exponent, {
+  Constants,
+  Permissions,
+	Notifications
 } from 'exponent';
 
-import Exponent from 'exponent';
+import { scheduleLocalNotification } from '../utilities/notification'
+import { getMonthNameAndYear } from '../utilities/dateHelper'
+
+import I18n from 'react-native-i18n'
+import Languages from '../constants/Languages'
+
+I18n.fallbacks = true
+I18n.translations = Languages
 
 /*
  * action types
@@ -28,8 +35,8 @@ export const UPDATE_OPDATE = 'UPDATE_OPDATE'
 export const UPDATE_SCHEMA = 'UPDATE_SCHEMA'
 export const UPDATE_SCHEMA_LOADED = 'UPDATE_SCHEMA_LOADED'
 export const UPDATE_MIDATA_ENABLED = 'UPDATE_MIDATA_ENABLED'
-
 export const UPDATE_TNM_ENABLED = 'UPDATE_TNM_ENABLED'
+export const UPDATE_FASTER_NOTIFICATION_ENABLED = 'UPDATE_FASTER_NOTIFICATION_ENABLED'
 
 export const ADD_MEETING = 'ADD_MEETING'
 export const UPDATE_MEETING_APPOINTED_DATE = 'UPDATE_MEETING_APPOINTED_DATE'
@@ -182,6 +189,9 @@ export const updateTnmEnabled= (tnmEnabled) => {
   return { type: UPDATE_TNM_ENABLED, tnmEnabled }
 }
 
+export const updateFasterNotificationEnabled= (fasterNotificationEnabled) => {
+  return { type: UPDATE_FASTER_NOTIFICATION_ENABLED, fasterNotificationEnabled }
+}
 
 export const addMeeting = (meeting) => {
   return { type: ADD_MEETING, meeting }
@@ -200,26 +210,49 @@ export const loadSchemas = (schemas) => {
   return { type: LOAD_SCHEMAS, schemas }
 }
 
-export const calculateMeetingsFromScheme = (scheme, opDate) => {
-	//Exponent.Notifications.scheduleLocalNotificationAsync({title:'Test' , data: {}, ios: {sound: true}, android: {vibrate: true,},}, {time: (new Date()).getTime()+3000});
+export const calculateMeetingsFromScheme = (settings) => {
+	const {
+		opDate,
+		koloskopie,
+		schema,
+		fasterNotificationEnabled
+	} = settings
+	
 	return (dispatch) => {
-		var newDate = new Date(opDate);
+		var d = new Date(opDate);
+		var dateNow = new Date();
+		var actualOpDate = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 12, 0, 0, 0);
+		if(fasterNotificationEnabled){
+			actualOpDate = new Date(d.getFullYear(), d.getMonth(), d.getDate(), dateNow.getHours(), dateNow.getMinutes(), 0, 0);
+		}
+		var newDate = actualOpDate
 		// if 'vollständige Koloskopie' was not made, remind in 3 months
-		newDate.setMonth(newDate.getMonth() + 3);
-		var meeting = {
-			id: "vollstandige-koloskopie",
-			titles: {de: 'Vollständige Koloskopie', fr: 'Vollständige Koloskopie', en: 'Vollständige Koloskopie'},
-			dateCalculated: newDate.toString(),
-			dateAppointed: null,
-			completed: false
-		};
-		dispatch( { type: ADD_MEETING, meeting });
-	  const checks = scheme.checks;
+		if(!koloskopie){
+			newDate.setMonth(newDate.getMonth() + 3);
+			var meeting = {
+				id: "vollstandige-koloskopie",
+				titles: {de: 'Vollständige Koloskopie', fr: 'Vollständige Koloskopie', en: 'Vollständige Koloskopie'},
+				dateCalculated: newDate.toString(),
+				dateAppointed: null,
+				completed: false
+			};
+			var time = newDate.getTime();
+			if(fasterNotificationEnabled){
+				newDate.setMonth(newDate.getMonth() - 3); // reset to actual date, TESTING
+				time = newDate.getTime() + 1 * 60 * 1000; // present notification in the next minute
+			}
+			var title = meeting.titles[I18n.locale];
+			var body = meeting.titles[I18n.locale] + "ist fällig am " + getMonthNameAndYear(new Date(meeting.dateCalculated), I18n.locale);
+			var data = {type: 'notification-calculated', id: meeting.id, 
+				titles: meeting.titles, dateCalculated: meeting.dateCalculated}
+			_internScheduleNotification(title, body, data, time);
+			dispatch( { type: ADD_MEETING, meeting });
+		}
+	  const checks = schema.checks;
 		checks.map((check, index) => {
 			var i = check.start;
 			while(i <= check.end){
-				i += check.repeatEach;
-				var newDate = new Date(opDate);
+				newDate = actualOpDate
 				newDate.setMonth(newDate.getMonth() + i);
 				var meeting = {
 					id: "" + index + i,
@@ -229,13 +262,35 @@ export const calculateMeetingsFromScheme = (scheme, opDate) => {
 					dateAppointed: null,
           completed: false
 				};
+				var time = newDate.getTime();
+				if(fasterNotificationEnabled){
+					newDate.setMonth(newDate.getMonth() - i); // reset to actual date, TESTING
+					time = newDate.getTime() + 1 * 60 * 1000 + i * 1000; // present notification in the next minute + i seconds
+				}
+				var title = meeting.titles[I18n.locale];
+				var body = meeting.titles[I18n.locale] + " ist fällig im " + getMonthNameAndYear(new Date(meeting.dateCalculated), I18n.locale);
+				var data = {type: 'notification-calculated', id: meeting.id, 
+					titles: meeting.titles, dateCalculated: meeting.dateCalculated}
+				_internScheduleNotification(title, body, data, time);
 				dispatch( { type: ADD_MEETING, meeting });
+				i += check.repeatEach;
 			}
 		})
 	}
-
 }
 
+async function _internScheduleNotification(title, body, data, time) {
+	let result = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+	if (Constants.isDevice && result.status !== 'granted') {
+		console.log('You should enable notifications for this app otherwise you will not know when your timers expire!');
+		return;
+	}
+	const _notificationId = await scheduleLocalNotification(title, body, data, time);
+	//console.log(title + " - notificationId: " + _notificationId);
+}
+
+
 export const resetStore = () => {
+	Notifications.cancelAllScheduledNotificationsAsync();
   return { type: RESET }
 }

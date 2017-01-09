@@ -2,6 +2,7 @@ import {
 	ADD_MEETING,
 	UPDATE_MEETING_APPOINTED_DATE,
 	UPDATE_MEETING_COMPLETED,
+	RESET_SCHEME_SETTINGS,
 	RESET
 } from '../actions'
 
@@ -25,6 +26,7 @@ const meetings = (state = initialState, action) => {
 				}
 				return meeting
 			})
+		case RESET_SCHEME_SETTINGS:
 		case RESET:
     	return initialState
     default:

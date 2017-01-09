@@ -79,7 +79,7 @@ class DatenschutzHaftung extends React.Component {
 
   _clickNext = () => {
 		this.props.updateSchemaIsLoaded(true);
-    this.props.calculateMeetingsFromScheme(this.props.settings.schema, this.props.settings.opDate);
+    this.props.calculateMeetingsFromScheme(this.props.settings);
   	this.props.navigator.popToTop();
   };
 

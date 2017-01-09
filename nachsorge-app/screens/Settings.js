@@ -12,8 +12,7 @@ import {
 
 import Exponent, {
   Constants,
-	Permissions,
-  Notifications
+	Permissions
 } from 'exponent';
 
 import {
@@ -22,13 +21,17 @@ import {
 
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { resetSchemeSettings, resetStore, updateMidataEnabled, updateTnmEnabled } from '../actions'
+import { resetSchemeSettings, resetStore, 
+	updateMidataEnabled, updateTnmEnabled,
+	updateFasterNotificationEnabled } from '../actions'
 
 import Colors from '../constants/Colors';
 import GlobalStyle from '../constants/GlobalStyle';
 import Router from '../navigation/Router';
 
 import Button from '../components/Button';
+
+import { scheduleLocalNotification } from '../utilities/notification'
 
 import I18n from 'react-native-i18n'
 import Languages from '../constants/Languages';
@@ -47,14 +50,6 @@ class Settings extends React.Component {
        titleStyle: {"color": Colors.textDark, "fontWeight": "bold"}
     }
   }
-	
-	componentDidMount() {
-		Exponent.Notifications.addListener((listener) => {
-			console.log("in add listener");
-			console.log(listener);
-			this._noticationOpened(listener.data);
-		})
-	}
 
   render() {
 		const {
@@ -134,7 +129,8 @@ class Settings extends React.Component {
 				<Text style={styles.tableHeaderText}>{I18n.t('midata').toUpperCase()}</Text>
 
 				{/* Table Entry */}
-				 {Platform.OS === 'ios' && <View style={[styles.tableEntry, styles.tableEntryLast]}>
+				 {Platform.OS === 'ios' && <View 
+					 	style={[styles.tableEntry, styles.tableEntryLast]}>
             <Text style={styles.tableEntryTextLeft}>
                 {I18n.t('midata')}
             </Text>
@@ -146,10 +142,10 @@ class Settings extends React.Component {
             </Text>
         </View>}
 
-				<Text style={styles.tableHeaderText}>TNM</Text>
+				{(Platform.OS === 'ios' && !settings.schemaLoaded) && <Text style={styles.tableHeaderText}>TNM</Text>}
 
 				{/* Table Entry */}
-				{Platform.OS === 'ios' &&  <View
+				{(Platform.OS === 'ios' && !settings.schemaLoaded) &&  <View
 					style={[styles.tableEntry, styles.tableEntryLast]}>
 					<Text style={styles.tableEntryTextLeft}>
 						TNM
@@ -178,6 +174,22 @@ class Settings extends React.Component {
 					</Text>
 				</TouchableOpacity>
 				
+				<Text style={styles.tableHeaderText}>TEST</Text>
+
+				{/* Table Entry */}
+				{(Platform.OS === 'ios' && !settings.schemaLoaded) &&  <View
+					style={styles.tableEntry}>
+					<Text style={styles.tableEntryTextLeft}>
+						Faster Notifications
+					</Text>
+					<Text style={styles.tableEntryTextRight}>
+						<Switch
+							onValueChange={(value) => this.props.updateFasterNotificationEnabled(value)}
+							style={{marginBottom: 10}}
+							value={settings.fasterNotificationEnabled} />
+					</Text>
+				</View>}
+				
 				{/* Table Entry */}
 				<TouchableOpacity
 					onPress={() => this._scheduleNotification()}
@@ -205,35 +217,11 @@ class Settings extends React.Component {
       console.log('You should enable notifications for this app otherwise you will not know when your timers expire!');
       return;
     }
-		this.scheduleLocalNotification(scheduleAfterSeconds);
-	}
-	
-	async scheduleLocalNotification(seconds) {
-		// Schedule notification
-		const _notificationId = await Notifications.scheduleLocalNotificationAsync({
-      title: 'TEST Notification',
-      body: 'Some text in here...',
-			data: {'someData': 'Test123', secondsPassed: seconds},
-      ios: {
-        sound: true
-      },
-      android: {
-        vibrate: true
-      }
-    }, {
-      time: (new Date()).getTime() + seconds*1000,
-    });
+		const _notificationId = await scheduleLocalNotification('TEST Notification', 'Some text here...', {
+			'someData': 'Test123', secondsPassed: scheduleAfterSeconds
+		}, (new Date()).getTime() + scheduleAfterSeconds*1000);
 		console.log("notificationId: " + _notificationId);
 	}
-	
-	_noticationOpened = (data) => Alert.alert(
-		'Another Title here',
-		data.someData + ": " + data.secondsPassed + " seconds passed...",
-		[
-			{text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
-			{text: 'OK', onPress: () => console.log('OK Pressed!')},
-		]
-	)
 
 	_handlePressSprache = () => {
     this.props.navigator.push(Router.getRoute('settingsLanguage'));
@@ -318,7 +306,8 @@ const mapDispatchToProps = (dispatch) => {
     resetSchemeSettings: resetSchemeSettings,
 		resetAllSettings: resetStore,
 		updateMidataEnabled: updateMidataEnabled,
-		updateTnmEnabled: updateTnmEnabled
+		updateTnmEnabled: updateTnmEnabled,
+		updateFasterNotificationEnabled: updateFasterNotificationEnabled
   }, dispatch);
 }
 

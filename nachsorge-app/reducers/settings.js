@@ -7,6 +7,7 @@ import {
 	RESET_SCHEME_SETTINGS,
 	UPDATE_MIDATA_ENABLED,
 	UPDATE_TNM_ENABLED,
+	UPDATE_FASTER_NOTIFICATION_ENABLED,
 	UPDATE_KOLOSKOPIE,
 	RESET
 } from '../actions'
@@ -19,7 +20,8 @@ const initialState = {
 	schema: null,
 	koloskopie: null,
 	midataEnabled: false,
-	tnmEnabled: false
+	tnmEnabled: false,
+	fasterNotificationEnabled: false
 }
 
 const settings = (state = initialState, action) => {
@@ -72,6 +74,11 @@ const settings = (state = initialState, action) => {
 			return {
 				...state,
 				tnmEnabled: action.tnmEnabled
+			}
+		case UPDATE_FASTER_NOTIFICATION_ENABLED:
+			return {
+				...state,
+				fasterNotificationEnabled: action.fasterNotificationEnabled
 			}
 		case RESET:
     	return initialState
