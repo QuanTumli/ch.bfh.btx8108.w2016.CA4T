@@ -17,7 +17,7 @@ import InfoButton from '../components/InfoButton';
 import Header from '../components/Header';
 import ListCell from '../components/ListCell';
 
-import { getReadableDateLong, getMonthName } from '../utilities/dateHelper'
+import { getReadableDateLong, getMonthNameAndYear } from '../utilities/dateHelper'
 
 import I18n from 'react-native-i18n'
 import Languages from '../constants/Languages';
@@ -63,7 +63,7 @@ class MeetingList extends React.Component {
 	}
 	
 	_renderCalculatedMeetings(meeting, key) {
-		const meetingDateString = getMonthName(new Date(meeting.dateCalculated), I18n.locale)
+		const meetingDateString = getMonthNameAndYear(new Date(meeting.dateCalculated), I18n.locale)
 		return ( 
 			<ListCell
 				key={key}

@@ -1,14 +1,13 @@
 import React from 'react';
 import {
-Platform,
-  ScrollView,
-  StyleSheet,
-	TouchableOpacity,
-	Text,
-  View,
   DatePickerIOS,
   DatePickerAndroid,
+  Platform,
+  ScrollView,
+  StyleSheet,
+	Text,
   TouchableWithoutFeedback,
+  View
   } from 'react-native';
 
 import { bindActionCreators } from 'redux'
@@ -41,7 +40,7 @@ class SelectOpDate extends React.Component {
       backgroundColor: Colors.navigationBarBackground,
       tintColor: Colors.navigationBarTint,
       titleStyle: {"color": Colors.textDark, "fontWeight": "bold"}
-    },
+    }
   }
 
   static defaultProps = {
@@ -84,6 +83,11 @@ class SelectOpDate extends React.Component {
       console.warn(`Error in example '${stateKey}': `, message);
     }
   };
+  
+  _clickNext = () => {
+    this.props.updateOpDate(this.state.opDate.toISOString().substring(0, 10));
+    this.props.navigator.push(Router.getRoute('selectKoloskopie'));
+  };
 
   render() {
     return (
@@ -123,15 +127,8 @@ class SelectOpDate extends React.Component {
         <InfoButton />
 
       </View>
-
     );
   }
-
-  _clickNext = () => {
-    this.props.updateOpDate(this.state.opDate.toISOString().substring(0, 10));
-    this.props.navigator.push(Router.getRoute('selectKoloskopie'));
-  };
-
 }
 
 const styles = StyleSheet.create({

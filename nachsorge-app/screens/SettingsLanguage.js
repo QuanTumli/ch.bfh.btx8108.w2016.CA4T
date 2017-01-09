@@ -36,7 +36,7 @@ class SettingsLanguage extends React.Component {
        backgroundColor: Colors.navigationBarBackground,
        tintColor: Colors.navigationBarTint,
        titleStyle: {"color": Colors.textDark, "fontWeight": "bold"}
-    },
+    }
   }
   
   _changeLanguage = (language) => () => {
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'normal',
     color: Colors.textDark
-  },
+  }
 });
 
 const mapStateToProps = (state) => {

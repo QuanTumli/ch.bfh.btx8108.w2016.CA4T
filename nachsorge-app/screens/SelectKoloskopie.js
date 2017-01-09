@@ -40,7 +40,7 @@ class SelectKoloskopie extends React.Component {
       backgroundColor: Colors.navigationBarBackground,
       tintColor: Colors.navigationBarTint,
       titleStyle: {"color": Colors.textDark, "fontWeight": "bold"}
-    },
+    }
   }
   
   _click = (koloskopie) => {

@@ -21,7 +21,7 @@ import InfoButton from '../components/InfoButton';
 import Button from '../components/Button';
 import Header from '../components/Header';
 
-import { getReadableDateLong, getMonthName } from '../utilities/dateHelper'
+import { getReadableDateLong, getMonthNameAndYear } from '../utilities/dateHelper'
 
 import I18n from 'react-native-i18n'
 import Languages from '../constants/Languages';
@@ -93,7 +93,7 @@ class MeetingDetail extends React.Component {
 		}
 		var meetingDateString = getReadableDateLong(date)
 		if(!this.state.appointed && !this.state.completed){
-			meetingDateString = getMonthName(date, I18n.locale)
+			meetingDateString = getMonthNameAndYear(date, I18n.locale)
 		}
 		
     return (

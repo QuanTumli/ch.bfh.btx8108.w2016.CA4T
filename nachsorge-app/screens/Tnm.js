@@ -35,7 +35,7 @@ class Tnm extends React.Component{
       backgroundColor: Colors.navigationBarBackground,
       tintColor: Colors.navigationBarTint,
       titleStyle: {"color": Colors.textDark, "fontWeight": "bold"}
-    },
+    }
   }
 	
   state = {

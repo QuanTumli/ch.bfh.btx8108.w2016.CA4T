@@ -7,8 +7,9 @@ export function getReadableDateLong(date) {
 	return dateString;
 }
 
-export function getMonthName(date, language) {
-	// create string like "Januar", "January", "Janvier" based on language given
+export function getMonthNameAndYear(date, language) {
+	// create string like "Januar 2017", "January 2017", "Janvier 2017" 
+	// based on language given
 	const months = {
 		de: ['Januar', 'Februar', 'März', 'April', 
 			'Mai', 'Juni', 'Juli', 'August', 
@@ -20,5 +21,5 @@ export function getMonthName(date, language) {
 			"mai", "juin", "juillet", "août", "septembre", 
 			"octobre", "novembre", "décembre"]
 	};
-	return months[language][date.getMonth()];
+	return months[language][date.getMonth()] + " " + date.getFullYear();
 }
