@@ -10,6 +10,10 @@ import SelectButton from '../components/SelectButton';
 import Header from '../components/Header';
 import Button from '../components/Button';
 
+import InfoModalBox from '../components/InfoModalBox';
+import InfoButton from '../components/InfoButton';
+
+
 import GlobalStyle from '../constants/GlobalStyle';
 import Router from '../navigation/Router';
 import Colors from '../constants/Colors';
@@ -37,8 +41,11 @@ class Tnm extends React.Component{
       titleStyle: {"color": Colors.textDark, "fontWeight": "bold"}
     }
   }
-	
+
+
+
   state = {
+    modalVisible: false,
     T: null,
     N: null,
     M: null
@@ -59,8 +66,18 @@ class Tnm extends React.Component{
   render() {
     return (
       <View style={GlobalStyle.mainContainer}>
+
+        {/* info modal box*/}
+        <InfoModalBox
+            onPress={this._closeModal}
+            visible={this.state.modalVisible}
+            >
+          {I18n.t('infoTnm')}
+        </InfoModalBox>
+
         <ScrollView
-          style={GlobalStyle.scrollContainer}>
+          style={[GlobalStyle.scrollContainer, styles.contentContainer, this.state.modalVisible && {opacity : 0.2}]}>
+
         <Header title="Geben Sie Ihr TNM ein" />
 
           <View style={styles.container}>
@@ -92,16 +109,28 @@ class Tnm extends React.Component{
           </Button>
 
         </ScrollView>
+        <InfoButton onPress={this._clickInfoButton} />
+
+
       </View>
     );
   }
+
+  _clickInfoButton = () => {
+    this.setState({modalVisible: true});
+  }
+
+  _closeModal = () => {
+    this.setState({modalVisible: false});
+  }
+
 
   _clickEnter = () => {
 		const {
 			settings,
 			schemes
 		} = this.props
-		
+
     if(this.state.T == null || this.state.N == null || this.state.M == null){
 			console.log("not all selected")
       return;

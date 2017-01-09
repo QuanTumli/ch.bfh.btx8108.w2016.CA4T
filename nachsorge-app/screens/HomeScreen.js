@@ -41,16 +41,16 @@ class HomeScreen extends React.Component {
       visible: false,
     }
   }
-	
+
   state = {
     modalVisible: false,
   }
-	
+
 	constructor(props) {
 		super(props)
 		I18n.locale = props.settings.language
 	}
-	
+
 	componentWillMount() {
 		Exponent.Notifications.addListener((listener) => {
 			console.log("in addListener");
@@ -58,7 +58,7 @@ class HomeScreen extends React.Component {
 			this._noticationOpened(listener.data);
 		})
 	}
-	
+
 	_noticationOpened = (data) => {
 		if(data.type == 'notification-calculated'){
 			return (
@@ -87,7 +87,7 @@ class HomeScreen extends React.Component {
 		const {
 			settings
 		} = this.props
-			
+
     return (
       <View style={GlobalStyle.mainContainer}>
 
@@ -96,7 +96,7 @@ class HomeScreen extends React.Component {
             onPress={this._closeModal}
             visible={this.state.modalVisible}
             >
-          This is the text of the help box, very long and so on
+          {I18n.t('infoHomeScreen')}
         </InfoModalBox>
 
         <ScrollView
@@ -147,8 +147,8 @@ class HomeScreen extends React.Component {
                 {I18n.t('settings')}
               </Text>
             </TouchableOpacity>
-					</View>	
-					
+					</View>
+
 					{settings.midataEnabled && <View style={styles.buttonContainer}>
             {/* Button for Midata */}
             <TouchableOpacity
@@ -161,10 +161,10 @@ class HomeScreen extends React.Component {
               <Text style={styles.halfWidthButtonText}>
                 {I18n.t('midata')}
               </Text>
-            </TouchableOpacity> 
-						<View style={styles.halfWidthView}></View> 
+            </TouchableOpacity>
+						<View style={styles.halfWidthView}></View>
           </View>}
-					
+
         </ScrollView>
 
         <InfoButton onPress={this._clickInfoButton} />
@@ -190,7 +190,7 @@ class HomeScreen extends React.Component {
   _clickSettings = () => {
     this.props.navigator.push(Router.getRoute('settings'));
   }
-	
+
 	_clickMidata = () => {
     this.props.navigator.push(Router.getRoute('midata'));
   }

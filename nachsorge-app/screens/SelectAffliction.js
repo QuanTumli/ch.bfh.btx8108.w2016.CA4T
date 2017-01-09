@@ -28,6 +28,8 @@ import Languages from '../constants/Languages';
 I18n.fallbacks = true
 I18n.translations = Languages
 
+import InfoModalBox from '../components/InfoModalBox';
+
 class SelectAffliction extends React.Component {
   static route = {
     navigationBar: {
@@ -37,12 +39,19 @@ class SelectAffliction extends React.Component {
         }
         return params.title;
        },
+
       backgroundColor: Colors.navigationBarBackground,
       tintColor: Colors.navigationBarTint,
       titleStyle: {"color": Colors.textDark, "fontWeight": "bold"}
     },
+
   }
   
+  state = {
+    modalVisible: false,
+  }
+
+
   _click = (affliction) => {
     this.props.updateAffliction(affliction);
     if(this.props.settings.tnmEnabled){
@@ -68,8 +77,18 @@ class SelectAffliction extends React.Component {
 
     return (
       <View style={GlobalStyle.mainContainer}>
+
+      {/* info modal box*/}
+      <InfoModalBox
+          onPress={this._closeModal}
+          visible={this.state.modalVisible}
+          >
+        {I18n.t('infoSelectAffliction')}
+      </InfoModalBox>
+
+
         <ScrollView
-          style={GlobalStyle.scrollContainer}>
+        style={[GlobalStyle.scrollContainer, styles.contentContainer, this.state.modalVisible && {opacity : 0.2}]}>
 
           <Header title={I18n.t('selectAfflictionHeader')} />
 
@@ -77,12 +96,22 @@ class SelectAffliction extends React.Component {
 
         </ScrollView>
 
-        <InfoButton />
+        <InfoButton onPress={this._clickInfoButton} />
 
       </View>
 
     );
   }
+}
+
+
+
+_clickInfoButton = () => {
+  this.setState({modalVisible: true});
+}
+
+_closeModal = () => {
+  this.setState({modalVisible: false});
 }
 
 const styles = StyleSheet.create({

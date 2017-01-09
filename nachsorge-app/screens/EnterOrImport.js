@@ -14,6 +14,8 @@ import Router from '../navigation/Router';
 import InfoButton from '../components/InfoButton';
 import Button from '../components/Button';
 import Header from '../components/Header';
+import InfoModalBox from '../components/InfoModalBox';
+
 
 import I18n from 'react-native-i18n'
 import Languages from '../constants/Languages';
@@ -35,11 +37,25 @@ export default class EnterOrImport extends React.Component {
     },
   }
 
+  state = {
+    modalVisible: false,
+  }
+
   render() {
     return (
       <View style={GlobalStyle.mainContainer}>
+
+        {/* info modal box*/}
+        <InfoModalBox
+            onPress={this._closeModal}
+            visible={this.state.modalVisible}
+            >
+          {I18n.t('infoEnterOrImport')}
+        </InfoModalBox>
+
         <ScrollView
-          style={GlobalStyle.scrollContainer}>
+          style={[GlobalStyle.scrollContainer, styles.contentContainer, this.state.modalVisible && {opacity : 0.2}]}>
+
 
           <Header title={I18n.t('enterOrImportHeader')} />
 
@@ -58,7 +74,7 @@ export default class EnterOrImport extends React.Component {
 
         </ScrollView>
 
-        <InfoButton />
+        <InfoButton onPress={this._clickInfoButton} />
 
       </View>
     );
@@ -71,6 +87,15 @@ export default class EnterOrImport extends React.Component {
   _clickImport = () => {
     console.log("Import pressed");
   }
+
+  _clickInfoButton = () => {
+    this.setState({modalVisible: true});
+  }
+
+  _closeModal = () => {
+    this.setState({modalVisible: false});
+  }
+
 
 }
 

@@ -71,11 +71,17 @@ export default {
     resetAllSettingsAlertMessage: 'Wollen Sie die alle Einstellungen wirklich zurücksetzen?',
     resetSchemeSettings: 'Setze Schema Einstellungen zurück.',
     resetSchemeSettingsAlertMessage: 'Wollen Sie die Schema Einstellungen wirklich zurücksetzen?',
-
 		meetingDetailHeader: 'Terminübersicht',
 		meetingDetailWhat: 'Was',
 		meetingDetailWhatKoloskopie: 'Koloskopie',
 		meetingDetailWhen: 'Wann',
+
+infoHomeScreen: 'Wählen Sie Termine, um Ihre Daten einzugeben. Unter Einstellungen können Sie die Sprache ändern und weitere Einstellungen tätigen.',
+infoSelectAffliction: 'Wählen Sie Kolon, wenn bei Ihnen ein Kolonkarzinom diagnostiziert wurde oder Rektum,wenn bei Ihnen ein Rektumkarzinom diagnostiziert wurde. Informationen dazu findenSie auf dem Infoflyer.',
+infoEnterOrImport: 'Wählen Sie Input, um Ihre Daten einzugeben oder Import, um Daten von einemanderen Mobiltelefon zu importieren.',
+infoTnm: 'Geben Sie Ihr TNM-Stadium ein. Informationen dazu finden Sie auf dem Infoflyer.',
+
+
 
 	},
 	en: {
@@ -129,11 +135,16 @@ export default {
     resetAllSettingsAlertMessage: 'Wollen Sie die alle Einstellungen wirklich zurücksetzen?',
     resetSchemeSettings: 'Reset scheme settings',
     resetSchemeSettingsAlertMessage: 'Wollen Sie die Schema Einstellungen wirklich zurücksetzen?',
-
 		meetingDetailHeader: 'Terminübersicht',
     meetingDetailWhat: 'What',
     meetingDetailWhatKoloskopie: 'Koloskopie',
     meetingDetailWhen: 'When',
+
+infoHomeScreen: 'Select appointments to enter your details. Under Settings you can change the language and make further settings.',
+infoSelectAffliction: 'Choose colon if you have a colon carcinoma diagnosed or rectum, If you have a rectal carcinoma diagnosed. Information You at the Infoflyer.',
+infoEnterOrImport: 'Wählen Sie Input, um Ihre Daten einzugeben oder Import, um Daten von einemanderen Mobiltelefon zu importieren.',
+infoTnm: 'Enter your TNM stage. You can find information on this at the Infoflyer.',
+
 
 	},
 	fr: {
@@ -187,11 +198,17 @@ export default {
     resetAllSettingsAlertMessage: 'Wollen Sie die alle Einstellungen wirklich zurücksetzen?',
     resetSchemeSettings: 'Reset scheme settings',
     resetSchemeSettingsAlertMessage: 'Wollen Sie die Schema Einstellungen wirklich zurücksetzen?',
-
 		meetingDetailHeader: 'Terminübersicht',
   	meetingDetailWhat: 'Was',
     meetingDetailWhatKoloskopie: 'Koloskopie',
     meetingDetailWhen: 'Wann',
+
+		infoHomeScreen: 'Choisissez la date pour entrer vos données. Dans les paramètres, vous pouvez changer la langue et d autres paramètres.',
+infoSelectAffliction: 'Sélectionnez le côlon, si vous avez un cancer du côlon a été diagnostiqué ou du rectum, si vous avez eu un cancer du rectum a été diagnostiqué. trouver des informations Sur l Info Flyer.',
+infoEnterOrImport: 'Wählen Sie Input, um Ihre Daten einzugeben oder Import, um Daten von einemanderen Mobiltelefon zu importieren.',
+infoTnm: 'Entrez votre stade TNM. Vous trouverez des informations sur l Info Flyer.',
+
+
 
 	}
 }
