@@ -32,7 +32,7 @@ class Tnm extends React.Component{
     navigationBar: {
       title(params) {
         if (typeof params.title === 'undefined') {
-          return I18n.t('enterOrImportTitle');
+          return I18n.t('tnmTitle');
         }
         return params.title;
        },
@@ -78,7 +78,7 @@ class Tnm extends React.Component{
         <ScrollView
           style={[GlobalStyle.scrollContainer, styles.contentContainer, this.state.modalVisible && {opacity : 0.2}]}>
 
-        <Header title="Geben Sie Ihr TNM ein" />
+        <Header title={I18n.t('tnmHeader')} />
 
           <View style={styles.container}>
             <View style={{flex: 1, alignItems: 'center', flexDirection: 'row',justifyContent: 'center',marginTop:20}}>
@@ -137,8 +137,8 @@ class Tnm extends React.Component{
     }
     if(this.state.M>0){
       Alert.alert(
-        'Warnung',
-        'Diese App ist für das vorliegende Stadium nicht geeignet. Bitte wenden Sie sich an Ihre Ärztin oder Ihren Arzt.',
+        I18n.t('warning'),
+        I18n.t('stadeWarning'),
         [
           {
             text: 'Ok', onPress: () => {

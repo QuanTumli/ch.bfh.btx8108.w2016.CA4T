@@ -22,6 +22,7 @@ It then can be used as follows in the components:
 export default {
 	de: {
 		greeting: 'Hallo!',
+		warning: 'Warnung!',
 		meetings: 'Termine',
 		documents: 'Dokumente',
 		settings: 'Einstellungen',
@@ -75,6 +76,10 @@ export default {
 		meetingDetailWhat: 'Was',
 		meetingDetailWhatKoloskopie: 'Koloskopie',
 		meetingDetailWhen: 'Wann',
+		tnmTitle: 'TNM',
+		tnmHeader: 'Geben Sie Ihr TNM-Stadium ein.',
+		stadeWarning: 'Diese App ist für das vorliegende Stadium nicht geeignet. Bitte wenden Sie sich an Ihre Ärztin oder Ihren Arzt.',
+
 
 infoHomeScreen: 'Wählen Sie Termine, um Ihre Daten einzugeben. Unter Einstellungen können Sie die Sprache ändern und weitere Einstellungen tätigen.',
 infoSelectAffliction: 'Wählen Sie Kolon, wenn bei Ihnen ein Kolonkarzinom diagnostiziert wurde oder Rektum,wenn bei Ihnen ein Rektumkarzinom diagnostiziert wurde. Informationen dazu findenSie auf dem Infoflyer.',
@@ -86,6 +91,7 @@ infoTnm: 'Geben Sie Ihr TNM-Stadium ein. Informationen dazu finden Sie auf dem I
 	},
 	en: {
 		greeting: 'Hi!',
+		warning: 'Warning!',
 		meetings: 'Meetings',
 		documents: 'Documents',
 		settings: 'Settings',
@@ -139,6 +145,11 @@ infoTnm: 'Geben Sie Ihr TNM-Stadium ein. Informationen dazu finden Sie auf dem I
     meetingDetailWhat: 'What',
     meetingDetailWhatKoloskopie: 'Koloskopie',
     meetingDetailWhen: 'When',
+		tnmTitle: 'TNM',
+		tnmHeader: 'Enter TNM Stade.',
+		stadeWarning: 'Diese App ist für das vorliegende Stadium nicht geeignet. Bitte wenden Sie sich an Ihre Ärztin oder Ihren Arzt.',
+
+
 
 infoHomeScreen: 'Select appointments to enter your details. Under Settings you can change the language and make further settings.',
 infoSelectAffliction: 'Choose colon if you have a colon carcinoma diagnosed or rectum, If you have a rectal carcinoma diagnosed. Information You at the Infoflyer.',
@@ -149,6 +160,7 @@ infoTnm: 'Enter your TNM stage. You can find information on this at the Infoflye
 	},
 	fr: {
 		greeting: 'Bonjour!',
+		warning: 'Attention!',
 		meetings: 'Calendrier',
 		documents: 'Documents',
 		settings: 'Réglages',
@@ -202,6 +214,10 @@ infoTnm: 'Enter your TNM stage. You can find information on this at the Infoflye
   	meetingDetailWhat: 'Was',
     meetingDetailWhatKoloskopie: 'Koloskopie',
     meetingDetailWhen: 'Wann',
+		tnmTitle: 'TNM',
+		tnmHeader: 'Choisissez votre TNM',
+		stadeWarning: 'Diese App ist für das vorliegende Stadium nicht geeignet. Bitte wenden Sie sich an Ihre Ärztin oder Ihren Arzt.',
+
 
 infoHomeScreen: 'Choisissez la date pour entrer vos données. Dans les paramètres, vous pouvez changer la langue et d autres paramètres.',
 infoSelectAffliction: 'Sélectionnez le côlon, si vous avez un cancer du côlon a été diagnostiqué ou du rectum, si vous avez eu un cancer du rectum a été diagnostiqué. trouver des informations Sur l Info Flyer.',
