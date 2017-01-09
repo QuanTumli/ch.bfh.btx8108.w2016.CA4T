@@ -1,14 +1,20 @@
 import React from 'react';
 import {
 	Alert,
+	Platform,
   ScrollView,
   StyleSheet,
 	Switch,
 	TouchableOpacity,
 	Text,
-	View,
-	Platform
+	View
 } from 'react-native';
+
+import Exponent, {
+  Constants,
+	Permissions,
+  Notifications
+} from 'exponent';
 
 import {
   FontAwesome,
@@ -41,6 +47,14 @@ class Settings extends React.Component {
        titleStyle: {"color": Colors.textDark, "fontWeight": "bold"}
     }
   }
+	
+	componentDidMount() {
+		Exponent.Notifications.addListener((listener) => {
+			console.log("in add listener");
+			console.log(listener);
+			this._noticationOpened(listener.data);
+		})
+	}
 
   render() {
 		const {
@@ -163,10 +177,63 @@ class Settings extends React.Component {
               size={15} />
 					</Text>
 				</TouchableOpacity>
+				
+				{/* Table Entry */}
+				<TouchableOpacity
+					onPress={() => this._scheduleNotification()}
+					style={[styles.tableEntry, styles.tableEntryLast]}>
+					<Text style={[styles.tableEntryTextLeft, styles.italic]}>
+						TEST Notification
+					</Text>
+          <Text style={styles.tableEntryTextRight}>
+						Notify in 5s
+						<FontAwesome
+              name="chevron-right"
+              size={15} />
+					</Text>
+				</TouchableOpacity>
 
       </ScrollView>
     );
   }
+	
+	async _scheduleNotification() {
+		console.log("pressed notify")
+		const scheduleAfterSeconds = 5
+		let result = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+    if (Constants.isDevice && result.status !== 'granted') {
+      console.log('You should enable notifications for this app otherwise you will not know when your timers expire!');
+      return;
+    }
+		this.scheduleLocalNotification(scheduleAfterSeconds);
+	}
+	
+	async scheduleLocalNotification(seconds) {
+		// Schedule notification
+		const _notificationId = await Notifications.scheduleLocalNotificationAsync({
+      title: 'TEST Notification',
+      body: 'Some text in here...',
+			data: {'someData': 'Test123', secondsPassed: seconds},
+      ios: {
+        sound: true
+      },
+      android: {
+        vibrate: true
+      }
+    }, {
+      time: (new Date()).getTime() + seconds*1000,
+    });
+		console.log("notificationId: " + _notificationId);
+	}
+	
+	_noticationOpened = (data) => Alert.alert(
+		'Another Title here',
+		data.someData + ": " + data.secondsPassed + " seconds passed...",
+		[
+			{text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
+			{text: 'OK', onPress: () => console.log('OK Pressed!')},
+		]
+	)
 
 	_handlePressSprache = () => {
     this.props.navigator.push(Router.getRoute('settingsLanguage'));
