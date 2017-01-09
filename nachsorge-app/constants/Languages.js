@@ -14,7 +14,7 @@ the exported string is build up as follows:
 	}
 }
 
-It then ca be used as follows in the components:
+It then can be used as follows in the components:
 	I18n.t('key')
 
 */
@@ -90,12 +90,12 @@ infoTnm: 'Geben Sie Ihr TNM-Stadium ein. Informationen dazu finden Sie auf dem I
 		documents: 'Documents',
 		settings: 'Settings',
 		meetings: 'Meetings',
-		meetingsCalculated: 'Berechnete Termine',
+		meetingsCalculated: 'Calculated Meetings',
 		meetingsAppointed: 'Vereinbarte Termine',
 		meetingsCompleted: 'Vergangene Termine',
 		midata: 'Midata',
-		temperature: 'Temperatur',
-		last3Values: 'Letzte 3 Elemente',
+		temperature: 'Temperature',
+		last3Values: 'Last 3 Values',
 		midataLogin: 'Midata Login',
 		midataLogout: 'Midata Logout',
 		enterOrImportTitle: 'Input / Import',
@@ -106,8 +106,8 @@ infoTnm: 'Geben Sie Ihr TNM-Stadium ein. Informationen dazu finden Sie auf dem I
 		checkDataTitle: 'Check information',
 		datenschutzHaftungTitle: 'Datenschutz / Haftung',
 		enterOrImportHeader: 'Geben Sie neue Daten ein oder importieren Sie Ihre bestehende Daten.',
-		selectAfflictionHeader: 'Wo befindet sich der Tumor?',
-		selectSchemeHeader: 'Bitte wählen Sie Ihr Schema aus.',
+		selectAfflictionHeader: 'Where is the Tumor?',
+		selectSchemeHeader: 'Please choose your scheme.',
 		selectOpHeader: 'Wann wurden Sie operiert?',
 		selectKoloskopieHeader: 'Wurde bereits eine vollständige Koloskopie durchgeführt?',
 		checkDataHeader: 'Bitte überprüfen Sie Ihre angegeben Daten.',
@@ -122,8 +122,8 @@ infoTnm: 'Geben Sie Ihr TNM-Stadium ein. Informationen dazu finden Sie auf dem I
 		help: 'Help',
 		next: 'Next',
 		save: 'Save',
-		yes: 'Ja',
-		no: 'Nein',
+		yes: 'Yes',
+		no: 'No',
 		edit: 'Edit',
 		complete: 'Fertig',
 		colon: 'Colon',
@@ -142,7 +142,7 @@ infoTnm: 'Geben Sie Ihr TNM-Stadium ein. Informationen dazu finden Sie auf dem I
 
 infoHomeScreen: 'Select appointments to enter your details. Under Settings you can change the language and make further settings.',
 infoSelectAffliction: 'Choose colon if you have a colon carcinoma diagnosed or rectum, If you have a rectal carcinoma diagnosed. Information You at the Infoflyer.',
-infoEnterOrImport: 'Wählen Sie Input, um Ihre Daten einzugeben oder Import, um Daten von einemanderen Mobiltelefon zu importieren.',
+infoEnterOrImport: 'Select Input to enter your data or import to data from another mobile phone.',
 infoTnm: 'Enter your TNM stage. You can find information on this at the Infoflyer.',
 
 
@@ -203,9 +203,9 @@ infoTnm: 'Enter your TNM stage. You can find information on this at the Infoflye
     meetingDetailWhatKoloskopie: 'Koloskopie',
     meetingDetailWhen: 'Wann',
 
-		infoHomeScreen: 'Choisissez la date pour entrer vos données. Dans les paramètres, vous pouvez changer la langue et d autres paramètres.',
+infoHomeScreen: 'Choisissez la date pour entrer vos données. Dans les paramètres, vous pouvez changer la langue et d autres paramètres.',
 infoSelectAffliction: 'Sélectionnez le côlon, si vous avez un cancer du côlon a été diagnostiqué ou du rectum, si vous avez eu un cancer du rectum a été diagnostiqué. trouver des informations Sur l Info Flyer.',
-infoEnterOrImport: 'Wählen Sie Input, um Ihre Daten einzugeben oder Import, um Daten von einemanderen Mobiltelefon zu importieren.',
+infoEnterOrImport: 'Sélectionnez Entrée pour entrer vos données ou les données de commande d importation à partir d un d importer d autres téléphones mobiles.',
 infoTnm: 'Entrez votre stade TNM. Vous trouverez des informations sur l Info Flyer.',
 
 
