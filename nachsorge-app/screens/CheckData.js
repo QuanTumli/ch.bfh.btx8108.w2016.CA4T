@@ -58,12 +58,12 @@ class CheckData extends React.Component {
 					
 					<DetailRow
 						title={I18n.t('selectAfflictionTitle') + ":"}
-						text={schemes[settings.affliction].names.de}
+						text={schemes[settings.affliction].names[I18n.locale]}
 					/>
 					
 					<DetailRow
 						title={I18n.t('selectSchemeTitle') + ":"}
-						text={settings.schema.names.de}
+						text={settings.schema.names[I18n.locale]}
 					/>
 					
 					<DetailRow

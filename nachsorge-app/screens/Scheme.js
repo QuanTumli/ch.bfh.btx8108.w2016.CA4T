@@ -62,7 +62,7 @@ class Scheme extends React.Component {
                 <Button
                   onPress={() => this._clickScheme(scheme)}
                   key={i}>
-                  {scheme.names.de}
+                  {scheme.names[I18n.locale]}
                 </Button>
               )
             })

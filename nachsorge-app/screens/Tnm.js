@@ -141,7 +141,7 @@ class Tnm extends React.Component{
         I18n.t('stadeWarning'),
         [
           {
-            text: 'Ok', onPress: () => {
+            text: I18n.t('ok'), onPress: () => {
               console.log('Ok Pressed!'), this.props.navigator.popToTop()
             }
           },

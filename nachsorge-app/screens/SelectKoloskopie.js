@@ -71,8 +71,6 @@ class SelectKoloskopie extends React.Component {
 
         </ScrollView>
 
-        <InfoButton />
-
       </View>
 
     );

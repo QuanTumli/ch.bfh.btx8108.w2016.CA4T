@@ -70,8 +70,6 @@ class DatenschutzHaftung extends React.Component {
 
         </ScrollView>
 
-        <InfoButton />
-
       </View>
 
     );

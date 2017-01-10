@@ -86,7 +86,7 @@ class Settings extends React.Component {
 						{I18n.t('selectAfflictionTitle')}
 					</Text>
           <Text style={styles.tableEntryTextRight}>
-						{settings.schemaLoaded ? schemes[settings.affliction].names.de : '-'}
+						{settings.schemaLoaded ? schemes[settings.affliction].names[I18n.locale] : '-'}
 					</Text>
 				</View>
 
@@ -97,7 +97,7 @@ class Settings extends React.Component {
 						{I18n.t('selectSchemeTitle')}
 					</Text>
           <Text style={styles.tableEntryTextRight}>
-						{settings.schemaLoaded ? settings.schema.names.de : '-'}
+						{settings.schemaLoaded ? settings.schema.names[I18n.locale] : '-'}
 					</Text>
 				</View>
 
@@ -231,8 +231,8 @@ class Settings extends React.Component {
 		I18n.t('resetSchemeSettings'),
 		I18n.t('resetSchemeSettingsAlertMessage'),
 		[
-			{text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
-			{text: 'OK', onPress: () => this.props.resetSchemeSettings()},
+			{text: I18n.t('cancel'), onPress: () => console.log('Cancel Pressed!')},
+			{text: I18n.t('ok'), onPress: () => this.props.resetSchemeSettings()},
 		]
 	)
 
@@ -240,8 +240,8 @@ class Settings extends React.Component {
 		I18n.t('resetAllSettings'),
 		I18n.t('resetAllSettingsAlertMessage'),
 		[
-			{text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
-			{text: 'OK', onPress: () => this.props.resetAllSettings()},
+			{text: I18n.t('cancel'), onPress: () => console.log('Cancel Pressed!')},
+			{text: I18n.t('ok'), onPress: () => this.props.resetAllSettings()},
 		]
 	)
 }

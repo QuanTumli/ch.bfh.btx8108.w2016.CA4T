@@ -100,13 +100,12 @@ class MeetingDetail extends React.Component {
       <View style={GlobalStyle.mainContainer}>
         <ScrollView
           style={GlobalStyle.scrollContainer}>
-
 					<View>
 						<Text style={styles.title}>
 							{I18n.t('meetingDetailWhat')}:
 						</Text>
 						<Text style={styles.text}>
-            {this.state.actualMeeting.titles.de}
+            {this.state.actualMeeting.titles[I18n.locale]}
 						</Text>
 					</View>
 
@@ -135,11 +134,7 @@ class MeetingDetail extends React.Component {
 	          </Button>
 					}
         </ScrollView>
-
-        <InfoButton />
-
       </View>
-
     );
   }
 	

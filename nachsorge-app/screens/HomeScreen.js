@@ -64,9 +64,9 @@ class HomeScreen extends React.Component {
 			return (
 					Alert.alert(
 					data.titles[I18n.locale],
-					data.titles[I18n.locale] + "ist fällig im " + getMonthNameAndYear(new Date(data.dateCalculated), I18n.locale),
+					data.titles[I18n.locale] + " " + I18n.t('dueIn') + " " + getMonthNameAndYear(new Date(data.dateCalculated), I18n.locale),
 					[
-						{text: 'OK', onPress: () => console.log('OK Pressed!')}
+						{text: I18n.t('ok'), onPress: () => console.log('OK Pressed!')}
 					]
 				)
 			)
@@ -76,7 +76,7 @@ class HomeScreen extends React.Component {
 					'Another Title here',
 					data.someData + ": " + data.secondsPassed + " seconds passed...",
 					[
-						{text: 'OK', onPress: () => console.log('OK Pressed!')}
+						{text: I18n.t('ok'), onPress: () => console.log('OK Pressed!')}
 					]
 				)
 			)
@@ -123,9 +123,8 @@ class HomeScreen extends React.Component {
 
           <View style={styles.buttonContainer}>
 						{/* Button for Dokumente */}
-            <TouchableOpacity
-              onPress={this._clickDocuments}
-              style={styles.halfWidthButton}>
+            <View
+              style={[styles.halfWidthButton, styles.buttonDisabled]}>
               <FontAwesome
                 name="file-text-o"
                 size={64}
@@ -133,7 +132,7 @@ class HomeScreen extends React.Component {
               <Text style={styles.halfWidthButtonText}>
                 {I18n.t('documents')}
               </Text>
-            </TouchableOpacity>
+            </View>
 
             {/* Button for Einstellungen */}
             <TouchableOpacity
@@ -252,7 +251,10 @@ const styles = StyleSheet.create({
 		padding: 5,
     marginHorizontal: 20,
     height: 120
-  }
+  },
+	buttonDisabled: {
+		opacity: 0.6
+	}
 });
 
 const mapStateToProps = (state) => {

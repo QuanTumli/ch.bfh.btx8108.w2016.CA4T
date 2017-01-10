@@ -44,7 +44,7 @@ class MeetingList extends React.Component {
 		return ( 
 			<ListCell
 				key={key}
-				title={meeting.titles.de}
+				title={meeting.titles[I18n.locale]}
 				subtitle={meetingDateString}
 			/>
 		)
@@ -56,7 +56,7 @@ class MeetingList extends React.Component {
 			<ListCell
 				key={key}
 				onPress={() => this._clickMeetings(meeting)}
-				title={meeting.titles.de}
+				title={meeting.titles[I18n.locale]}
 				subtitle={meetingDateString}
 			/>
 		)
@@ -68,7 +68,7 @@ class MeetingList extends React.Component {
 			<ListCell
 				key={key}
 				onPress={() => this._clickMeetings(meeting)}
-				title={meeting.titles.de}
+				title={meeting.titles[I18n.locale]}
 				subtitle={meetingDateString}
 			/>
 		)
@@ -125,9 +125,6 @@ class MeetingList extends React.Component {
 						return this._renderCalculatedMeetings(meeting, i)
 					})}
         </ScrollView>
-
-        <InfoButton />
-
       </View>
 
     );

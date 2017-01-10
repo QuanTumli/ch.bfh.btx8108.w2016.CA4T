@@ -60,6 +60,14 @@ class SelectAffliction extends React.Component {
       this.props.navigator.push(Router.getRoute('scheme'));
     }
   }
+	
+	_clickInfoButton = () => {
+	  this.setState({modalVisible: true});
+	}
+
+	_closeModal = () => {
+	  this.setState({modalVisible: false});
+	}
 
   render() {
 		const {
@@ -71,7 +79,7 @@ class SelectAffliction extends React.Component {
 		  buttons.push(<Button
 				key={key}
 				onPress={() => that._click(key)}>
-				{this[key].names.de}
+				{this[key].names[I18n.locale]}
 			</Button>)
 		}, schemes);
 
@@ -102,16 +110,6 @@ class SelectAffliction extends React.Component {
 
     );
   }
-}
-
-
-
-_clickInfoButton = () => {
-  this.setState({modalVisible: true});
-}
-
-_closeModal = () => {
-  this.setState({modalVisible: false});
 }
 
 const styles = StyleSheet.create({

@@ -124,8 +124,6 @@ class SelectOpDate extends React.Component {
 
         </ScrollView>
 
-        <InfoButton />
-
       </View>
     );
   }
