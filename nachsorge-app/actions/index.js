@@ -40,14 +40,17 @@ export const UPDATE_FASTER_NOTIFICATION_ENABLED = 'UPDATE_FASTER_NOTIFICATION_EN
 
 export const ADD_MEETING = 'ADD_MEETING'
 export const UPDATE_MEETING_APPOINTED_DATE = 'UPDATE_MEETING_APPOINTED_DATE'
+export const UPDATE_MEETING_TREATING_DOCTOR = 'UPDATE_MEETING_TREATING_DOCTOR'
+export const REMOVE_TREATING_DOCTOR_FROM_ALL_MEETINGS = 'REMOVE_TREATING_DOCTOR_FROM_ALL_MEETINGS'
 export const UPDATE_MEETING_COMPLETED = 'UPDATE_MEETING_COMPLETED'
 
 export const LOAD_SCHEMAS = 'LOAD_SCHEMAS'
 
 export const RESET = 'RESET'
 
-
-
+export const ADD_DOCTOR = 'ADD_DOCTOR'
+export const EDIT_DOCTOR = 'EDIT_DOCTOR'
+export const DELETE_DOCTOR = 'DELETE_DOCTOR'
 
 /*
  * action creators
@@ -201,8 +204,31 @@ export const updateAppointedDate = (meetingId, appointedDate) => {
   return { type: UPDATE_MEETING_APPOINTED_DATE, payload: { id: meetingId, date: appointedDate} }
 }
 
+export const updateAppointedTreatingDoctor = (meetingId, doctorId) => {
+  return { type: UPDATE_MEETING_TREATING_DOCTOR, payload: { meetingId, doctorId} }
+}
+
+export const removeDoctorFromAllMeetings = (doctorId) => {
+  return { type: REMOVE_TREATING_DOCTOR_FROM_ALL_MEETINGS, payload: { doctorId} }
+}
+
 export const updateMeetingCompleted = (meetingId) => {
   return { type: UPDATE_MEETING_COMPLETED, meetingId }
+}
+
+export const addDoctor = (name, tel) => {
+  return { type: ADD_DOCTOR, payload: {name, tel} }
+}
+
+export const editDoctor = (id, name, tel) => {
+  return { type: EDIT_DOCTOR, payload: {id, name, tel} }
+}
+
+export const deleteDoctor = (id) => {
+	return (dispatch) => {
+		dispatch( { type: DELETE_DOCTOR, payload: {id} });
+		dispatch( { type: REMOVE_TREATING_DOCTOR_FROM_ALL_MEETINGS, payload: {id} });
+	}
 }
 
 
@@ -225,7 +251,7 @@ export const calculateMeetingsFromScheme = (settings) => {
 		if(fasterNotificationEnabled){
 			actualOpDate = new Date(d.getFullYear(), d.getMonth(), d.getDate(), dateNow.getHours(), dateNow.getMinutes(), 0, 0);
 		}
-		var newDate = actualOpDate
+		var newDate = new Date(actualOpDate.getTime());
 		// if 'vollständige Koloskopie' was not made, remind in 3 months
 		if(!koloskopie){
 			newDate.setMonth(newDate.getMonth() + 3);
@@ -252,7 +278,7 @@ export const calculateMeetingsFromScheme = (settings) => {
 		checks.map((check, index) => {
 			var i = check.start;
 			while(i <= check.end){
-				newDate = actualOpDate
+				var newDate = new Date(actualOpDate.getTime());
 				newDate.setMonth(newDate.getMonth() + i);
 				var meeting = {
 					id: "" + index + i,
@@ -286,7 +312,6 @@ async function _internScheduleNotification(title, body, data, time) {
 		return;
 	}
 	const _notificationId = await scheduleLocalNotification(title, body, data, time);
-	//console.log(title + " - notificationId: " + _notificationId);
 }
 
 

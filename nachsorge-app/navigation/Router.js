@@ -8,6 +8,7 @@ import Midata from '../screens/Midata';
 
 import MeetingList from '../screens/MeetingList';
 import MeetingDetail from '../screens/MeetingDetail';
+import MeetingDetailChooseDoctor from '../screens/MeetingDetailChooseDoctor';
 
 // import files for adding new data
 import EnterOrImport from '../screens/EnterOrImport';
@@ -22,6 +23,10 @@ import Tnm from '../screens/Tnm';
 // import files for document screen
 import Documents from '../screens/Documents';
 
+// import files for doctors screen
+import Doctors from '../screens/Doctors';
+import DoctorDetail from '../screens/DoctorDetail';
+
 // import files for settings screens
 import Settings from '../screens/Settings';
 import SettingsLanguage from '../screens/SettingsLanguage';
@@ -33,6 +38,7 @@ export default createRouter(() => ({
 
   meetingList: () => MeetingList,
   meetingDetail: () => MeetingDetail,
+  meetingDetailChooseDoctor: () => MeetingDetailChooseDoctor,
 
   enterOrImport: () => EnterOrImport,
   selectAffliction: () => SelectAffliction,
@@ -44,6 +50,9 @@ export default createRouter(() => ({
   tnm: () => Tnm,
 
   documents: () => Documents,
+  
+  doctors: () => Doctors,
+	doctorDetail: () => DoctorDetail,
 
   settings: () => Settings,
   settingsLanguage: () => SettingsLanguage,

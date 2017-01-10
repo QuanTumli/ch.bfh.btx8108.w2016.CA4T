@@ -2,6 +2,8 @@ import {
 	ADD_MEETING,
 	UPDATE_MEETING_APPOINTED_DATE,
 	UPDATE_MEETING_COMPLETED,
+	UPDATE_MEETING_TREATING_DOCTOR,
+	REMOVE_TREATING_DOCTOR_FROM_ALL_MEETINGS,
 	RESET_SCHEME_SETTINGS,
 	RESET
 } from '../actions'
@@ -16,6 +18,20 @@ const meetings = (state = initialState, action) => {
 			return state.map(meeting => {
 				if(meeting.id === action.payload.id) {
 					return {...meeting, dateAppointed: action.payload.date}
+				}
+				return meeting
+			})
+		case UPDATE_MEETING_TREATING_DOCTOR:
+			return state.map(meeting => {
+				if(meeting.id === action.payload.meetingId) {
+					return {...meeting, treatingDoctor: action.payload.doctorId}
+				}
+				return meeting
+			})
+		case REMOVE_TREATING_DOCTOR_FROM_ALL_MEETINGS:
+			return state.map(meeting => {
+				if(meeting.treatingDoctor === action.payload.id) {
+					return {...meeting, treatingDoctor: null}
 				}
 				return meeting
 			})

@@ -130,7 +130,7 @@ class MeetingList extends React.Component {
     );
   }
   _clickMeetings = (meeting) => {
-    this.props.navigator.push(Router.getRoute('meetingDetail', {meeting: meeting}));
+    this.props.navigator.push(Router.getRoute('meetingDetail', {meetingId: meeting.id}));
   }
 }
 

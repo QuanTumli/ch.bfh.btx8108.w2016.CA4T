@@ -52,10 +52,6 @@ class Midata extends React.Component {
 			</View>
     );
   }
-  _clickMeetings = () => {
-    console.log("Meetings pressed");
-    //this.props.navigator.push(Router.getRoute('meetingDetail'));
-  }
 
 }
 

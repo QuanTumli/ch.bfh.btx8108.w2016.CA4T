@@ -11,7 +11,7 @@ import {
 
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { updateAppointedDate, updateMeetingCompleted } from '../actions'
+import { updateAppointedDate, updateMeetingCompleted, updateAppointedTreatingDoctor } from '../actions'
 
 import Colors from '../constants/Colors';
 import GlobalStyle from '../constants/GlobalStyle';
@@ -20,6 +20,7 @@ import Router from '../navigation/Router';
 import InfoButton from '../components/InfoButton';
 import Button from '../components/Button';
 import Header from '../components/Header';
+import DetailRow from '../components/DetailRow'
 
 import { getReadableDateLong, getMonthNameAndYear } from '../utilities/dateHelper'
 
@@ -43,19 +44,17 @@ class MeetingDetail extends React.Component {
     },
   }
 	
-	state = {
-		inEditMode: false,
-		date: this.props.route.params.meeting.dateAppointed ? 
-			new Date(this.props.route.params.meeting.dateAppointed) :
-			new Date(this.props.route.params.meeting.dateCalculated),
-		dateFromProps: this.props.route.params.meeting.dateAppointed ? 
-			new Date(this.props.route.params.meeting.dateAppointed) :
-			new Date(this.props.route.params.meeting.dateCalculated),
-		timeZoneOffsetInHours: (-1) * (new Date()).getTimezoneOffset() / 60,
-		actualMeeting: this.props.route.params.meeting,
-		completed: this.props.route.params.meeting.meetingsCompleted,
-		appointed: (this.props.route.params.meeting.dateAppointed && 
-			!this.props.route.params.meeting.meetingsCompleted) ? true : false
+	constructor(props) {
+		super(props)
+		const thisMeeting = this.getActualMeeting(props.allMeetings, props.meetingId)
+		this.state = {
+			meetingId: props.meetingId,
+			inEditMode: false,
+			date: thisMeeting.dateAppointed ? 
+				new Date(thisMeeting.dateAppointed) :
+				new Date(thisMeeting.dateCalculated),
+			timeZoneOffsetInHours: (-1) * (new Date()).getTimezoneOffset() / 60
+		}
 	}
 
   onDateChange = (date) => {
@@ -81,55 +80,81 @@ class MeetingDetail extends React.Component {
       console.warn(`Error in example '${stateKey}': `, message);
     }
   };
+	
+	getActualMeeting = (meetings, id) => {
+		return meetings.filter(meeting => meeting.id == id)[0];
+	}
+	
+	getSelectedDoctor = (doctors, id) => {
+		return doctors.filter(doctor => doctor.id == id)[0];
+	}
 
   render() {
+		const thisMeeting = this.getActualMeeting(this.props.allMeetings, this.state.meetingId)
+		var selectedDoctor;
+		if(thisMeeting.treatingDoctor != null){
+			selectedDoctor = this.getSelectedDoctor(this.props.doctors, thisMeeting.treatingDoctor)
+		}
+		
 		var date, buttonString
-		if(this.state.actualMeeting.meetingsCompleted){
-			date = new Date(this.state.actualMeeting.dateAppointed)
+		if(thisMeeting.completed){
+			date = new Date(thisMeeting.dateAppointed)
 			buttonString = null
 		}else {
-			date = new Date(this.state.dateFromProps)
+			date = thisMeeting.dateAppointed ? 
+				new Date(thisMeeting.dateAppointed) :
+				new Date(thisMeeting.dateCalculated);
 			buttonString = this.state.inEditMode ? I18n.t('save') : I18n.t('edit')
 		}
-		var meetingDateString = getReadableDateLong(date)
-		if(!this.state.appointed && !this.state.completed){
-			meetingDateString = getMonthNameAndYear(date, I18n.locale)
+		var meetingDateString = getMonthNameAndYear(date, I18n.locale)
+		if(thisMeeting.dateAppointed && !this.state.inEditMode){
+			meetingDateString = getReadableDateLong(date)
 		}
 		
     return (
       <View style={GlobalStyle.mainContainer}>
         <ScrollView
           style={GlobalStyle.scrollContainer}>
-					<View>
-						<Text style={styles.title}>
-							{I18n.t('meetingDetailWhat')}:
-						</Text>
-						<Text style={styles.text}>
-            {this.state.actualMeeting.titles[I18n.locale]}
-						</Text>
-					</View>
-
-					<View>
-						<Text style={styles.title}>
-							{I18n.t('meetingDetailWhen')}:
-						</Text>
-						<Text style={styles.text}>
-            {meetingDateString}
-						</Text>
-					</View>
+					<DetailRow
+						title={I18n.t('meetingDetailWhat') + ":"}
+						text={thisMeeting.titles[I18n.locale]}
+					/>
+					
+					<DetailRow
+						title={I18n.t('meetingDetailWhen') + ":"}
+						text={meetingDateString}
+					/>
 					
 					{this.state.inEditMode && this._renderDatePicker()}
 					
-					{!this.state.completed &&
+					{!this.state.inEditMode &&
+						<DetailRow
+							title={I18n.t('doctor') + ":"}
+							text={thisMeeting.treatingDoctor != null ? selectedDoctor.name + ", " + selectedDoctor.tel : '-'}
+						/>
+					}
+					
+					{this.state.inEditMode &&
+						<TouchableOpacity
+							onPress={this._chooseDoctor}>
+							<DetailRow
+								title={I18n.t('doctor') + ":"}
+								text={thisMeeting.treatingDoctor != null ? selectedDoctor.name + ", " + selectedDoctor.tel : '-'}
+							/>
+						</TouchableOpacity>
+					}
+					
+					{!thisMeeting.completed &&
 	          <Button
 	            onPress={this._clickSave}>
 	            {this.state.inEditMode ? I18n.t('save') : I18n.t('edit')}
 	          </Button>
 					}
 					
-					{(this.state.appointed && !this.state.completed)  &&
+					{(thisMeeting.appointedDate && !thisMeeting.completed)  &&
 						<Button
-	            onPress={this._clickCompleted}>
+	            onPress={this._clickCompleted}
+							small={true}>
 	            {I18n.t('complete')}
 	          </Button>
 					}
@@ -164,13 +189,18 @@ class MeetingDetail extends React.Component {
 	}
 
   _clickSave = () => {
-		this.setState({ inEditMode: !this.state.inEditMode, dateFromProps: this.state.date, appointed: this.state.inEditMode })
-		this.props.updateAppointedDate(this.state.actualMeeting.id, this.state.date.toString())
+		if(this.state.inEditMode){
+			this.props.updateAppointedDate(this.state.meetingId, this.state.date.toString())
+		}
+		this.setState({ inEditMode: !this.state.inEditMode })
   }
 	
 	_clickCompleted = () => {
-		this.setState({ completed: true })
-		this.props.updateMeetingCompleted(this.state.actualMeeting.id)
+		this.props.updateMeetingCompleted(this.state.meetingId)
+  }
+	
+	_chooseDoctor = () => {
+		this.props.navigator.push(Router.getRoute('meetingDetailChooseDoctor', {meetingId: this.state.meetingId}));
   }
 }
 
@@ -193,14 +223,16 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     return {
-			
+			allMeetings: state.meetings,
+			doctors: state.doctors
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
 	return bindActionCreators({
     updateAppointedDate: updateAppointedDate,
-		updateMeetingCompleted: updateMeetingCompleted
+		updateMeetingCompleted: updateMeetingCompleted,
+		updateAppointedTreatingDoctor: updateAppointedTreatingDoctor
   }, dispatch);
 };
 

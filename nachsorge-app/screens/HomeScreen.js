@@ -123,16 +123,17 @@ class HomeScreen extends React.Component {
 
           <View style={styles.buttonContainer}>
 						{/* Button for Dokumente */}
-            <View
-              style={[styles.halfWidthButton, styles.buttonDisabled]}>
-              <FontAwesome
-                name="file-text-o"
+						<TouchableOpacity
+              onPress={this._clickDoctors}
+              style={styles.halfWidthButton}>
+							<FontAwesome
+                name="user-md"
                 size={64}
                 color="#3F3D73" />
               <Text style={styles.halfWidthButtonText}>
-                {I18n.t('documents')}
+                {I18n.t('doctors')}
               </Text>
-            </View>
+            </TouchableOpacity>
 
             {/* Button for Einstellungen */}
             <TouchableOpacity
@@ -148,8 +149,21 @@ class HomeScreen extends React.Component {
             </TouchableOpacity>
 					</View>
 
-					{settings.midataEnabled && <View style={styles.buttonContainer}>
-            {/* Button for Midata */}
+					<View style={styles.buttonContainer}>
+						{/* Button for Dokumente */}
+            <View
+              style={[styles.halfWidthButton, styles.buttonDisabled]}>
+              <FontAwesome
+                name="file-text-o"
+                size={64}
+                color="#3F3D73" />
+              <Text style={styles.halfWidthButtonText}>
+                {I18n.t('documents')}
+              </Text>
+            </View>
+					  {/* Button for Midata */}
+						{!settings.midataEnabled && <View style={styles.halfWidthView}></View> }
+						{settings.midataEnabled && 
             <TouchableOpacity
               onPress={this._clickMidata}
               style={styles.halfWidthButton}>
@@ -160,9 +174,8 @@ class HomeScreen extends React.Component {
               <Text style={styles.halfWidthButtonText}>
                 {I18n.t('midata')}
               </Text>
-            </TouchableOpacity>
-						<View style={styles.halfWidthView}></View>
-          </View>}
+            </TouchableOpacity>}
+          </View>
 
         </ScrollView>
 
@@ -188,6 +201,10 @@ class HomeScreen extends React.Component {
 
   _clickSettings = () => {
     this.props.navigator.push(Router.getRoute('settings'));
+  }
+	
+	_clickDoctors = () => {
+    this.props.navigator.push(Router.getRoute('doctors'));
   }
 
 	_clickMidata = () => {
