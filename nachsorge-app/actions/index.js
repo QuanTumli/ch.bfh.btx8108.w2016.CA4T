@@ -157,7 +157,8 @@ export const midataGetLast3Temperatures = (authToken) => {
 }
 
 export const resetSchemeSettings = () => {
-   return { type: RESET_SCHEME_SETTINGS }
+  Notifications.cancelAllScheduledNotificationsAsync();
+  return { type: RESET_SCHEME_SETTINGS }
  }
 
 export const updateLanguage = (language) => {
@@ -267,8 +268,8 @@ export const calculateMeetingsFromScheme = (settings) => {
 				newDate.setMonth(newDate.getMonth() - 3); // reset to actual date, TESTING
 				time = newDate.getTime() + 1 * 60 * 1000; // present notification in the next minute
 			}
-			var title = meeting.titles[I18n.locale];
-			var body = meeting.titles[I18n.locale] + "ist fällig am " + getMonthNameAndYear(new Date(meeting.dateCalculated), I18n.locale);
+			var title = 'tuna';
+			var body = I18n.t('tunaNotification');
 			var data = {type: 'notification-calculated', id: meeting.id, 
 				titles: meeting.titles, dateCalculated: meeting.dateCalculated}
 			_internScheduleNotification(title, body, data, time);
@@ -293,8 +294,8 @@ export const calculateMeetingsFromScheme = (settings) => {
 					newDate.setMonth(newDate.getMonth() - i); // reset to actual date, TESTING
 					time = newDate.getTime() + 1 * 60 * 1000 + i * 1000; // present notification in the next minute + i seconds
 				}
-				var title = meeting.titles[I18n.locale];
-				var body = meeting.titles[I18n.locale] + " ist fällig im " + getMonthNameAndYear(new Date(meeting.dateCalculated), I18n.locale);
+				var title = 'tuna';
+				var body = I18n.t('tunaNotification');
 				var data = {type: 'notification-calculated', id: meeting.id, 
 					titles: meeting.titles, dateCalculated: meeting.dateCalculated}
 				_internScheduleNotification(title, body, data, time);

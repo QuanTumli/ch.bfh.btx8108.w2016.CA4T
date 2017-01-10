@@ -94,6 +94,7 @@ export default {
 		infoSelectAffliction: 'Wählen Sie Kolon, wenn bei Ihnen ein Kolonkarzinom diagnostiziert wurde oder Rektum,wenn bei Ihnen ein Rektumkarzinom diagnostiziert wurde. Informationen dazu findenSie auf dem Infoflyer.',
 		infoEnterOrImport: 'Wählen Sie Input, um Ihre Daten einzugeben oder Import, um Daten von einem anderen Mobiltelefon zu importieren.',
 		infoTnm: 'Geben Sie Ihr TNM-Stadium ein. Informationen dazu finden Sie auf dem Infoflyer.',
+		tunaNotification: 'tuna hat eine neue Benachrichtigung für Sie.',
 	},
 	en: {
 		warning: 'Warning!',
@@ -169,6 +170,7 @@ export default {
 		infoSelectAffliction: 'Choose colon if you have a colon carcinoma diagnosed or rectum, If you have a rectal carcinoma diagnosed. Information You at the Infoflyer.',
 		infoEnterOrImport: 'Select Input to enter your data or import to data from another mobile phone.',
 		infoTnm: 'Enter your TNM stage. You can find the information for this on the Infoflyer.',
+		tunaNotification: 'tuna has a new notification for you.',
 	},
 	fr: {
 		warning: 'Attention!',
@@ -244,5 +246,6 @@ export default {
 		infoSelectAffliction: 'Sélectionnez le côlon, si vous avez un cancer du côlon a été diagnostiqué ou du rectum, si vous avez eu un cancer du rectum a été diagnostiqué. trouver des informations Sur l Info Flyer.',
 		infoEnterOrImport: 'Sélectionnez Entrée pour entrer vos données ou les données de commande d importation à partir d un d importer d autres téléphones mobiles.',
 		infoTnm: 'Entrez votre stade TNM. Vous trouverez des informations sur l Info Flyer.',
+		tunaNotification: 'tuna a une nouvelle notification pour vous.',
 	}
 }

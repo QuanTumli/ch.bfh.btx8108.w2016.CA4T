@@ -53,8 +53,6 @@ class HomeScreen extends React.Component {
 
 	componentWillMount() {
 		Exponent.Notifications.addListener((listener) => {
-			console.log("in addListener");
-			console.log(listener);
 			this._noticationOpened(listener.data);
 		})
 	}
@@ -66,7 +64,7 @@ class HomeScreen extends React.Component {
 					data.titles[I18n.locale],
 					data.titles[I18n.locale] + " " + I18n.t('dueIn') + " " + getMonthNameAndYear(new Date(data.dateCalculated), I18n.locale),
 					[
-						{text: I18n.t('ok'), onPress: () => console.log('OK Pressed!')}
+						{text: I18n.t('ok'), onPress: () => this.props.navigator.push(Router.getRoute('meetingDetail', {meetingId: data.id}))}
 					]
 				)
 			)
