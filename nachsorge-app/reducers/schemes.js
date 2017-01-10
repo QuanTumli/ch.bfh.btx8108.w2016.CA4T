@@ -22,9 +22,9 @@ const initialState = {
 					{
 						id: 'colon-stadium_2_3-cea_titer_1',
 						names: {
-							de: 'Klinische Untersuchung CEA-Titer DE',
-							fr: 'Klinische Untersuchung CEA-Titer FR',
-							en: 'Klinische Untersuchung CEA-Titer EN'
+							de: 'Klinische Untersuchung CEA-Titer',
+							fr: 'examen clinique CEA-Titer',
+							en: 'clinical examination CEA-Titer'
 						},
 						start: 3,
 						repeatEach: 3,
@@ -33,9 +33,9 @@ const initialState = {
 					{
 						id: 'colon-stadium_2_3-cea_titer_2',
 						names: {
-							de: 'Klinische Untersuchung CEA-Titer DE',
-							fr: 'Klinische Untersuchung CEA-Titer FR',
-							en: 'Klinische Untersuchung CEA-Titer EN'
+							de: 'Klinische Untersuchung CEA-Titer',
+							fr: 'examen clinique CEA-Titer',
+							en: 'clinical examination CEA-Titer'
 						},
 						start: 18,
 						repeatEach: 6,
@@ -44,9 +44,9 @@ const initialState = {
 					{
 						id: 'colon-stadium_2_3-cea_titer_3',
 						names: {
-							de: 'Klinische Untersuchung CEA-Titer DE',
-							fr: 'Klinische Untersuchung CEA-Titer FR',
-							en: 'Klinische Untersuchung CEA-Titer EN'
+							de: 'Klinische Untersuchung CEA-Titer',
+							fr: 'examen clinique CEA-Titer',
+							en: 'clinical examination CEA-Titer'
 						},
 						start:48,
 						repeatEach: 12,
@@ -55,9 +55,9 @@ const initialState = {
 					{
 						id: 'colon-stadium_2_3-koloskopie_1',
 						names: {
-							de: 'Koloskopie DE',
-							fr: 'Koloskopie FR',
-							en: 'Koloskopie EN'
+							de: 'Koloskopie',
+							fr: 'coloscopie',
+							en: 'colonoscopy'
 						},
 						start:12,
 						repeatEach: 12,
@@ -66,9 +66,9 @@ const initialState = {
 					{
 						id: 'colon-stadium_2_3-koloskopie_2',
 						names: {
-							de: 'Koloskopie DE',
-							fr: 'Koloskopie FR',
-							en: 'Koloskopie EN'
+							de: 'Koloskopie',
+							fr: 'coloscopie',
+							en: 'colonoscopy'
 						},
 						start:48,
 						repeatEach: 12,
@@ -77,9 +77,9 @@ const initialState = {
 					{
 						id: 'colon-stadium_2_3-ct_thorax_abdomen',
 						names: {
-							de: 'CT Thorax-Abdomen DE',
-							fr: 'CT Thorax-Abdomen FR',
-							en: 'CT Thorax-Abdomen EN'
+							de: 'CT Thorax-Abdomen',
+							fr: 'CT Thorax-Abdomen',
+							en: 'CT Thorax-Abdomen'
 						},
 						start:12,
 						repeatEach: 12,
@@ -98,9 +98,9 @@ const initialState = {
 					{
 						id: 'colon-stadium_1-cea_titer_1',
 						names: {
-							de: 'CEA-Titer DE',
-							fr: 'CEA-Titer FR',
-							en: 'CEA-Titer EN'
+							de: 'Klinische Untersuchung CEA-Titer',
+							fr: 'examen clinique CEA-Titer',
+							en: 'clinical examination CEA-Titer'
 						},
 						start: 12,
 						repeatEach: 12,
@@ -109,9 +109,9 @@ const initialState = {
 					{
 						id: 'colon-stadium_1-cea_titer_2',
 						names: {
-							de: 'CEA-Titer DE',
-							fr: 'CEA-Titer FR',
-							en: 'CEA-Titer EN'
+							de: 'Klinische Untersuchung CEA-Titer',
+							fr: 'examen clinique CEA-Titer',
+							en: 'clinical examination CEA-Titer'
 						},
 						start: 48,
 						repeatEach: 12,
@@ -120,9 +120,9 @@ const initialState = {
 					{
 						id: 'colon-stadium_1-koloskopie_1',
 						names: {
-							de: 'Koloskopie DE',
-							fr: 'Koloskopie FR',
-							en: 'Koloskopie EN'
+							de: 'Koloskopie',
+							fr: 'coloscopie',
+							en: 'colonoscopy'
 						},
 						start:12,
 						repeatEach: 12,
@@ -131,9 +131,9 @@ const initialState = {
 					{
 						id: 'colon-stadium_1-koloskopie_2',
 						names: {
-							de: 'Koloskopie DE',
-							fr: 'Koloskopie FR',
-							en: 'Koloskopie EN'
+							de: 'Koloskopie',
+							fr: 'coloscopie',
+							en: 'colonoscopy'
 						},
 						start:48,
 						repeatEach: 12,
@@ -161,9 +161,9 @@ const initialState = {
 					{
 						id: 'rectum-stadium_all-cea_titer_1',
 						names: {
-							de: 'Klinische Untersuchung CEA-Titer DE',
-							fr: 'Klinische Untersuchung CEA-Titer FR',
-							en: 'Klinische Untersuchung CEA-Titer EN'
+							de: 'Klinische Untersuchung CEA-Titer',
+							fr: 'examen clinique CEA-Titer',
+							en: 'clinical examination CEA-Titer'
 						},
 						start: 3,
 						repeatEach: 3,
@@ -172,9 +172,9 @@ const initialState = {
 					{
 						id: 'rectum-stadium_all-cea_titer_2',
 						names: {
-							de: 'Klinische Untersuchung CEA-Titer DE',
-							fr: 'Klinische Untersuchung CEA-Titer FR',
-							en: 'Klinische Untersuchung CEA-Titer EN'
+							de: 'Klinische Untersuchung CEA-Titer',
+							fr: 'examen clinique CEA-Titer',
+							en: 'clinical examination CEA-Titer'
 						},
 						start: 18,
 						repeatEach: 6,
@@ -183,9 +183,9 @@ const initialState = {
 					{
 						id: 'rectum-stadium_all-cea_titer_3',
 						names: {
-							de: 'Klinische Untersuchung CEA-Titer DE',
-							fr: 'Klinische Untersuchung CEA-Titer FR',
-							en: 'Klinische Untersuchung CEA-Titer EN'
+							de: 'Klinische Untersuchung CEA-Titer',
+							fr: 'examen clinique CEA-Titer',
+							en: 'clinical examination CEA-Titer'
 						},
 						start:48,
 						repeatEach: 12,
@@ -194,9 +194,9 @@ const initialState = {
 					{
 						id: 'rectum-stadium_all-koloskopie_1',
 						names: {
-							de: 'Koloskopie DE',
-							fr: 'Koloskopie FR',
-							en: 'Koloskopie EN'
+							de: 'Koloskopie',
+							fr: 'coloscopie',
+							en: 'colonoscopy'
 						},
 						start:12,
 						repeatEach: 12,
@@ -205,9 +205,9 @@ const initialState = {
 					{
 						id: 'rectum-stadium_all-koloskopie_2',
 						names: {
-							de: 'Koloskopie DE',
-							fr: 'Koloskopie FR',
-							en: 'Koloskopie EN'
+							de: 'Koloskopie',
+							fr: 'coloscopie',
+							en: 'colonoscopy'
 						},
 						start:48,
 						repeatEach: 12,
@@ -216,9 +216,9 @@ const initialState = {
 					{
 						id: 'rectum-stadium_all-endoskopie_1',
 						names: {
-							de: 'Untere flexible Endoskopie DE',
-							fr: 'Untere flexible Endoskopie FR',
-							en: 'Untere flexible Endoskopie EN'
+							de: 'Untere flexible Endoskopie',
+							fr: 'l\'endoscopie flexible inférieure',
+							en: 'Flexible endoscopy of bottom'
 						},
 						start:6,
 						repeatEach: 12,
@@ -227,9 +227,9 @@ const initialState = {
 					{
 						id: 'rectum-stadium_all-endoskopie_2',
 						names: {
-							de: 'Untere flexible Endoskopie DE',
-							fr: 'Untere flexible Endoskopie FR',
-							en: 'Untere flexible Endoskopie EN'
+							de: 'Untere flexible Endoskopie',
+							fr: 'l\'endoscopie flexible inférieure',
+							en: 'Flexible endoscopy of bottom'
 						},
 						start:18,
 						repeatEach: 6,
@@ -238,9 +238,9 @@ const initialState = {
 					{
 						id: 'rectum-stadium_all-endosonographie_mri',
 						names: {
-							de: 'Endosonographie / Becken MRI DE',
-							fr: 'Endosonographie / Becken MRI FR',
-							en: 'Endosonographie / Becken MRI EN'
+							de: 'Endosonographie / Becken MRI',
+							fr: 'Endosonographie / pelvis MRI',
+							en: 'Endosonography / pelvis MRI'
 						},
 						start:6,
 						repeatEach: 6,
@@ -249,9 +249,9 @@ const initialState = {
 					{
 						id: 'rectum-stadium_all-ct_thorax_abdomen',
 						names: {
-							de: 'CT Thorax-Abdomen DE',
-							fr: 'CT Thorax-Abdomen FR',
-							en: 'CT Thorax-Abdomen EN'
+							de: 'CT Thorax-Abdomen',
+							fr: 'CT Thorax-Abdomen',
+							en: 'CT Thorax-Abdomen'
 						},
 						start:12,
 						repeatEach: 12,
