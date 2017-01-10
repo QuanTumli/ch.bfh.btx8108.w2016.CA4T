@@ -2,9 +2,6 @@ import React from 'react';
 import {
 	ActivityIndicator,
   ScrollView,
-  StyleSheet,
-	TouchableOpacity,
-	Text,
   View
 } from 'react-native';
 
@@ -14,9 +11,7 @@ import { midataLogin } from '../actions'
 
 import Colors from '../constants/Colors';
 import GlobalStyle from '../constants/GlobalStyle';
-import Router from '../navigation/Router';
 
-import InfoButton from '../components/InfoButton';
 import Button from '../components/Button';
 import Header from '../components/Header';
 
@@ -26,20 +21,6 @@ I18n.fallbacks = true
 I18n.translations = Languages
 
 class MidataLogin extends React.Component {
-  static route = {
-    navigationBar: {
-      title(params) {
-        if (typeof params.title === 'undefined') {
-          return I18n.t('meetings');
-        }
-        return params.title;
-       },
-      backgroundColor: Colors.navigationBarBackground,
-      tintColor: Colors.navigationBarTint,
-      titleStyle: {"color": Colors.textDark, "fontWeight": "bold"}
-    },
-  }
-	
 	_renderLoadingSpinner() {
 		return (
 			<ActivityIndicator
@@ -68,22 +49,11 @@ class MidataLogin extends React.Component {
 						{I18n.t('midataLogin')}
 					</Button>
 					{midata.loading && this._renderLoadingSpinner()}
-
         </ScrollView>
-
-        <InfoButton />
-
       </View>
-
     );
   }
-
 }
-
-
-const styles = StyleSheet.create({
-
-});
 
 const mapStateToProps = (state) => {
     return {

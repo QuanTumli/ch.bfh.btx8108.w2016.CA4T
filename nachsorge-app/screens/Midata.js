@@ -1,10 +1,7 @@
 import React from 'react';
 import {
   ScrollView,
-  StyleSheet,
-	TouchableOpacity,
-	Text,
-  View,
+  View
 } from 'react-native';
 
 import { connect } from 'react-redux'
@@ -14,9 +11,7 @@ import MidataScreen from './MidataScreen';
 
 import Colors from '../constants/Colors';
 import GlobalStyle from '../constants/GlobalStyle';
-import Router from '../navigation/Router';
 
-import InfoButton from '../components/InfoButton';
 import Button from '../components/Button';
 import ListCell from '../components/ListCell';
 
@@ -30,7 +25,7 @@ class Midata extends React.Component {
     navigationBar: {
       title(params) {
         if (typeof params.title === 'undefined') {
-          return I18n.t('meetings');
+          return I18n.t('midata');
         }
         return params.title;
        },
@@ -54,11 +49,6 @@ class Midata extends React.Component {
   }
 
 }
-
-
-const styles = StyleSheet.create({
-
-});
 
 const mapStateToProps = (state) => {
     return {

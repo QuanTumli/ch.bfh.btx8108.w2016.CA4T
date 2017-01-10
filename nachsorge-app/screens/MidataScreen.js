@@ -2,10 +2,6 @@ import React from 'react';
 import {
 	ActivityIndicator,
   ScrollView,
-  StyleSheet,
-	TouchableOpacity,
-	Text,
-	TextInput,
   View
 } from 'react-native';
 
@@ -17,10 +13,10 @@ import Colors from '../constants/Colors';
 import GlobalStyle from '../constants/GlobalStyle';
 import Router from '../navigation/Router';
 
-import InfoButton from '../components/InfoButton';
 import Button from '../components/Button';
 import Header from '../components/Header';
 import DetailRow from '../components/DetailRow';
+import DetailRowInput from '../components/DetailRowInput';
 
 import I18n from 'react-native-i18n'
 import Languages from '../constants/Languages';
@@ -28,20 +24,6 @@ I18n.fallbacks = true
 I18n.translations = Languages
 
 class MidataScreen extends React.Component {
-  static route = {
-    navigationBar: {
-      title(params) {
-        if (typeof params.title === 'undefined') {
-          return I18n.t('meetings');
-        }
-        return params.title;
-       },
-      backgroundColor: Colors.navigationBarBackground,
-      tintColor: Colors.navigationBarTint,
-      titleStyle: {"color": Colors.textDark, "fontWeight": "bold"}
-    },
-  }
-	
 	constructor(props) {
     super(props);
     this.state = { temp: 38 };
@@ -75,18 +57,13 @@ class MidataScreen extends React.Component {
         <ScrollView
           style={GlobalStyle.scrollContainer}>	
 					<Header title={I18n.t('midata')} />
-					<Text
-						style={styles.label}
-						>
-						{I18n.t('temperature')}
-					</Text>
-					<TextInput
-		        style={styles.textInput}
-						onChangeText={(temp) => this.setState({temp})}
-		        value={this.state.temp.toString()}
+					<DetailRowInput
+						title={I18n.t('temperature')}
+						text={this.state.temp.toString()}
 						keyboardType='numeric'
 						maxLength={4}
-		      />
+						onChangeText={(temp) => this.setState({temp})}
+					/>
 					<Button
 						active={!midata.loading}
 						onPress={() => midataPutTemperature(this.state.temp, midata.authToken)}
@@ -128,21 +105,6 @@ class MidataScreen extends React.Component {
   }
 
 }
-
-
-const styles = StyleSheet.create({
-	label: {
-		marginHorizontal: 20,
-		fontSize: 20,
-	},
-	textInput: {
-		height: 40,
-		borderColor: 'gray',
-		borderWidth: 1,
-		marginHorizontal: 20,
-		paddingHorizontal: 5
-	}
-});
 
 const mapStateToProps = (state) => {
     return {

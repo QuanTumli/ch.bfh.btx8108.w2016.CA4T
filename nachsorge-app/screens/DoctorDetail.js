@@ -77,6 +77,7 @@ class DoctorDetail extends React.Component {
 					<DetailRowInput
 						title={I18n.t('name') + ":"}
 						text={this.state.name}
+						autoFocus={true}
 						onChangeText={(name) => this._changeName(name)}
 					/>
 					<DetailRowInput

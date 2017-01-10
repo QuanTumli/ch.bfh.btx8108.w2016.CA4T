@@ -11,12 +11,7 @@ export default class DetailRowInput extends React.Component {
 		title: React.PropTypes.string.isRequired,
 		text: React.PropTypes.string.isRequired,
 		onChangeText: React.PropTypes.func.isRequired,
-		keyboardType: React.PropTypes.string
 	}
-	
-	static defaultProps = {
-    keyboardType: 'default'
-  }
 	
   render() {
     return (
@@ -25,10 +20,10 @@ export default class DetailRowInput extends React.Component {
 					{this.props.title}
 				</Text>
 				<TextInput
-					keyboardType={this.props.keyboardType}
 	        style={styles.text}
 	        onChangeText={(text) => this.props.onChangeText(text)}
 	        value={this.props.text}
+					{...this.props}
 	      />
 			</View>
     );

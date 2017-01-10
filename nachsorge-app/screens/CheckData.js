@@ -83,8 +83,6 @@ class CheckData extends React.Component {
 
         </ScrollView>
 
-        <InfoButton />
-
       </View>
 
     );
