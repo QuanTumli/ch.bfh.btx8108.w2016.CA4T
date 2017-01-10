@@ -7,6 +7,16 @@ export function getReadableDateLong(date) {
 	return dateString;
 }
 
+export function getReadableDateWithTime(date) {
+	// create string like 01.01.2016 17:30 from date
+	const dateString =  ("0" + date.getDate()).slice(-2) + "." 
+		+ ("0" + (date.getMonth()+1)).slice(-2) + "." 
+		+ date.getFullYear() + " "
+		+ ("0" + date.getHours()).slice(-2) + ":"
+		+ ("0" + date.getMinutes()).slice(-2);
+	return dateString;
+}
+
 export function getMonthNameAndYear(date, language) {
 	// create string like "Januar 2017", "January 2017", "Janvier 2017" 
 	// based on language given

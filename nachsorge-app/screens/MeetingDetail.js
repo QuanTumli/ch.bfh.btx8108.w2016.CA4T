@@ -22,7 +22,7 @@ import Button from '../components/Button';
 import Header from '../components/Header';
 import DetailRow from '../components/DetailRow'
 
-import { getReadableDateLong, getMonthNameAndYear } from '../utilities/dateHelper'
+import { getReadableDateWithTime, getMonthNameAndYear } from '../utilities/dateHelper'
 
 import I18n from 'react-native-i18n'
 import Languages from '../constants/Languages';
@@ -108,7 +108,7 @@ class MeetingDetail extends React.Component {
 		}
 		var meetingDateString = getMonthNameAndYear(date, I18n.locale)
 		if(thisMeeting.dateAppointed && !this.state.inEditMode){
-			meetingDateString = getReadableDateLong(date)
+			meetingDateString = getReadableDateWithTime(date)
 		}
 		
     return (
@@ -168,7 +168,7 @@ class MeetingDetail extends React.Component {
 			<View>
 				{Platform.OS === 'ios' && <DatePickerIOS
 						date={this.state.date}
-						mode="date"
+						mode="datetime"
 						timeZoneOffsetInMinutes={this.state.timeZoneOffsetInHours * 60}
 						onDateChange={this.onDateChange}/>
 				}
