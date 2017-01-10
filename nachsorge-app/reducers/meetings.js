@@ -17,7 +17,7 @@ const meetings = (state = initialState, action) => {
 		case UPDATE_MEETING_APPOINTED_DATE:
 			return state.map(meeting => {
 				if(meeting.id === action.payload.id) {
-					return {...meeting, dateAppointed: action.payload.date}
+					return {...meeting, dateAppointed: action.payload.date.toString()}
 				}
 				return meeting
 			})

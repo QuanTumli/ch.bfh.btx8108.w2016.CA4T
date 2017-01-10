@@ -25,7 +25,7 @@ import Router from '../navigation/Router';
 import InfoButton from '../components/InfoButton';
 import InfoModalBox from '../components/InfoModalBox';
 
-import { getMonthNameAndYear } from '../utilities/dateHelper'
+import { getMonthNameAndYear, getReadableDateWithTime } from '../utilities/dateHelper'
 
 import Languages from '../constants/Languages';
 
@@ -63,6 +63,16 @@ class HomeScreen extends React.Component {
 					Alert.alert(
 					data.titles[I18n.locale],
 					data.titles[I18n.locale] + " " + I18n.t('dueIn') + " " + getMonthNameAndYear(new Date(data.dateCalculated), I18n.locale),
+					[
+						{text: I18n.t('ok'), onPress: () => this.props.navigator.push(Router.getRoute('meetingDetail', {meetingId: data.id}))}
+					]
+				)
+			)
+		}else if(data.type == 'notification-appointed'){
+			return (
+					Alert.alert(
+					data.titles[I18n.locale],
+					data.titles[I18n.locale] + " " + I18n.t('dueOn') + " " + getReadableDateWithTime(new Date(data.dateAppointed)),
 					[
 						{text: I18n.t('ok'), onPress: () => this.props.navigator.push(Router.getRoute('meetingDetail', {meetingId: data.id}))}
 					]

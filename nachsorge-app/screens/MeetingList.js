@@ -44,6 +44,7 @@ class MeetingList extends React.Component {
 		return ( 
 			<ListCell
 				key={key}
+				onPress={() => this._clickMeetings(meeting)}
 				title={meeting.titles[I18n.locale]}
 				subtitle={meetingDateString}
 			/>

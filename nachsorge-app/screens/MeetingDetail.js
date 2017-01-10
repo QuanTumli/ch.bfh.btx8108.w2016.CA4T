@@ -151,7 +151,7 @@ class MeetingDetail extends React.Component {
 	          </Button>
 					}
 					
-					{(thisMeeting.appointedDate && !thisMeeting.completed)  &&
+					{(thisMeeting.dateAppointed && !thisMeeting.completed)  &&
 						<Button
 	            onPress={this._clickCompleted}
 							small={true}>
@@ -190,7 +190,8 @@ class MeetingDetail extends React.Component {
 
   _clickSave = () => {
 		if(this.state.inEditMode){
-			this.props.updateAppointedDate(this.state.meetingId, this.state.date.toString())
+			const thisMeeting = this.getActualMeeting(this.props.allMeetings, this.state.meetingId)
+			this.props.updateAppointedDate(thisMeeting, this.state.date.toString())
 		}
 		this.setState({ inEditMode: !this.state.inEditMode })
   }

@@ -201,8 +201,15 @@ export const addMeeting = (meeting) => {
   return { type: ADD_MEETING, meeting }
 }
 
-export const updateAppointedDate = (meetingId, appointedDate) => {
-  return { type: UPDATE_MEETING_APPOINTED_DATE, payload: { id: meetingId, date: appointedDate} }
+export const updateAppointedDate = (meeting, appointedDate) => {
+	const date = new Date(appointedDate);
+	const title = 'tuna';
+	const body = I18n.t('tunaNotification');
+	const data = {type: 'notification-appointed', id: meeting.id, 
+		titles: meeting.titles, dateAppointed: date}
+	const time = date.getTime() - 1 * 24 * 3600 * 1000; // present notification one day earlier at the same time
+	_internScheduleNotification(title, body, data, time);
+  return { type: UPDATE_MEETING_APPOINTED_DATE, payload: { id: meeting.id, date: date} }
 }
 
 export const updateAppointedTreatingDoctor = (meetingId, doctorId) => {
