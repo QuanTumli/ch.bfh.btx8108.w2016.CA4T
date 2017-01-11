@@ -43,14 +43,14 @@ class MeetingDetail extends React.Component {
       titleStyle: {"color": Colors.textDark, "fontWeight": "bold"}
     },
   }
-	
+
 	constructor(props) {
 		super(props)
 		const thisMeeting = this.getActualMeeting(props.allMeetings, props.meetingId)
 		this.state = {
 			meetingId: props.meetingId,
 			inEditMode: false,
-			date: thisMeeting.dateAppointed ? 
+			date: thisMeeting.dateAppointed ?
 				new Date(thisMeeting.dateAppointed) :
 				new Date(thisMeeting.dateCalculated),
 			timeZoneOffsetInHours: (-1) * (new Date()).getTimezoneOffset() / 60
@@ -80,11 +80,11 @@ class MeetingDetail extends React.Component {
       console.warn(`Error in example '${stateKey}': `, message);
     }
   };
-	
+
 	getActualMeeting = (meetings, id) => {
 		return meetings.filter(meeting => meeting.id == id)[0];
 	}
-	
+
 	getSelectedDoctor = (doctors, id) => {
 		return doctors.filter(doctor => doctor.id == id)[0];
 	}
@@ -95,13 +95,13 @@ class MeetingDetail extends React.Component {
 		if(thisMeeting.treatingDoctor != null){
 			selectedDoctor = this.getSelectedDoctor(this.props.doctors, thisMeeting.treatingDoctor)
 		}
-		
+
 		var date, buttonString
 		if(thisMeeting.completed){
 			date = new Date(thisMeeting.dateAppointed)
 			buttonString = null
 		}else {
-			date = thisMeeting.dateAppointed ? 
+			date = thisMeeting.dateAppointed ?
 				new Date(thisMeeting.dateAppointed) :
 				new Date(thisMeeting.dateCalculated);
 			buttonString = this.state.inEditMode ? I18n.t('save') : I18n.t('edit')
@@ -110,7 +110,7 @@ class MeetingDetail extends React.Component {
 		if(thisMeeting.dateAppointed && !this.state.inEditMode){
 			meetingDateString = getReadableDateWithTime(date)
 		}
-		
+
     return (
       <View style={GlobalStyle.mainContainer}>
         <ScrollView
@@ -119,38 +119,38 @@ class MeetingDetail extends React.Component {
 						title={I18n.t('meetingDetailWhat') + ":"}
 						text={thisMeeting.titles[I18n.locale]}
 					/>
-					
+
 					<DetailRow
 						title={I18n.t('meetingDetailWhen') + ":"}
 						text={meetingDateString}
 					/>
-					
+
 					{this.state.inEditMode && this._renderDatePicker()}
-					
+
 					{!this.state.inEditMode &&
 						<DetailRow
 							title={I18n.t('doctor') + ":"}
 							text={thisMeeting.treatingDoctor != null ? selectedDoctor.name + ", " + selectedDoctor.tel : '-'}
 						/>
 					}
-					
+
 					{this.state.inEditMode &&
 						<TouchableOpacity
 							onPress={this._chooseDoctor}>
 							<DetailRow
 								title={I18n.t('doctor') + ":"}
-								text={thisMeeting.treatingDoctor != null ? selectedDoctor.name + ", " + selectedDoctor.tel : '-'}
+								text={thisMeeting.treatingDoctor != null ? selectedDoctor.name + ", " + selectedDoctor.tel : I18n.t('chooseDoctor')}
 							/>
 						</TouchableOpacity>
 					}
-					
+
 					{!thisMeeting.completed &&
 	          <Button
 	            onPress={this._clickSave}>
 	            {this.state.inEditMode ? I18n.t('save') : I18n.t('edit')}
 	          </Button>
 					}
-					
+
 					{(thisMeeting.dateAppointed && !thisMeeting.completed)  &&
 						<Button
 	            onPress={this._clickCompleted}
@@ -162,7 +162,7 @@ class MeetingDetail extends React.Component {
       </View>
     );
   }
-	
+
 	_renderDatePicker() {
 		return (
 			<View>
@@ -195,11 +195,11 @@ class MeetingDetail extends React.Component {
 		}
 		this.setState({ inEditMode: !this.state.inEditMode })
   }
-	
+
 	_clickCompleted = () => {
 		this.props.updateMeetingCompleted(this.state.meetingId)
   }
-	
+
 	_chooseDoctor = () => {
 		this.props.navigator.push(Router.getRoute('meetingDetailChooseDoctor', {meetingId: this.state.meetingId}));
   }
