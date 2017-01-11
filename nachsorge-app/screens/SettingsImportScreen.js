@@ -17,7 +17,8 @@ import GlobalStyle from '../constants/GlobalStyle';
 
 import Button from '../components/Button';
 import Header from '../components/Header';
-import DetailRowInput from '../components/DetailRowInput'
+import DetailRowInputPw from '../components/DetailRowInputPw'
+
 
 import I18n from 'react-native-i18n'
 import Languages from '../constants/Languages';
@@ -39,11 +40,11 @@ class SettingsImportScreen extends React.Component {
        titleStyle: {"color": Colors.textDark, "fontWeight": "bold"}
     }
   }
-	
+
 	constructor(props) {
     super(props);
   }
-	
+
 	state = {
 		password: 'pw',
 		ciphertext: null
@@ -55,10 +56,10 @@ class SettingsImportScreen extends React.Component {
 			console.log("please enter a password")
 			return;
 		}
-		
+
 		this.props.midataImportData(this.state.password, this.props.midata.authToken)
   }
-	
+
 	_renderLoadingSpinner() {
 		return (
 			<ActivityIndicator
@@ -74,36 +75,36 @@ class SettingsImportScreen extends React.Component {
 		const {
 			midata
 		} = this.props
-		
+
 		return (
-			
+
       <ScrollView
         style={[GlobalStyle.mainContainer, GlobalStyle.scrollContainer]}>
-        
+
 				<Header title={I18n.t('decryptData')} />
-				
-				<DetailRowInput
+
+				<DetailRowInputPw
 					title={I18n.t('password') + ":"}
 					text={this.state.password}
 					onChangeText={(password) => this.setState({password})}
 				/>
-				
+
 				<Button
 					onPress={() => this._clickDecrypt()}>
 					{I18n.t('decryptData')}
 				</Button>
-				
+
 				{midata.loading && this._renderLoadingSpinner()}
-				
+
 				{midata.exportSent && <Text>Exported...</Text>}
-				
+
 				<Button
 					onPress={() => this.props.midataLogout()}
 					small={true}
 					>
 					{I18n.t('midataLogout')}
 				</Button>
-				
+
       </ScrollView>
     );
   }

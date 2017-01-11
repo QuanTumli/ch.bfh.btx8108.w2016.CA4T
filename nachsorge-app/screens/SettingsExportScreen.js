@@ -19,7 +19,8 @@ import GlobalStyle from '../constants/GlobalStyle';
 
 import Button from '../components/Button';
 import Header from '../components/Header';
-import DetailRowInput from '../components/DetailRowInput'
+import DetailRowInputPw from '../components/DetailRowInputPw'
+
 
 import I18n from 'react-native-i18n'
 import Languages from '../constants/Languages';
@@ -41,11 +42,11 @@ class SettingsExportScreen extends React.Component {
        titleStyle: {"color": Colors.textDark, "fontWeight": "bold"}
     }
   }
-	
+
 	constructor(props) {
     super(props);
   }
-	
+
 	state = {
 		password: 'pw',
 		ciphertext: null
@@ -63,20 +64,20 @@ class SettingsExportScreen extends React.Component {
 		  schemes,
 		  doctors
 		} = this.props
-		
+
 		const exportQR = {
 		  meetings,
 		  settings,
 		  schemes,
 		  doctors
 		}
-		
+
 		// Encrypt
 		var ciphertext = CryptoJS.AES.encrypt(JSON.stringify(exportQR), this.state.password);
 		this.setState({ciphertext: ciphertext.toString()})
 		this.props.midataExportData(ciphertext.toString(), midata.authToken)
   }
-	
+
 	_renderLoadingSpinner() {
 		return (
 			<ActivityIndicator
@@ -97,34 +98,34 @@ class SettingsExportScreen extends React.Component {
 		//var decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
 		//console.log(ciphertext.toString());
 		return (
-			
+
       <ScrollView
         style={[GlobalStyle.mainContainer, GlobalStyle.scrollContainer]}>
-        
+
 				<Header title={I18n.t('encryptData')} />
-				
-				<DetailRowInput
+
+				<DetailRowInputPw
 					title={I18n.t('password') + ":"}
 					text={this.state.password}
 					onChangeText={(password) => this.setState({password})}
 				/>
-				
+
 				<Button
 					onPress={() => this._clickCreateEncText()}>
 					{I18n.t('export')}
 				</Button>
-				
+
 				{midata.loading && this._renderLoadingSpinner()}
-				
+
 				{midata.exportSent && <Text>Exported...</Text>}
-				
+
 				<Button
 					onPress={() => this.props.midataLogout()}
 					small={true}
 					>
 					{I18n.t('midataLogout')}
 				</Button>
-				
+
       </ScrollView>
     );
   }
