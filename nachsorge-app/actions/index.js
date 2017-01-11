@@ -4,6 +4,8 @@ import Exponent, {
 	Notifications
 } from 'exponent';
 
+import CryptoJS from "crypto-js";
+
 import { scheduleLocalNotification } from '../utilities/notification'
 import { getMonthNameAndYear } from '../utilities/dateHelper'
 
@@ -23,6 +25,12 @@ export const MIDATA_LOGIN_SUCCESS = 'MIDATA_LOGIN_SUCCESS'
 
 export const MIDATA_SEND_TEMP = 'MIDATA_SEND_TEMP'
 export const MIDATA_SEND_TEMP_SUCCESS = 'MIDATA_SEND_TEMP_SUCCESS'
+
+export const MIDATA_SEND_EXPORT = 'MIDATA_SEND_EXPORT'
+export const MIDATA_SEND_EXPORT_SUCCESS = 'MIDATA_SEND_EXPORT_SUCCESS'
+
+export const MIDATA_GET_EXPORT = 'MIDATA_GET_EXPORT'
+export const MIDATA_GET_EXPORT_SUCCESS = 'MIDATA_GET_EXPORT_SUCCESS'
 
 export const MIDATA_GET_TEMP = 'MIDATA_GET_TEMP'
 export const MIDATA_GET_TEMP_SUCCESS = 'MIDATA_GET_TEMP_SUCCESS'
@@ -152,6 +160,76 @@ export const midataGetLast3Temperatures = (authToken) => {
 		       type: MIDATA_GET_TEMP_SUCCESS,
 		       data: data
 		  });
+		});
+ }
+}
+
+export const midataExportData = (dataString, authToken) => {
+  const body = JSON.stringify({
+    authToken: authToken, name: "Export", description: "Export from tuna App",
+    format: "fhir/Parameters", code: "http://midata.coop Parameters",
+    data: {
+      resourceType: "Parameters", parameter : [
+        {
+          name: "tuna-export",
+          valueString : dataString
+        }
+      ], effectiveDateTime: new Date()
+    }
+  });
+  return (dispatch) => {
+    dispatch({ type: MIDATA_SEND_EXPORT })
+    return fetch(baseurl + "/v1/records/create", {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: "POST",
+      body: body
+    })
+    .then((response) => {
+      dispatch({
+        type: MIDATA_SEND_EXPORT_SUCCESS
+      });
+    })
+ }
+}
+
+export const midataImportData = (password, authToken) => {
+	const body = JSON.stringify({
+		authToken: authToken, fields : ["name", "data"],
+		properties : {
+			format : "fhir/Parameters",
+			code: "http://midata.coop Parameters",
+			limit: 1
+		}
+	});
+	return (dispatch) => {
+		dispatch({ type: MIDATA_GET_EXPORT })
+		return fetch(baseurl + "/v1/records/search", {
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			method: "POST",
+			body: body
+		})
+		.then((response) => {
+			return(response.json())
+		})
+		.then(function(json) {
+			// Decrypt
+			var ciphertext = json[0].data.parameter[0].valueString;
+			var bytes  = CryptoJS.AES.decrypt(ciphertext, password);
+			var decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+			if(decryptedData.settings){
+				console.log("ok encrypt was good")
+				I18n.locale = decryptedData.settings.language;
+				dispatch({
+		       type: MIDATA_GET_EXPORT_SUCCESS,
+		       data: decryptedData
+			  });
+			}
 		});
  }
 }

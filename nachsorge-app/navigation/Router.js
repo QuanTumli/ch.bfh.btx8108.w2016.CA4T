@@ -30,6 +30,8 @@ import DoctorDetail from '../screens/DoctorDetail';
 // import files for settings screens
 import Settings from '../screens/Settings';
 import SettingsLanguage from '../screens/SettingsLanguage';
+import SettingsExport from '../screens/SettingsExport';
+import SettingsImport from '../screens/SettingsImport';
 
 export default createRouter(() => ({
   home: () => HomeScreen,
@@ -56,4 +58,6 @@ export default createRouter(() => ({
 
   settings: () => Settings,
   settingsLanguage: () => SettingsLanguage,
+  settingsExport: () => SettingsExport,
+  settingsImport: () => SettingsImport
 }));

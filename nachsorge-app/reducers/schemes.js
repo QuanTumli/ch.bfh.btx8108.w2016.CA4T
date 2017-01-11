@@ -1,5 +1,6 @@
 import {
 	LOAD_SCHEMAS,
+	MIDATA_GET_EXPORT_SUCCESS,
 	RESET
 } from '../actions'
 
@@ -267,6 +268,8 @@ const schemes = (state = initialState, action) => {
   switch (action.type) {
     case LOAD_SCHEMAS:
       return action.schemes
+		case MIDATA_GET_EXPORT_SUCCESS:
+			return action.data.schemes
 		case RESET:
     	return initialState
     default:

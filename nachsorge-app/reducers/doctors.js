@@ -2,6 +2,7 @@ import {
 	ADD_DOCTOR,
 	EDIT_DOCTOR,
 	DELETE_DOCTOR,
+	MIDATA_GET_EXPORT_SUCCESS,
 	RESET
 } from '../actions'
 
@@ -32,6 +33,8 @@ const doctors = (state = initialState, action) => {
 			})
 		case DELETE_DOCTOR:
 			return state.filter(doctor => doctor.id !== action.payload.id);
+		case MIDATA_GET_EXPORT_SUCCESS:
+			return action.data.doctors
 		case RESET:
     	return initialState
     default:

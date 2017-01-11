@@ -5,6 +5,7 @@ import {
 	UPDATE_MEETING_TREATING_DOCTOR,
 	REMOVE_TREATING_DOCTOR_FROM_ALL_MEETINGS,
 	RESET_SCHEME_SETTINGS,
+	MIDATA_GET_EXPORT_SUCCESS,
 	RESET
 } from '../actions'
 
@@ -42,6 +43,8 @@ const meetings = (state = initialState, action) => {
 				}
 				return meeting
 			})
+		case MIDATA_GET_EXPORT_SUCCESS:
+			return action.data.meetings
 		case RESET_SCHEME_SETTINGS:
 		case RESET:
     	return initialState

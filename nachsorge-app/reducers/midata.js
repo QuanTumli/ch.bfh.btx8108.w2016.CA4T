@@ -6,6 +6,10 @@ import {
 	MIDATA_SEND_TEMP_SUCCESS,
 	MIDATA_GET_TEMP,
 	MIDATA_GET_TEMP_SUCCESS,
+	MIDATA_SEND_EXPORT,
+	MIDATA_SEND_EXPORT_SUCCESS,
+	MIDATA_GET_EXPORT,
+	MIDATA_GET_EXPORT_SUCCESS,
 	RESET
 } from '../actions'
 
@@ -13,7 +17,8 @@ const initialState = {
 	authToken: null,
 	loading: false,
 	error: null,
-	temperatures: []
+	temperatures: [],
+	exportSent: false
 }
 
 /*
@@ -37,16 +42,21 @@ const midata = (state = initialState, action) => {
 				...state,
 				loading: false,
 				error: null,
-				authToken: action.authToken
+				authToken: action.authToken,
+				importData: null
 			}
 		case MIDATA_LOGOUT:
 			return {
 				...state,
 				loading: false,
 				error: null,
-				authToken: null
+				authToken: null,
+				exportSent: false
 			}
 		case MIDATA_SEND_TEMP:
+		case MIDATA_GET_TEMP:
+		case MIDATA_SEND_EXPORT:
+		case MIDATA_GET_EXPORT:
 			return {
 				...state,
 				loading: true
@@ -56,10 +66,15 @@ const midata = (state = initialState, action) => {
 				...state,
 				loading: false
 			}
-		case MIDATA_GET_TEMP:
+		case MIDATA_SEND_EXPORT_SUCCESS:
 			return {
 				...state,
-				loading: true
+				loading: false,
+				exportSent: true
+			}
+		case MIDATA_GET_EXPORT_SUCCESS:
+			return {
+				loading: false
 			}
 		case MIDATA_GET_TEMP_SUCCESS:
 			return {

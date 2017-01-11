@@ -9,6 +9,7 @@ import {
 	UPDATE_TNM_ENABLED,
 	UPDATE_FASTER_NOTIFICATION_ENABLED,
 	UPDATE_KOLOSKOPIE,
+	MIDATA_GET_EXPORT_SUCCESS,
 	RESET
 } from '../actions'
 
@@ -80,6 +81,8 @@ const settings = (state = initialState, action) => {
 				...state,
 				fasterNotificationEnabled: action.fasterNotificationEnabled
 			}
+		case MIDATA_GET_EXPORT_SUCCESS:
+			return action.data.settings
 		case RESET:
     	return initialState
     default:

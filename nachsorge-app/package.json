@@ -9,6 +9,7 @@
     "@exponent/ex-navigation": "^1.6.0",
     "@exponent/samples": "^1.0.2",
     "@exponent/vector-icons": "^1.0.1",
+    "crypto-js": "^3.1.9-1",
     "exponent": "~12.0.0",
     "react": "~15.3.2",
     "react-native": "github:exponentjs/react-native#sdk-12.0.0",

@@ -158,6 +158,37 @@ class Settings extends React.Component {
 					</Text>
 				</View>}
 
+				<Text style={styles.tableHeaderText}>{I18n.t('export').toUpperCase() +
+				" / " + I18n.t('importData').toUpperCase()}</Text>
+
+				{/* Table Entry */}
+				<TouchableOpacity
+					onPress={this._handlePressExport}
+					style={styles.tableEntry}>
+					<Text style={styles.tableEntryTextLeft}>
+						{I18n.t('export')}
+					</Text>
+          <Text style={styles.tableEntryTextRight}>
+						<FontAwesome
+              name="chevron-right"
+              size={15} />
+					</Text>
+				</TouchableOpacity>
+				
+				{/* Table Entry */}
+				<TouchableOpacity
+					onPress={this._handlePressImport}
+					style={[styles.tableEntry, styles.tableEntryLast]}>
+					<Text style={styles.tableEntryTextLeft}>
+						{I18n.t('importData')}
+					</Text>
+          <Text style={styles.tableEntryTextRight}>
+						<FontAwesome
+              name="chevron-right"
+              size={15} />
+					</Text>
+				</TouchableOpacity>
+				
 				<Text style={styles.tableHeaderText}>{I18n.t('resetAllSettings').toUpperCase()}</Text>
 
 				{/* Table Entry */}
@@ -225,6 +256,14 @@ class Settings extends React.Component {
 
 	_handlePressSprache = () => {
     this.props.navigator.push(Router.getRoute('settingsLanguage'));
+  }
+	
+	_handlePressExport = () => {
+    this.props.navigator.push(Router.getRoute('settingsExport'));
+  }
+	
+	_handlePressImport = () => {
+    this.props.navigator.push(Router.getRoute('settingsImport'));
   }
 
 	_handlePressResetSchema = () => Alert.alert(
