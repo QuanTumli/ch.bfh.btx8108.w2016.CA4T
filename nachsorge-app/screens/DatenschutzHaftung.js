@@ -54,11 +54,18 @@ class DatenschutzHaftung extends React.Component {
 
           <Header title={I18n.t('datenschutzHaftungTitle')} />
 					
-					<Text>
+					<Text style={styles.text}>
 						Datenschutz- & Haftungserklärung bla bla bla bla bla...
+            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor 
+            invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. 
+            At vero eos et accusam et justo duo dolores et ea rebum. 
+            Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. 
+            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, 
+            sed diam nonumy eirmod tempor invidunt ut labore et dolore 
+            magna aliquyam erat, sed diam voluptua.
 					</Text>
-					
-					<Text>
+          
+          <Text style={styles.text}>
 						Indem Sie auf Speichern klicken, akzeptierien Sie die obenstehende
 						Datenschutz- & Haftungserklärung.
 					</Text>
@@ -84,7 +91,11 @@ class DatenschutzHaftung extends React.Component {
 }
 
 const styles = StyleSheet.create({
-
+  text: {
+    marginHorizontal: 20,
+    fontSize: 20,
+    paddingVertical: 10
+  }
 });
 
 const mapStateToProps = (state) => {

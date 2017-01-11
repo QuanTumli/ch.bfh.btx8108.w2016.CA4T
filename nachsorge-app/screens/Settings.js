@@ -126,7 +126,7 @@ class Settings extends React.Component {
 					</Text>
 				</TouchableOpacity>
 
-				<Text style={styles.tableHeaderText}>{I18n.t('midata').toUpperCase()}</Text>
+				{Platform.OS === 'ios' && <Text style={styles.tableHeaderText}>{I18n.t('midata').toUpperCase()}</Text>}
 
 				{/* Table Entry */}
 				 {Platform.OS === 'ios' && <View 
@@ -205,11 +205,13 @@ class Settings extends React.Component {
 					</Text>
 				</TouchableOpacity>
 				
-				<Text style={styles.tableHeaderText}>TEST</Text>
+				{(Platform.OS === 'ios' && !settings.schemaLoaded) && <Text style={styles.tableHeaderText}>
+					TEST</Text>
+				}
 
 				{/* Table Entry */}
 				{(Platform.OS === 'ios' && !settings.schemaLoaded) &&  <View
-					style={styles.tableEntry}>
+					style={[styles.tableEntry, styles.tableEntryLast]}>
 					<Text style={styles.tableEntryTextLeft}>
 						Faster Notifications
 					</Text>
@@ -222,7 +224,7 @@ class Settings extends React.Component {
 				</View>}
 				
 				{/* Table Entry */}
-				<TouchableOpacity
+				{/*<TouchableOpacity
 					onPress={() => this._scheduleNotification()}
 					style={[styles.tableEntry, styles.tableEntryLast]}>
 					<Text style={[styles.tableEntryTextLeft, styles.italic]}>
@@ -234,7 +236,7 @@ class Settings extends React.Component {
               name="chevron-right"
               size={15} />
 					</Text>
-				</TouchableOpacity>
+				</TouchableOpacity>*/}
 
       </ScrollView>
     );

@@ -343,7 +343,7 @@ export const calculateMeetingsFromScheme = (settings) => {
 			newDate.setMonth(newDate.getMonth() + 3);
 			var meeting = {
 				id: "vollstandige-koloskopie",
-				titles: {de: 'Vollständige Koloskopie', fr: 'Vollständige Koloskopie', en: 'Vollständige Koloskopie'},
+				titles: {de: 'Vollständige Koloskopie', en: 'full Colonoscopy', fr: 'colonoscopie pleine'},
 				dateCalculated: newDate.toString(),
 				dateAppointed: null,
 				completed: false
@@ -375,10 +375,10 @@ export const calculateMeetingsFromScheme = (settings) => {
           completed: false
 				};
 				var time = newDate.getTime();
-				if(fasterNotificationEnabled){
+				/*if(fasterNotificationEnabled){
 					newDate.setMonth(newDate.getMonth() - i); // reset to actual date, TESTING
 					time = newDate.getTime() + 1 * 60 * 1000 + i * 1000; // present notification in the next minute + i seconds
-				}
+				}*/
 				var title = 'tuna';
 				var body = I18n.t('tunaNotification');
 				var data = {type: 'notification-calculated', id: meeting.id, 

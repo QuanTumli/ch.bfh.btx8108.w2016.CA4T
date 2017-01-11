@@ -117,7 +117,7 @@ class SettingsExportScreen extends React.Component {
 
 				{midata.loading && this._renderLoadingSpinner()}
 
-				{midata.exportSent && <Text>Exported...</Text>}
+				{midata.exportSent && <Text style={styles.text}>Exported...</Text>}
 
 				<Button
 					onPress={() => this.props.midataLogout()}
@@ -140,9 +140,11 @@ const styles = StyleSheet.create({
 		borderColor: 'gray',
 		borderWidth: 1
   },
-	ciphertext: {
-		height: 200,
-	}
+	text: {
+    marginHorizontal: 20,
+    fontSize: 20,
+    paddingVertical: 10
+  }
 });
 
 const mapStateToProps = (state) => {

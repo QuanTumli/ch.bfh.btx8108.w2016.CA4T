@@ -99,7 +99,7 @@ export default {
 		stadeWarning: 'Diese App ist für das vorliegende Stadium nicht geeignet. Bitte wenden Sie sich an Ihre Ärztin oder Ihren Arzt.',
 		infoHomeScreen: 'Wählen Sie Termine, um Ihre Daten einzugeben. \r\rUnter Einstellungen können Sie die Sprache ändern und weitere Einstellungen tätigen. \r\rUnter Ärzte können Sie die Angaben ihres Arztes hinzufügen.',
 		infoSelectAffliction: 'Wählen Sie Kolon, wenn bei Ihnen ein Kolonkarzinom diagnostiziert wurde oder Rektum, wenn bei Ihnen ein Rektumkarzinom diagnostiziert wurde. \r\rInformationen dazu finden Sie auf dem Infoflyer.',
-		infoEnterOrImport: 'Wählen Sie Input, um Ihre Daten einzugeben. \r\rWählen Sie Import, um Daten von einem anderen Mobiltelefon zu importieren.',
+		infoEnterOrImport: 'Wählen Sie Eingabe, um Ihre Daten einzugeben. \r\rWählen Sie Import, um Daten von einem anderen Mobiltelefon zu importieren.',
 		infoTnm: 'Geben Sie Ihr TNM-Stadium ein. \r\rInformationen dazu finden Sie auf dem Infoflyer.',
 		tunaNotification: 'tuna hat eine neue Benachrichtigung für Sie.',
 	},

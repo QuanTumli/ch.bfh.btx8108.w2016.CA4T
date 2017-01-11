@@ -105,7 +105,7 @@ class Tnm extends React.Component{
 
           <Button
             onPress={this._clickEnter}>
-            Weiter
+            {I18n.t('next')}
           </Button>
 
         </ScrollView>

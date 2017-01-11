@@ -70,8 +70,6 @@ class Scheme extends React.Component {
 
         </ScrollView>
 
-        <InfoButton />
-
       </View>
     );
   }
