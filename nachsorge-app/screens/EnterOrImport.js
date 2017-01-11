@@ -67,8 +67,7 @@ export default class EnterOrImport extends React.Component {
 
   				{/* Button for Import */}
           <Button
-            onPress={this._clickImport}
-            active={false}>
+            onPress={this._clickImport}>
             {I18n.t('importData')}
           </Button>
 
@@ -85,8 +84,9 @@ export default class EnterOrImport extends React.Component {
   }
 
   _clickImport = () => {
-    console.log("Import pressed");
+    this.props.navigator.push(Router.getRoute('settingsImport'));
   }
+
 
   _clickInfoButton = () => {
     this.setState({modalVisible: true});

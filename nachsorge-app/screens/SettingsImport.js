@@ -41,10 +41,10 @@ class SettingsImport extends React.Component {
 			settings,
 			midata
 		} = this.props
-		
+
     return (
 			<View style={GlobalStyle.mainContainer}>
-				<Header title={I18n.t('export')} />
+				<Header title={I18n.t('import')} />
 				{midata.authToken == null ? <MidataLogin /> : <SettingsImportScreen />}
 			</View>
     );
