@@ -335,7 +335,7 @@ export const calculateMeetingsFromScheme = (settings) => {
 		var dateNow = new Date();
 		var actualOpDate = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 12, 0, 0, 0);
 		if(fasterNotificationEnabled){
-			actualOpDate = new Date(d.getFullYear(), d.getMonth(), d.getDate(), dateNow.getHours(), dateNow.getMinutes(), 0, 0);
+			actualOpDate = new Date(d.getFullYear(), d.getMonth(), d.getDate(), dateNow.getHours(), dateNow.getMinutes(), dateNow.getSeconds(), 0);
 		}
 		var newDate = new Date(actualOpDate.getTime());
 		// if 'vollständige Koloskopie' was not made, remind in 3 months
@@ -351,7 +351,7 @@ export const calculateMeetingsFromScheme = (settings) => {
 			var time = newDate.getTime();
 			if(fasterNotificationEnabled){
 				newDate.setMonth(newDate.getMonth() - 3); // reset to actual date, TESTING
-				time = newDate.getTime() + 1 * 60 * 1000; // present notification in the next minute
+				time = newDate.getTime() + 20 * 1000; // present notification in the 20 seconds
 			}
 			var title = 'tuna';
 			var body = I18n.t('tunaNotification');

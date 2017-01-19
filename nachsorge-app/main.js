@@ -20,7 +20,7 @@ import {
   persistStore,
   autoRehydrate
 } from 'redux-persist'
-//import createEncryptor from 'redux-persist-transform-encrypt'
+import createEncryptor from 'redux-persist-transform-encrypt'
 
 import Router from './navigation/Router';
 import cacheAssetsAsync from './utilities/cacheAssetsAsync';
@@ -33,16 +33,16 @@ const store = createStore(reducer,
     autoRehydrate(),
     applyMiddleware(thunk)
   ))
-/*const encryptor = createEncryptor({
+const encryptor = createEncryptor({
   secretKey: 'my-super-secret-key'
-})*/
+})
 
 // save store (all the data) with encryption locally
 // encryption does not work atm: https://github.com/maxdeviant/redux-persist-transform-encrypt/issues/10
 persistStore(store, {
-  /*transforms: [
+  transforms: [
     encryptor
-  ],*/
+  ],
   storage: AsyncStorage
 })
 
